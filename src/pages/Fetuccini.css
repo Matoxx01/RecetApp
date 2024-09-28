@@ -1,0 +1,88 @@
+/* General container padding */
+.ion-padding {
+    padding: 16px;
+  }
+  
+  /* Estilos personalizados para las IonCards */
+  .card-custom {
+    border: 1px solid #ccc; /* Borde fino alrededor de las tarjetas */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco para las tarjetas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para darle profundidad */
+    overflow: hidden; /* Asegura que la imagen no sobresalga del contenedor */
+    margin-bottom: 16px; /* Separación entre tarjetas */
+  }
+  
+  /* Fondo blanco para el IonCardHeader */
+  .card-custom ion-card-header {
+    background-color: #fff; /* Fondo blanco para el header */
+  }
+  
+  /* Fondo blanco para el IonCardContent */
+  .card-custom ion-card-content {
+    background-color: #fff; /* Fondo blanco para el contenido */
+  }
+  
+  /* Texto en negro para el IonCardTitle */
+  .card-custom ion-card-title {
+    color: #000; /* Letras negras */
+    font-size: 1.3rem; /* Tamaño del título */
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  /* Texto en negro para el contenido de la tarjeta */
+  .card-custom ion-card-content {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  /* Fondo blanco para las opciones del menú */
+  ion-item {
+    --background: #fff; /* Fondo blanco para los elementos del menú */
+    --border-color: #ddd; /* Color del borde entre los elementos del menú */
+    --color: #000 !important; /* Texto negro asegurado */
+  }
+  
+  /* Texto en negro para las opciones del menú */
+  ion-label {
+    color: #000 !important; /* Letras negras aseguradas en el menú */
+    font-size: 1rem;
+  }
+  
+  /* Fondo blanco para el menú */
+  ion-menu {
+    --background: #fff; /* Fondo blanco para todo el menú */
+  }
+  
+  /* Fondo blanco para el contenido general */
+  ion-content {
+    --background: #fff; /* Fondo blanco para el contenido */
+  }
+  
+  /* Fondo blanco para la lista (IonList) */
+  ion-list {
+    background-color: #fff; /* Fondo blanco para la lista */
+    margin-top: 10px;
+  }
+  
+  /* Estilo para el IonTitle en la barra de herramientas */
+  ion-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: right; /* Alineación del título a la derecha */
+  }
+  
+  /* Fondo blanco para la barra de herramientas */
+  ion-toolbar {
+    --background: #fff; /* Fondo blanco para la barra de herramientas */
+    --border-color: #ddd; /* Color del borde */
+    --border-width: 0 0 1px 0; /* Borde inferior */
+  }
+  
+  /* Estilo para el botón del menú */
+  ion-menu-button {
+    --color: #333; /* Color del icono del menú */
+  }
+  

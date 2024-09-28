@@ -2,6 +2,9 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import Fetuccini from './pages/Fetuccini';
+import Langostinos from './pages/Langostinos';
+import Lasaña_atun from './pages/Lasaña_atun';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -19,17 +22,6 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
-
 /* Theme variables */
 import './theme/variables.css';
 
@@ -42,6 +34,10 @@ const App: React.FC = () => (
         <Route exact path="/home">
           <Home />
         </Route>
+        <Route path="/home" component={Home} exact={true} />
+        <Route path="/Fetuccini" component={Fetuccini} exact={true} />
+        <Route path="/Langostinos" component={Langostinos} exact={true} />
+        <Route path="/Lasaña_atun" component={Lasaña_atun} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
