@@ -23,33 +23,43 @@ return (
       </IonToolbar>
     </IonHeader>
     <IonContent className="ion-padding">
-        <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
+        <img alt="Lasaña de Atún" src="Lasaña_atun.avif" />
         <h1>Ingredientes:</h1>
-        <p>4 Tazas Fettuccini</p>
-        <p>1/4 Taza Mantequilla Con Sal picada en cubos</p>
-        <p>1 Taza Crema de Leche LA LECHERA®</p>
-        <p>1/2 Taza Queso Parmesano rallado</p>
-        <p>2 Cucharadas Perejil Fresco picado</p>
-        <p>1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
+        <p>4 Unidades Pimiento Verde</p>
+        <p>4 Unidades Tomate pelados</p>
+        <p>1 paquete Fideos para lasaña</p>
+        <p>5 Cucharadas Mantequilla sin sal</p>
+        <p>1 unidad Caldo de gallina en cubo MAGGI ®</p>
+        <p>1 Cucharada Sal</p>
+        <p>4 Unidades Cebolla Morada</p>
+        <p>1 Cucharada Pimienta Negra</p>
+        <p>1 Sobre Criollita MAGGI®</p>
+        <p>3 Unidades Hoja De Laurel</p>
+        <p>1 Taza Leche Entera LA LECHERA®</p>
+        <p>1 Lata Atún escurrido</p>
+        <p>1/4 Taza Queso Parmesano</p>
+        <p>1/4 Taza Maicena</p>
+        <p>500 gramos Queso Mozzarella</p>
+        <p>2 Cucharadas Aceite de achiote</p>
         <h1>Preparación:</h1>
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>1.</b> Coloca suficiente agua en una olla para cocinar los fideos, agrega sal y lleva a hervir.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>1.</b> Cocine los fideos en abundante agua, cuando estén casi listo retíralos y colócalos en agua fría.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>2.</b> Una vez hirviendo añade la pasta, cocínala siguiendo las indicaciones del empaque. Prepara una sartén grande en otra hornilla a fuego medio.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>2.</b> En un sartén grande coloca 3 cucharadas de mantequilla 2 cucharadas de aceite de achiote, y una ves caliente añade el cubo de Caldo de Gallina MAGGI® , una ves disuelto añade, cebolla, pimiento, tomate y cocina a fuego medio. Remueve constantemente y añade las hojas de laurel. la sal, la pimienta y el atún.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>3.</b> Derrite la mantequilla en la sartén caliente, añade la Crema de Leche LA LECHERA® y baja el fuego. Deja hervir hasta que la crema se reduzca ligeramente y añade el queso parmesano.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>3.</b> En una olla coloca mantequilla, Caldo Criollita MAGGI®.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>4.</b> Con una espátula remueve derritiendo el queso, sazona con perejil picado y Pimienta Negra recién molida NATURE'S HEART®.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>4.</b> Por aparte disuelve la maicena en una taza de Leche entera LA LECHERA® y llévala a calentar en la olla a fuego medio hasta que espese ligeramente, continua añadiendo el queso parmesano y reserva.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>5.</b> Una vez lista la pasta, drénala y colócala sobre la salsa. Mezcla bien hasta que la salsa cubra la pasta y sirve enseguida. Decora con perejil y queso parmesano adicional.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>5.</b> Engrasa un molde apto para horno, y coloca una capa de los fideos para lasaña reservados, cúbrelos con una capa del relleno de atún, coloca rodajas de queso mozzarella sobre el relleno, y cúbrelo con la salsa blanca, repite el proceso hasta terminar los ingredientes, lleva al horno cubierto de papel aluminio durante 15 minutos, retira el papel aluminio y deja dorar por 15 minutos adicionales, retira del horno y disfruta.</IonCheckbox>
         </IonItem>
       </IonContent>
   </IonPage>

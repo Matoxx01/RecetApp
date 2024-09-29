@@ -23,33 +23,27 @@ import {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
+        <img alt="Ensalada de Col" src="Ensalada_col.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 Tazas Fettuccini</p>
-        <p>1/4 Taza Mantequilla Con Sal picada en cubos</p>
-        <p>1 Taza Crema de Leche LA LECHERA®</p>
-        <p>1/2 Taza Queso Parmesano rallado</p>
-        <p>2 Cucharadas Perejil Fresco picado</p>
-        <p>1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
+        <p>2 Tazas Col Morada cortada en tiras</p>
+        <p>2 Tazas Col Blanca cortada en tiras</p>
+        <p>1 Taza Zanahoria rallada</p>
+        <p>1/4 Taza Leche Evaporada LA LECHERA®</p>
+        <p>1/2 Taza Mayonesa con Limón MAGGI®</p>
+        <p>5 Cucharaditas Vinagre Blanco</p>
+        <p>1 Cucharada Sazonador Maggi Natusabor®</p>
+        <p>2 Unidades Manzana Verde picada en cubos pequeños</p>
         <h1>Preparación:</h1>
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>1.</b> Coloca suficiente agua en una olla para cocinar los fideos, agrega sal y lleva a hervir.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>1.</b> Coloca la leche evaporada La Lechera® en un recipiente amplio, la Mayonesa con Limón Maggi®, el vinagre de blanco y el sazonador Maggi® Natusabor. Mezcla bien y reserva.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>2.</b> Una vez hirviendo añade la pasta, cocínala siguiendo las indicaciones del empaque. Prepara una sartén grande en otra hornilla a fuego medio.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>2.</b> En una ensaladera, coloca las variedades de col, la zanahoria, añade la manzana y mezcla bien.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>3.</b> Derrite la mantequilla en la sartén caliente, añade la Crema de Leche LA LECHERA® y baja el fuego. Deja hervir hasta que la crema se reduzca ligeramente y añade el queso parmesano.</IonCheckbox>
-        </IonItem>
-
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>4.</b> Con una espátula remueve derritiendo el queso, sazona con perejil picado y Pimienta Negra recién molida NATURE'S HEART®.</IonCheckbox>
-        </IonItem>
-
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>5.</b> Una vez lista la pasta, drénala y colócala sobre la salsa. Mezcla bien hasta que la salsa cubra la pasta y sirve enseguida. Decora con perejil y queso parmesano adicional.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>3.</b> Baña la preparación anterior con el aderezo preparado en el paso 1. Mezcla bien, cubriendo todo con el aderezo, rectifica con una pizca de sal y pimienta al gusto. Deja reposar en refrigeración 10 minutos antes de servir.</IonCheckbox>
         </IonItem>
       </IonContent>
     </IonPage>

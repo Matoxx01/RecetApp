@@ -23,33 +23,40 @@ import {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
+        <img alt="Estofado de Pollo" src="Estofado_pollo.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 Tazas Fettuccini</p>
-        <p>1/4 Taza Mantequilla Con Sal picada en cubos</p>
-        <p>1 Taza Crema de Leche LA LECHERA®</p>
-        <p>1/2 Taza Queso Parmesano rallado</p>
-        <p>2 Cucharadas Perejil Fresco picado</p>
-        <p>1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
+        <p>4 unidades piernas de pollo</p>
+        <p>1/2 Cucharadita Sal</p>
+        <p>2 unidades Caldo de gallina en cubito 4 g</p>
+        <p>1 Unidad Ajo picado triturado</p>
+        <p>3 cucharadas Puré de tomate LA ROJITA MAGGI(r)</p>
+        <p>2 Unidades Tomate picado en cubitos pequeños</p>
+        <p>2 Unidades Papas cortadas en trozos medianos</p>
+        <p>1/2 Taza Arvejas cocidas</p>
+        <p>1/2 Taza Zanahoria cortada en rodajas</p>
+        <p>1/4 Taza Aceite Vegetal Girasol</p>
+        <p>2 Tazas Agua</p>
+        <p>1 Pizca Pimienta Negra</p>
+        <p>1 Unidad Hoja De Laurel</p>
         <h1>Preparación:</h1>
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>1.</b> Coloca suficiente agua en una olla para cocinar los fideos, agrega sal y lleva a hervir.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>1.</b> Salpimente las presas de pollo. Calienta el aceite en una olla y fríe las presas ligeramente hasta dorarlas un poco. Retíralas y escurre el exceso de aceite.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>2.</b> Una vez hirviendo añade la pasta, cocínala siguiendo las indicaciones del empaque. Prepara una sartén grande en otra hornilla a fuego medio.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>2.</b> En la misma olla donde se doró el pollo, a fuego medio bajo, coloca la cebolla junto con el ajo. Una vez sofrito, añade los caldos de gallina en cubo de 4 gramos MAGGI®, 3 cucharadas de Puré la Rojita MAGGI® y los tomates. Cocina por 5 minutos.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>3.</b> Derrite la mantequilla en la sartén caliente, añade la Crema de Leche LA LECHERA® y baja el fuego. Deja hervir hasta que la crema se reduzca ligeramente y añade el queso parmesano.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>3.</b> Regresa las presas de pollo a la olla donde preparaste el refrito, agrega 2 tazas de agua y cocina por 5 minutos.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>4.</b> Con una espátula remueve derritiendo el queso, sazona con perejil picado y Pimienta Negra recién molida NATURE'S HEART®.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>4.</b> Agrega las arvejas, las zanahorias, la hoja de laurel y las papas cortadas por la mitad. Cocina por 10 minutos más a fuego medio hasta obtener una textura espesa. Asegúrate de que las papas se hayan cocinado.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>5.</b> Una vez lista la pasta, drénala y colócala sobre la salsa. Mezcla bien hasta que la salsa cubra la pasta y sirve enseguida. Decora con perejil y queso parmesano adicional.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>5.</b> Una vez listo, retira la hoja de laurel y sirve acompañado de una porción de arroz.</IonCheckbox>
         </IonItem>
       </IonContent>
     </IonPage>

@@ -23,33 +23,39 @@ return (
       </IonToolbar>
     </IonHeader>
     <IonContent className="ion-padding">
-        <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
+        <img alt="Langostinos en Salsa de Mariscos" src="Langostinos.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 Tazas Fettuccini</p>
-        <p>1/4 Taza Mantequilla Con Sal picada en cubos</p>
-        <p>1 Taza Crema de Leche LA LECHERA®</p>
-        <p>1/2 Taza Queso Parmesano rallado</p>
-        <p>2 Cucharadas Perejil Fresco picado</p>
-        <p>1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
+        <p>4 Unidades Ajo</p>
+        <p>1/2 Taza Cebollín</p>
+        <p>1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
+        <p>4 Cucharadas Mantequilla sin sal</p>
+        <p>10 unidades Langostino</p>
+        <p>1 Unidad Pimiento Verde</p>
+        <p>1 Unidad Pimiento Amarillo</p>
+        <p>1 Unidad Pimiento Rojo</p>
+        <p>1 Unidad Cebolla Morada</p>
+        <p>1 Taza Cilantro</p>
+        <p>1 taza de pulpo cocinado y picado</p>
+        <p>1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
+        <p>3 Cucharadas Aceite de achiote</p>
+        <p>2 Cucharadas Mostaza MAGGI®</p>
+        <p>1 Cucharada Pimienta Negra</p>
+        <p>2 Tazas Camarones</p>
+        <p>1/3 Sobre Crema De Pollo MAGGI®</p>
+        <p>1/2 Taza Crema de Leche LA LECHERA®</p>
+        <p>1 Taza Agua</p>
+        <p>1 Taza pulpa de choncha</p>
         <h1>Preparación:</h1>
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>1.</b> Coloca suficiente agua en una olla para cocinar los fideos, agrega sal y lleva a hervir.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>1.</b> En una sartén coloca 2 cucharadas de mantequilla, una ves caliente agrega el ajo picado y el cebollín picado, sazona los langostinos con Caldo de Gallina MAGGI® y agrégalos al sartén, cocínalos hasta que estén listos y resérvalos.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>2.</b> Una vez hirviendo añade la pasta, cocínala siguiendo las indicaciones del empaque. Prepara una sartén grande en otra hornilla a fuego medio.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>2.</b> Pica cebolla, los pimientos, ajo y cilantro, coloca en un sartén un poco de mantequilla, achiote, y los vegetales picados, añade el sobre de Caldo de Gallina MAGGI® en polvo, cocina hasta que la cebolla este translucida. Sazona el pulpo y los camarones con un poco de la Mostaza MAGGI®, calienta el restante de mantequilla en una olla amplia, y añade el pulpo sazonado, el refrito, y los camarones. Disuelve la crema de pollo MAGGI® en una taza de agua, añádela en la preparación y junto a la crema de leche, cocina hasta espesar ligeramente y añade las conchas.</IonCheckbox>
         </IonItem>
 
         <IonItem>
-        <IonCheckbox labelPlacement="end"><b>3.</b> Derrite la mantequilla en la sartén caliente, añade la Crema de Leche LA LECHERA® y baja el fuego. Deja hervir hasta que la crema se reduzca ligeramente y añade el queso parmesano.</IonCheckbox>
-        </IonItem>
-
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>4.</b> Con una espátula remueve derritiendo el queso, sazona con perejil picado y Pimienta Negra recién molida NATURE'S HEART®.</IonCheckbox>
-        </IonItem>
-
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>5.</b> Una vez lista la pasta, drénala y colócala sobre la salsa. Mezcla bien hasta que la salsa cubra la pasta y sirve enseguida. Decora con perejil y queso parmesano adicional.</IonCheckbox>
+        <IonCheckbox labelPlacement="end"><b>3.</b> Sirve en un plato acompañado de un poco de arroz, los langostinos cubiertos de la salsa de mariscos.</IonCheckbox>
         </IonItem>
       </IonContent>
   </IonPage>
