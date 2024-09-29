@@ -1,28 +1,28 @@
 import { 
-  IonContent, 
-  IonHeader, 
-  IonPage, 
-  IonTitle, 
-  IonToolbar,
-  IonItem,
-  IonCheckbox,
-  IonButtons,
-  IonBackButton
-} from '@ionic/react';
-import './Langostinos.css';
-
-const Langostinos: React.FC = () => {
-return (
-  <IonPage>
-    <IonHeader>
-      <IonToolbar>
-      <IonButtons slot="start">
-        <IonBackButton defaultHref="/home"></IonBackButton>
-      </IonButtons>
-        <IonTitle>Langostinos en salsa de Mariscos</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent className="ion-padding">
+    IonContent, 
+    IonHeader, 
+    IonPage, 
+    IonTitle, 
+    IonItem,
+    IonCheckbox,
+    IonToolbar,
+    IonButtons,
+    IonBackButton
+  } from '@ionic/react';
+  import './Ensalada_col.css';
+  
+  const Ensalada_col: React.FC = () => {
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="/home"></IonBackButton>
+        </IonButtons>
+          <IonTitle>Ensalada de Col</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
         <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
         <h1>Ingredientes:</h1>
         <p>4 Tazas Fettuccini</p>
@@ -52,8 +52,9 @@ return (
         <IonCheckbox labelPlacement="end"><b>5.</b> Una vez lista la pasta, drénala y colócala sobre la salsa. Mezcla bien hasta que la salsa cubra la pasta y sirve enseguida. Decora con perejil y queso parmesano adicional.</IonCheckbox>
         </IonItem>
       </IonContent>
-  </IonPage>
-);
-};
-
-export default Langostinos;
+    </IonPage>
+  );
+  };
+  
+  export default Ensalada_col;
+  

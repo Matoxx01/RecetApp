@@ -1,4 +1,5 @@
-import {
+import React, { useState } from 'react';
+import { 
   IonContent, 
   IonHeader, 
   IonPage, 
@@ -6,8 +7,6 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonSegment,
-  IonSegmentButton,
   IonList,
   IonCardContent,
   IonLabel,
@@ -15,14 +14,59 @@ import {
   IonItem,
   IonButtons,
   IonMenuButton,
-  IonToolbar
- } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+  IonToolbar,
+  IonSearchbar 
+} from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
   const history = useHistory();
+  const [searchText, setSearchText] = useState('');
+
+  const recipes = [
+    {
+      title: 'Fetuccini Alfredo',
+      image: 'Fetuccini Alfredo.webp',
+      description: 'El clásico fetuccini alfredo cremosito, sencillo y muy rico. Añádele la proteína que más te guste.',
+      route: '/Fetuccini'
+    },
+    {
+      title: 'Langostinos en salsa de Mariscos',
+      image: 'Langostinos.webp',
+      description: 'Cada ingrediente de esta delicia está cargado de amor y el toque delicioso de caldos MAGGI®. Receta de nuestra consumidora Glenda Ortega.',
+      route: '/Langostinos'
+    },
+    {
+      title: 'Lasaña de Atún',
+      image: 'Lasaña_atun.avif',
+      description: 'Una experiencia culinaria única con el toque especial de caldos MAGGI®. Receta de nuestra consumidora Aida Naydut Benavides',
+      route: '/Lasaña_atun'
+    },
+    {
+      title: 'Ensalada de Col',
+      image: 'Ensalada_col.webp',
+      description: 'Una ensalada fresca, deliciosa y llena de sabor. Prepárala para tu familia y sorprende a todos.',
+      route: '/Ensalada_col'
+    },
+    {
+      title: 'Estofado de Pollo',
+      image: 'Estofado_pollo.webp',
+      description: 'Este delicioso estofado será la estrella del almuerzo, prepáralo con tus ingredientes favoritos pero el que no puede faltar es nuestro nuevo caldo de gallina en cubo 4gr. El secreto del sabor.',
+      route: '/Estofado_pollo'
+    },
+    {
+      title: 'Arroz con pollo y chorizo',
+      image: 'Arroz_pollo_chorizo.webp',
+      description: 'Un clásico de las cocinas de mamá. Prepara este delicioso arroz con el toque secreto de caldos MAGGI®. Así como lo preparaba la abuelita!!',
+      route: '/Arroz_pollo_chorizo'
+    }
+  ];
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <>
       <IonMenu contentId="main-content">
@@ -51,56 +95,29 @@ function Home() {
             <IonButtons slot="start">
               <IonMenuButton></IonMenuButton>
             </IonButtons>
-            <IonTitle>ResetApp</IonTitle>
+            <IonTitle>RecetApp</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-          <IonCard button={true} className="card-custom" onClick={() => history.push('/Fetuccini')}>
-            <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
-            <IonCardHeader>
-              <IonCardTitle>Fetuccini Alfredo</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>El clásico fetuccini alfredo cremosito, sencillo y muy rico. Añádele la proteína que más te guste.</IonCardContent>
-          </IonCard>
-          <IonCard button={true} className="card-custom">
-            <img alt="Langostinos" src="Langostinos.webp" />
-            <IonCardHeader>
-              <IonCardTitle>Langostinos en salsa de Mariscos</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>Cada ingrediente de esta delicia esta cargado de amor y el toque delicioso de caldos MAGGI®. Receta de nuestra consumidora Glenda Ortega.</IonCardContent>
-          </IonCard>
-          <IonCard button={true} className="card-custom">
-            <img alt="Lasaña_atún" src="Lasaña_atun.avif" />
-            <IonCardHeader>
-              <IonCardTitle>Lasaña de atún</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>Una experiencia culinaria única con el toce especial de caldos MAGGI®. Receta de nuestra consumidora Aida Naydut Benavides</IonCardContent>
-          </IonCard>
-          <IonCard button={true} className="card-custom">
-            <img alt="Ensalada_col" src="Ensalada_col.webp" />
-            <IonCardHeader>
-              <IonCardTitle>Ensalada de col</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>Una ensalada fresca, deliciosa y llena de sabor. Prepárala para tu familia y sorprende a todos.</IonCardContent>
-          </IonCard>
-          <IonCard button={true} className="card-custom">
-            <img alt="Estofado_pollo" src="Estofado_pollo.webp" />
-            <IonCardHeader>
-              <IonCardTitle>Estofado de Pollo</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>Este delicioso estofado será la estrella del almuerzo, prepáralo con tus ingredientes favoritos pero el que no puede faltar es nuestro nuevo caldo de gallina en cubo 4gr. El secreto del sabor.</IonCardContent>
-          </IonCard>
-          <IonCard button={true} className="card-custom">
-            <img alt="Arroz_pollo_chorizo" src="Arroz_pollo_chorizo.webp" />
-            <IonCardHeader>
-              <IonCardTitle>Arroz con pollo y chorizo</IonCardTitle>
-            </IonCardHeader>
-              <IonCardContent>Un clasico de las cocinas de mama. Prepara este delicioso arroz con el toque secreto de caldos MAGGI®. Asi como lo preparaba la abuelita!!</IonCardContent>
-          </IonCard>
+          <IonSearchbar
+            value={searchText}
+            onIonInput={(e) => setSearchText(e.target.value)}
+            debounce={250}
+          ></IonSearchbar>
+
+          {filteredRecipes.map((recipe, index) => (
+            <IonCard key={index} button={true} className="card-custom" onClick={() => history.push(recipe.route)}>
+              <img alt={recipe.title} src={recipe.image} />
+              <IonCardHeader>
+                <IonCardTitle>{recipe.title}</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>{recipe.description}</IonCardContent>
+            </IonCard>
+          ))}
         </IonContent>
       </IonPage>
     </>
   );
-};
+}
 
 export default Home;

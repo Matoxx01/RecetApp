@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import Fetuccini from './pages/Fetuccini';
 import Langostinos from './pages/Langostinos';
 import Lasaña_atun from './pages/Lasaña_atun';
+import Estofado_pollo from './pages/Estofado_pollo';
+import Ensalada_col from './pages/Ensalada_col';
+import Arroz_pollo_chorizo from './pages/Arroz_pollo_chorizo';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -38,6 +41,9 @@ const App: React.FC = () => (
         <Route path="/Fetuccini" component={Fetuccini} exact={true} />
         <Route path="/Langostinos" component={Langostinos} exact={true} />
         <Route path="/Lasaña_atun" component={Lasaña_atun} exact={true} />
+        <Route path="/Estofado_pollo" component={Estofado_pollo} exact={true} />
+        <Route path="/Ensalada_col" component={Ensalada_col} exact={true} />
+        <Route path="/Arroz_pollo_chorizo" component={Arroz_pollo_chorizo} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
