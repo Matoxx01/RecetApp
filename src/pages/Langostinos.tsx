@@ -6,10 +6,14 @@ import {
   IonToolbar,
   IonItem,
   IonCheckbox,
+  IonBreadcrumbs,
+  IonBreadcrumb,
+  IonIcon,
   IonButtons,
   IonBackButton
 } from '@ionic/react';
 import './Langostinos.css';
+import { fastFood, home } from 'ionicons/icons';
 
 const Langostinos: React.FC = () => {
 return (
@@ -22,6 +26,16 @@ return (
         <IonTitle>Langostinos en salsa de Mariscos</IonTitle>
       </IonToolbar>
     </IonHeader>
+    <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Langostinos">
+          Langostinos en salsa de Mariscos
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
     <IonContent className="ion-padding">
         <img alt="Langostinos en Salsa de Mariscos" src="Langostinos.webp" />
         <h1>Ingredientes:</h1>

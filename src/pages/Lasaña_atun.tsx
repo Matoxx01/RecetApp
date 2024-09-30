@@ -7,9 +7,13 @@ import {
   IonTitle, 
   IonToolbar,
   IonButtons,
+  IonBreadcrumbs,
+  IonBreadcrumb,
+  IonIcon,
   IonBackButton
 } from '@ionic/react';
 import './Lasaña_atun.css';
+import { fastFood, home } from 'ionicons/icons';
 
 const Lasaña_atun: React.FC = () => {
 return (
@@ -22,6 +26,16 @@ return (
         <IonTitle>Lasaña de Atun</IonTitle>
       </IonToolbar>
     </IonHeader>
+    <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Lasaña_atun">
+          Lasaña de Atún
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
     <IonContent className="ion-padding">
         <img alt="Lasaña de Atún" src="Lasaña_atun.avif" />
         <h1>Ingredientes:</h1>

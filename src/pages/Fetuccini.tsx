@@ -3,6 +3,9 @@ import {
     IonHeader, 
     IonPage, 
     IonLabel,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
     IonTitle, 
     IonCard,
     IonCardContent,
@@ -15,6 +18,7 @@ import {
     IonBackButton
  } from '@ionic/react';
 import './Fetuccini.css';
+import { fastFood, home } from 'ionicons/icons';
 
 const Fetuccini: React.FC = () => {
   return (
@@ -27,6 +31,16 @@ const Fetuccini: React.FC = () => {
           <IonTitle>Fetuccini Alfredo</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Fetuccini">
+          Fetuccini Alfredo
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
       <IonContent className="ion-padding">
         <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
         <h1>Ingredientes:</h1>

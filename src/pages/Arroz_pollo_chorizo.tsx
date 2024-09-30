@@ -7,9 +7,13 @@ import {
     IonCheckbox,
     IonToolbar,
     IonButtons,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
     IonBackButton
   } from '@ionic/react';
   import './Arroz_pollo_chorizo.css';
+  import { fastFood, home } from 'ionicons/icons';
   
   const Arroz_pollo_chorizo: React.FC = () => {
   return (
@@ -22,6 +26,16 @@ import {
           <IonTitle>Arroz con Pollo y Chorizo</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Arroz_pollo-chorizo">
+          Arroz con Pollo y Chorizo
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
       <IonContent className="ion-padding">
         <img alt="Arroz con Pollo y Chorizo" src="Arroz_pollo_chorizo.webp" />
         <h1>Ingredientes:</h1>

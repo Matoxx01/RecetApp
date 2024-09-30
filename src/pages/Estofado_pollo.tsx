@@ -5,11 +5,15 @@ import {
     IonItem,
     IonCheckbox,
     IonTitle, 
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
     IonToolbar,
     IonButtons,
     IonBackButton
   } from '@ionic/react';
   import './Estofado_pollo.css';
+  import { fastFood, home } from 'ionicons/icons';
   
   const Estofado_pollo: React.FC = () => {
   return (
@@ -22,6 +26,16 @@ import {
           <IonTitle>Estofado de Pollo</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Estofado_pollo">
+          Estofado de Pollo
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
       <IonContent className="ion-padding">
         <img alt="Estofado de Pollo" src="Estofado_pollo.webp" />
         <h1>Ingredientes:</h1>

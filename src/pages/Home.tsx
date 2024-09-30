@@ -3,6 +3,8 @@ import {
   IonContent, 
   IonHeader, 
   IonPage, 
+  IonBreadcrumb,
+  IonBreadcrumbs,
   IonTitle,
   IonCard,
   IonCardHeader,
@@ -12,12 +14,14 @@ import {
   IonLabel,
   IonMenu,
   IonItem,
+  IonIcon,
   IonButtons,
   IonMenuButton,
   IonToolbar,
   IonSearchbar 
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { home } from 'ionicons/icons';
 import './Home.css';
 
 function Home() {
@@ -98,6 +102,12 @@ function Home() {
             <IonTitle>RecetApp</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
         <IonContent className="ion-padding">
           <IonSearchbar
             value={searchText}

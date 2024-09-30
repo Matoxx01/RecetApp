@@ -5,11 +5,15 @@ import {
     IonTitle, 
     IonItem,
     IonCheckbox,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
     IonToolbar,
     IonButtons,
     IonBackButton
   } from '@ionic/react';
   import './Ensalada_col.css';
+  import { fastFood, home } from 'ionicons/icons';
   
   const Ensalada_col: React.FC = () => {
   return (
@@ -22,6 +26,16 @@ import {
           <IonTitle>Ensalada de Col</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonBreadcrumbs>
+        <IonBreadcrumb href="/home">
+          Home
+          <IonIcon slot="end" icon={home}></IonIcon>
+        </IonBreadcrumb>
+        <IonBreadcrumb href="/Ensalada_col">
+          Ensalada de Col
+          <IonIcon slot="end" icon={fastFood}></IonIcon>
+        </IonBreadcrumb>
+      </IonBreadcrumbs>
       <IonContent className="ion-padding">
         <img alt="Ensalada de Col" src="Ensalada_col.webp" />
         <h1>Ingredientes:</h1>
