@@ -101,7 +101,7 @@ function Home() {
         <IonContent className="ion-padding">
           <IonSearchbar
             value={searchText}
-            onIonInput={(e) => setSearchText(e.target.value)}
+            onIonInput={(e) => setSearchText(e.target.value!)}
             debounce={250}
           ></IonSearchbar>
 
