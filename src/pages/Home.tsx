@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef  } from 'react';
 import { 
   IonContent, 
   IonHeader, 
@@ -30,8 +30,10 @@ import './Home.css';
 function Home() {
   const history = useHistory();
   const [searchText, setSearchText] = useState('');
-  const [selectedChips, setSelectedChips] = useState<string[]>([]); // Estado para chips seleccionados
-  const [showFilterPopover, setShowFilterPopover] = useState(false); // Para mostrar el popover de filtros
+  const [selectedChips, setSelectedChips] = useState<string[]>([]);
+  const [showFilterPopover, setShowFilterPopover] = useState(false);
+
+  const menuRef = useRef<HTMLIonMenuElement | null>(null);
 
   const recipes = [
     {
@@ -92,9 +94,29 @@ function Home() {
     return matchesText && matchesChips;
   });
 
+  const handleFavoritos = () => {
+    menuRef.current?.close();
+    history.push('/Favoritos');
+  };
+
+  const handleAddRecipe = () => {
+    menuRef.current?.close();
+    history.push('/Addrecipe');
+  };
+
+  const handleConfig = () => {
+    menuRef.current?.close();
+    history.push('/Config');
+  };
+
+  const handleAboutus = () => {
+    menuRef.current?.close();
+    history.push('/Aboutus');
+  };
+
   return (
     <>
-      <IonMenu contentId="main-content">
+      <IonMenu ref={menuRef} contentId="main-content">
         <IonHeader>
           <IonToolbar>
             <IonTitle>Menú</IonTitle>
@@ -102,16 +124,16 @@ function Home() {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonList>
-            <IonItem button>
+            <IonItem button onClick={handleFavoritos}>
               <IonLabel>Favoritos</IonLabel>
             </IonItem>
-            <IonItem button>
+            <IonItem button onClick={handleAddRecipe}>
               <IonLabel>Agrega tu receta</IonLabel>
             </IonItem>
-            <IonItem button>
+            <IonItem button onClick={handleConfig}>
               <IonLabel>Configuración</IonLabel>
             </IonItem>
-            <IonItem button>
+            <IonItem button onClick={handleAboutus}>
               <IonLabel>Sobre Nosotros</IonLabel>
             </IonItem>
           </IonList>
