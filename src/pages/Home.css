@@ -71,3 +71,11 @@ ion-toolbar {
 ion-menu-button {
   --color: #333;
 }
+
+.chips-container {
+  margin-top: 10px;
+}
+
+ion-chip {
+  margin-right: 5px;
+}
