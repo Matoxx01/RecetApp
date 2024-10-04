@@ -12,6 +12,9 @@ import Addrecipe from './pages/Addrecipe';
 import Favoritos from './pages/Favoritos';
 import Aboutus from './pages/Aboutus';
 import Config from './pages/Config';
+import Matias from './pages/Matias';
+import SebaR from './pages/SebaR';
+import SebaN from './pages/SebaN';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -52,6 +55,9 @@ const App: React.FC = () => (
         <Route path="/Favoritos" component={Favoritos} exact={true} />
         <Route path="/Aboutus" component={Aboutus} exact={true} />
         <Route path="/Config" component={Config} exact={true} />
+        <Route path="/Matias" component={Matias} exact={true} />
+        <Route path="/SebaR" component={SebaR} exact={true} />
+        <Route path="/SebaN" component={SebaN} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
