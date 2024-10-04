@@ -131,7 +131,7 @@ const Addrecipe: React.FC = () => {
 
           {/* Botón para enviar el formulario */}
           <IonButton expand="block" type="submit">
-            Guardar Receta
+            Publicar
           </IonButton>
         </form>
       </IonContent>
