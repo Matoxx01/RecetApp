@@ -42,7 +42,8 @@ import {
           </IonBreadcrumb>
         </IonBreadcrumbs>
         <IonContent className="ion-padding">
-
+          <center><img src="Autor_images/SebaN.jpg" style={{ width: '40%', cursor: 'pointer' }} /></center>
+          <center><p>Soy Sebastián Novoa un estudiante de Duoc UC, actualmente me estoy desempeñando en el proyecto de la aplicación RecetApp como Ingeniero de Arquitectura de Software en la cual organizo el proyecto al igual que sus requerimientos.</p></center>
         </IonContent>
       </IonPage>
     );

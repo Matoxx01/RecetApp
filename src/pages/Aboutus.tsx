@@ -65,7 +65,7 @@ const Aboutus: React.FC = () => {
             </IonCol>
             <IonCol>
               <img 
-                src="Autor_images/Matias.jpeg" 
+                src="Autor_images/SebaN.jpg" 
                 alt="Imagen 3" 
                 onClick={() => handleButtonClick('/SebaN')} 
                 style={{ width: '100%', cursor: 'pointer' }} 

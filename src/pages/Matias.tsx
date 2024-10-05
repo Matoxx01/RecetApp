@@ -42,7 +42,8 @@ import {
           </IonBreadcrumb>
         </IonBreadcrumbs>
         <IonContent className="ion-padding">
-
+          <center><img src="Autor_images/Matias.jpeg" style={{ width: '40%', cursor: 'pointer' }} /></center>
+          <center><p>Soy Matías Barrios, actualmente estudiante de ingenieria en informatica de DuocUC siempre motivado a aprender mas y a ser un buen estudiante. En este momento tengo el rol de programador y creador principal de la aplicacion presente.</p></center>
         </IonContent>
       </IonPage>
     );
