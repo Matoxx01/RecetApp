@@ -32,7 +32,7 @@ import {
           <IonIcon slot="end" icon={home}></IonIcon>
         </IonBreadcrumb>
         <IonBreadcrumb href="/Config">
-          Confiuracion
+          Configuracion
           <IonIcon slot="end" icon={cog}></IonIcon>
         </IonBreadcrumb>
       </IonBreadcrumbs>

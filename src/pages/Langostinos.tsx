@@ -60,17 +60,20 @@ return (
         <p>1 Taza Agua</p>
         <p>1 Taza pulpa de choncha</p>
         <h1>Preparación:</h1>
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>1.</b> En una sartén coloca 2 cucharadas de mantequilla, una ves caliente agrega el ajo picado y el cebollín picado, sazona los langostinos con Caldo de Gallina MAGGI® y agrégalos al sartén, cocínalos hasta que estén listos y resérvalos.</IonCheckbox>
-        </IonItem>
 
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>2.</b> Pica cebolla, los pimientos, ajo y cilantro, coloca en un sartén un poco de mantequilla, achiote, y los vegetales picados, añade el sobre de Caldo de Gallina MAGGI® en polvo, cocina hasta que la cebolla este translucida. Sazona el pulpo y los camarones con un poco de la Mostaza MAGGI®, calienta el restante de mantequilla en una olla amplia, y añade el pulpo sazonado, el refrito, y los camarones. Disuelve la crema de pollo MAGGI® en una taza de agua, añádela en la preparación y junto a la crema de leche, cocina hasta espesar ligeramente y añade las conchas.</IonCheckbox>
-        </IonItem>
+        <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> En una sartén coloca 2 cucharadas de mantequilla, una ves caliente agrega el ajo picado y el cebollín picado, sazona los langostinos con Caldo de Gallina MAGGI® y agrégalos al sartén, cocínalos hasta que estén listos y resérvalos.
+        <br /><br /><br />
 
-        <IonItem>
-        <IonCheckbox labelPlacement="end"><b>3.</b> Sirve en un plato acompañado de un poco de arroz, los langostinos cubiertos de la salsa de mariscos.</IonCheckbox>
-        </IonItem>
+        <IonCheckbox labelPlacement="end"></IonCheckbox><b>    2.</b> Pica cebolla, los pimientos, ajo y cilantro, coloca en un sartén un poco de mantequilla, achiote, y los vegetales picados, añade el sobre de Caldo de Gallina MAGGI® en polvo, cocina hasta que la cebolla este translucida.
+        <br /><br /><br />
+
+        <IonCheckbox labelPlacement="end"></IonCheckbox><b>    3.</b> Sazona el pulpo y los camarones con un poco de la Mostaza MAGGI®, calienta el restante de mantequilla en una olla amplia, y añade el pulpo sazonado, el refrito, y los camarones.
+        <br /><br /><br />
+
+        <IonCheckbox labelPlacement="end"></IonCheckbox><b>    4.</b> Disuelve la crema de pollo MAGGI® en una taza de agua, añádela en la preparación y junto a la crema de leche, cocina hasta espesar ligeramente y añade las conchas.
+        <br /><br /><br />
+
+        <IonCheckbox labelPlacement="end"></IonCheckbox><b>    5.</b> Sirve en un plato acompañado de un poco de arroz, los langostinos cubiertos de la salsa de mariscos.
       </IonContent>
   </IonPage>
 );
