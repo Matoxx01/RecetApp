@@ -39,19 +39,19 @@ import {
       <IonContent className="ion-padding">
         <img alt="Arroz con Pollo y Chorizo" src="Arroz_pollo_chorizo.webp" />
         <h1>Ingredientes:</h1>
-        <p>1 Cucharada Aceite De Oliva</p>
-        <p>1 Taza Cebolla Perla picada en cubitos</p>
-        <p>2 Unidades Ajo finamente picados</p>
-        <p>2 Tazas Pollo picado en cubos</p>
-        <p>1/2 Taza Chorizo picado en ruedas</p>
-        <p>2 Tazas Arroz blanco</p>
-        <p>2 Cucharadas Vino Blanco</p>
-        <p>3/4 Taza Zanahoria picada en cubos pequeños</p>
-        <p>1 Taza Pimiento Rojo picado en cubitos</p>
-        <p>1/2 Taza Arvejas fresca</p>
-        <p>1 Cucharada MAGGI® La Rojita Puré de Tomate</p>
-        <p>1 Unidad Cubito de Caldo de Gallina MAGGI®</p>
-        <p>4 Tazas Agua</p>
+        <p>• 1 Cucharada Aceite De Oliva</p>
+        <p>• 1 Taza Cebolla Perla picada en cubitos</p>
+        <p>• 2 Unidades Ajo finamente picados</p>
+        <p>• 2 Tazas Pollo picado en cubos</p>
+        <p>• 1/2 Taza Chorizo picado en ruedas</p>
+        <p>• 2 Tazas Arroz blanco</p>
+        <p>• 2 Cucharadas Vino Blanco</p>
+        <p>• 3/4 Taza Zanahoria picada en cubos pequeños</p>
+        <p>• 1 Taza Pimiento Rojo picado en cubitos</p>
+        <p>• 1/2 Taza Arvejas fresca</p>
+        <p>• 1 Cucharada MAGGI® La Rojita Puré de Tomate</p>
+        <p>• 1 Unidad Cubito de Caldo de Gallina MAGGI®</p>
+        <p>• 4 Tazas Agua</p>
         <h1>Preparación:</h1>
         <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> Coloca a calentar una olla a fuego medio. Añade el aceite y una vez caliente añade la cebolla, espera unos minutos y añade el ajo. Deja cocinar hasta que la cebolla este translúcida.
         <br /><br /><br />

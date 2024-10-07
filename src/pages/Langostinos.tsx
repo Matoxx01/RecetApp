@@ -39,26 +39,26 @@ return (
     <IonContent className="ion-padding">
         <img alt="Langostinos en Salsa de Mariscos" src="Langostinos.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 Unidades Ajo</p>
-        <p>1/2 Taza Cebollín</p>
-        <p>1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
-        <p>4 Cucharadas Mantequilla sin sal</p>
-        <p>10 unidades Langostino</p>
-        <p>1 Unidad Pimiento Verde</p>
-        <p>1 Unidad Pimiento Amarillo</p>
-        <p>1 Unidad Pimiento Rojo</p>
-        <p>1 Unidad Cebolla Morada</p>
-        <p>1 Taza Cilantro</p>
-        <p>1 taza de pulpo cocinado y picado</p>
-        <p>1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
-        <p>3 Cucharadas Aceite de achiote</p>
-        <p>2 Cucharadas Mostaza MAGGI®</p>
-        <p>1 Cucharada Pimienta Negra</p>
-        <p>2 Tazas Camarones</p>
-        <p>1/3 Sobre Crema De Pollo MAGGI®</p>
-        <p>1/2 Taza Crema de Leche LA LECHERA®</p>
-        <p>1 Taza Agua</p>
-        <p>1 Taza pulpa de choncha</p>
+        <p>• 4 Unidades Ajo</p>
+        <p>• 1/2 Taza Cebollín</p>
+        <p>• 1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
+        <p>• 4 Cucharadas Mantequilla sin sal</p>
+        <p>• 10 unidades Langostino</p>
+        <p>• 1 Unidad Pimiento Verde</p>
+        <p>• 1 Unidad Pimiento Amarillo</p>
+        <p>• 1 Unidad Pimiento Rojo</p>
+        <p>• 1 Unidad Cebolla Morada</p>
+        <p>• 1 Taza Cilantro</p>
+        <p>• 1 taza de pulpo cocinado y picado</p>
+        <p>• 1 Sobre Caldo de Gallina en polvo MAGGI ®</p>
+        <p>• 3 Cucharadas Aceite de achiote</p>
+        <p>• 2 Cucharadas Mostaza MAGGI®</p>
+        <p>• 1 Cucharada Pimienta Negra</p>
+        <p>• 2 Tazas Camarones</p>
+        <p>• 1/3 Sobre Crema De Pollo MAGGI®</p>
+        <p>• 1/2 Taza Crema de Leche LA LECHERA®</p>
+        <p>• 1 Taza Agua</p>
+        <p>• 1 Taza pulpa de choncha</p>
         <h1>Preparación:</h1>
 
         <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> En una sartén coloca 2 cucharadas de mantequilla, una ves caliente agrega el ajo picado y el cebollín picado, sazona los langostinos con Caldo de Gallina MAGGI® y agrégalos al sartén, cocínalos hasta que estén listos y resérvalos.

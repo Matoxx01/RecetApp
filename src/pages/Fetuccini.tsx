@@ -44,12 +44,12 @@ const Fetuccini: React.FC = () => {
       <IonContent className="ion-padding">
         <img alt="Fetuccini Alfredo" src="Fetuccini Alfredo.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 Tazas Fettuccini</p>
-        <p>1/4 Taza Mantequilla Con Sal picada en cubos</p>
-        <p>1 Taza Crema de Leche LA LECHERA®</p>
-        <p>1/2 Taza Queso Parmesano rallado</p>
-        <p>2 Cucharadas Perejil Fresco picado</p>
-        <p>1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
+        <p>• 4 Tazas Fettuccini</p>
+        <p>• 1/4 Taza Mantequilla Con Sal picada en cubos</p>
+        <p>• 1 Taza Crema de Leche LA LECHERA®</p>
+        <p>• 1/2 Taza Queso Parmesano rallado</p>
+        <p>• 2 Cucharadas Perejil Fresco picado</p>
+        <p>• 1 Cucharadita Pimienta NATURE'S HEART® recién molida</p>
         <h1>Preparación:</h1>
 
         <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> Coloca suficiente agua en una olla para cocinar los fideos, agrega sal y lleva a hervir.

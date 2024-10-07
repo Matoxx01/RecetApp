@@ -39,19 +39,19 @@ import {
       <IonContent className="ion-padding">
         <img alt="Estofado de Pollo" src="Estofado_pollo.webp" />
         <h1>Ingredientes:</h1>
-        <p>4 unidades piernas de pollo</p>
-        <p>1/2 Cucharadita Sal</p>
-        <p>2 unidades Caldo de gallina en cubito 4 g</p>
-        <p>1 Unidad Ajo picado triturado</p>
-        <p>3 cucharadas Puré de tomate LA ROJITA MAGGI(r)</p>
-        <p>2 Unidades Tomate picado en cubitos pequeños</p>
-        <p>2 Unidades Papas cortadas en trozos medianos</p>
-        <p>1/2 Taza Arvejas cocidas</p>
-        <p>1/2 Taza Zanahoria cortada en rodajas</p>
-        <p>1/4 Taza Aceite Vegetal Girasol</p>
-        <p>2 Tazas Agua</p>
-        <p>1 Pizca Pimienta Negra</p>
-        <p>1 Unidad Hoja De Laurel</p>
+        <p>• 4 unidades piernas de pollo</p>
+        <p>• 1/2 Cucharadita Sal</p>
+        <p>• 2 unidades Caldo de gallina en cubito 4 g</p>
+        <p>• 1 Unidad Ajo picado triturado</p>
+        <p>• 3 cucharadas Puré de tomate LA ROJITA MAGGI(r)</p>
+        <p>• 2 Unidades Tomate picado en cubitos pequeños</p>
+        <p>• 2 Unidades Papas cortadas en trozos medianos</p>
+        <p>• 1/2 Taza Arvejas cocidas</p>
+        <p>• 1/2 Taza Zanahoria cortada en rodajas</p>
+        <p>• 1/4 Taza Aceite Vegetal Girasol</p>
+        <p>• 2 Tazas Agua</p>
+        <p>• 1 Pizca Pimienta Negra</p>
+        <p>• 1 Unidad Hoja De Laurel</p>
         <h1>Preparación:</h1>
 
         <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> Salpimente las presas de pollo. Calienta el aceite en una olla y fríe las presas ligeramente hasta dorarlas un poco. Retíralas y escurre el exceso de aceite.

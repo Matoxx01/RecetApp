@@ -39,22 +39,22 @@ return (
     <IonContent className="ion-padding">
         <img alt="Lasaña de Atún" src="Lasaña_atun.avif" />
         <h1>Ingredientes:</h1>
-        <p>4 Unidades Pimiento Verde</p>
-        <p>4 Unidades Tomate pelados</p>
-        <p>1 paquete Fideos para lasaña</p>
-        <p>5 Cucharadas Mantequilla sin sal</p>
-        <p>1 unidad Caldo de gallina en cubo MAGGI ®</p>
-        <p>1 Cucharada Sal</p>
-        <p>4 Unidades Cebolla Morada</p>
-        <p>1 Cucharada Pimienta Negra</p>
-        <p>1 Sobre Criollita MAGGI®</p>
-        <p>3 Unidades Hoja De Laurel</p>
-        <p>1 Taza Leche Entera LA LECHERA®</p>
-        <p>1 Lata Atún escurrido</p>
-        <p>1/4 Taza Queso Parmesano</p>
-        <p>1/4 Taza Maicena</p>
-        <p>500 gramos Queso Mozzarella</p>
-        <p>2 Cucharadas Aceite de achiote</p>
+        <p>• 4 Unidades Pimiento Verde</p>
+        <p>• 4 Unidades Tomate pelados</p>
+        <p>• 1 paquete Fideos para lasaña</p>
+        <p>• 5 Cucharadas Mantequilla sin sal</p>
+        <p>• 1 unidad Caldo de gallina en cubo MAGGI ®</p>
+        <p>• 1 Cucharada Sal</p>
+        <p>• 4 Unidades Cebolla Morada</p>
+        <p>• 1 Cucharada Pimienta Negra</p>
+        <p>• 1 Sobre Criollita MAGGI®</p>
+        <p>• 3 Unidades Hoja De Laurel</p>
+        <p>• 1 Taza Leche Entera LA LECHERA®</p>
+        <p>• 1 Lata Atún escurrido</p>
+        <p>• 1/4 Taza Queso Parmesano</p>
+        <p>• 1/4 Taza Maicena</p>
+        <p>• 500 gramos Queso Mozzarella</p>
+        <p>• 2 Cucharadas Aceite de achiote</p>
         <h1>Preparación:</h1>
 
         <IonCheckbox labelPlacement="end"></IonCheckbox><b>    1.</b> Cocine los fideos en abundante agua, cuando estén casi listo retíralos y colócalos en agua fría.
