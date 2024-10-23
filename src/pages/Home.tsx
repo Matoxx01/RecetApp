@@ -94,6 +94,11 @@ function Home() {
     return matchesText && matchesChips;
   });
 
+  const handleLogin = () => {
+    menuRef.current?.close();
+    history.push('/Login');
+  };
+
   const handleFavoritos = () => {
     menuRef.current?.close();
     history.push('/Favoritos');
@@ -124,6 +129,9 @@ function Home() {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonList>
+          <IonItem button onClick={handleLogin}>
+              <IonLabel>Login</IonLabel>
+            </IonItem>
             <IonItem button onClick={handleFavoritos}>
               <IonLabel>Favoritos</IonLabel>
             </IonItem>
