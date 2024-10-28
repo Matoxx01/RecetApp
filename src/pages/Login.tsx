@@ -27,7 +27,7 @@ import {
         <IonButtons slot="start">
           <IonBackButton defaultHref="/home"></IonBackButton>
         </IonButtons>
-          <IonTitle>LogIn</IonTitle>
+          <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonBreadcrumbs>
