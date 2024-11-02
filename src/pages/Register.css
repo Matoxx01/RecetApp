@@ -2,7 +2,7 @@
   padding: 16px;
 }
 
-.login-container {
+.register-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,35 +12,34 @@
   margin: 0 auto;
 }
 
-.login-title {
+.register-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 24px;
 }
 
-.login-button {
+.register-button {
   margin-top: 20px;
   --background: #3880ff;
   --border-radius: 20px;
+  color: white;
 }
 
-.login-container ion-item {
-  margin-bottom: 16px; 
+.password-hint {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 8px;
 }
 
-.register-container {
-  display: flex;
-  align-items: center;
-  margin-top: 16px;
+.password-error {
+  font-size: 0.8rem;
+  color: red;
+  margin-top: 8px;
 }
 
-.register-container ion-text {
-  font-size: 0.9rem;
-  margin-right: 8px;
-}
-
-.register-container ion-button {
-  --color: #3880ff;
-  font-weight: bold;
+.email-error {
+  font-size: 0.8rem;
+  color: red;
+  margin-top: 8px;
 }

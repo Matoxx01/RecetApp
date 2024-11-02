@@ -18,8 +18,18 @@ import {
   } from '@ionic/react';
   import './Login.css';
   import { logInOutline, home } from 'ionicons/icons';
+  import { useHistory } from 'react-router-dom';
+  import { useState } from 'react';
   
   const Login: React.FC = () => {
+    const history = useHistory();
+    const [mail, setMail] = useState('')
+    const [password, setPassword] = useState('')
+
+    function loginUser() {
+      console.log(mail, password)
+    }
+
   return (
     <IonPage>
       <IonHeader>
@@ -45,20 +55,24 @@ import {
           <h2 className="login-title">Bienvenido</h2>
 
           <IonItem>
-            <IonLabel position="floating">Correo Electrónico</IonLabel>
-            <IonInput type="email" required></IonInput>
+            <IonInput 
+            placeholder="Correo Electrónico" 
+            onIonChange={(e: any) => setMail(e.target.value)} type="email" required 
+            />
           </IonItem>
 
           <IonItem>
-            <IonLabel position="floating">Contraseña</IonLabel>
-            <IonInput type="password" required></IonInput>
+            <IonInput 
+            placeholder="Contraseña" 
+            onIonChange={(e: any) => setPassword(e.target.value)} type="password" required 
+            />
           </IonItem>
 
-          <IonButton expand="block" className="login-button">Iniciar Sesión</IonButton>
+          <IonButton onClick={loginUser} expand="block" className="login-button">Iniciar Sesión</IonButton>
 
           <div className="register-container">
             <IonText>¿No tienes cuenta?</IonText>
-            <IonButton fill="clear" routerLink="/register">Regístrate aquí</IonButton>
+            <IonButton fill="clear" onClick={() => history.push("/Register")} >Regístrate aquí</IonButton>
           </div>
         </div>
       </IonContent>
