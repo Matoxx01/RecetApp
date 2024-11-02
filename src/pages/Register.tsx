@@ -17,16 +17,32 @@ import {
 import './Register.css';
 import { logInOutline, globeOutline, home } from 'ionicons/icons';
 import { useState } from 'react';
+import { toast } from '../toast';
+import { registerUser } from '../firebase_config';
 
 const Register: React.FC = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setMail] = useState('');
+    const [mail, setMail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
+
+    async function register() {
+        if(password !== confirmPassword) {
+            return toast('Las contraseñas no coinciden')
+        }
+        if(mail.trim() === '' || password.trim() === '') {
+            return toast('Se requieren Mail y Contraseña')
+        }
+
+        const res = await registerUser(mail, password)
+        if(res) {
+            toast('Te has registrado correctamente')
+        }
+      }
 
     const validateEmail = (email: string) => {
         const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -38,16 +54,6 @@ const Register: React.FC = () => {
         const isValid = /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
         setPasswordError(isValid ? '' : 'La contraseña debe tener 8 caracteres, 1 mayúscula y 1 número.');
         return isValid;
-    };
-
-    const handleRegister = () => {
-        if (password !== confirmPassword) {
-            setPasswordError('Las contraseñas no coinciden.');
-            return;
-        }
-        if (validateEmail(email) && validatePassword(password)) {
-            console.log('Registro exitoso:', { firstName, lastName, email, phone, password });
-        }
     };
 
     return (
@@ -70,7 +76,7 @@ const Register: React.FC = () => {
                     <IonIcon slot="end" icon={logInOutline}></IonIcon>
                 </IonBreadcrumb>
                 <IonBreadcrumb href="/Register">
-                    Register
+                    Registro
                     <IonIcon slot="end" icon={globeOutline}></IonIcon>
                 </IonBreadcrumb>
             </IonBreadcrumbs>
@@ -149,11 +155,11 @@ const Register: React.FC = () => {
                     <IonButton 
                         expand="block" 
                         className="register-button" 
-                        onClick={handleRegister}
+                        onClick={register}
                         disabled={
                             !firstName || 
                             !lastName || 
-                            !email || 
+                            !mail || 
                             !password || 
                             !confirmPassword || 
                             passwordError !== '' || 
