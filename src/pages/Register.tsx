@@ -7,6 +7,7 @@ import {
     IonText,
     IonInput,
     IonToolbar,
+    IonLoading,
     IonItem,
     IonBreadcrumbs,
     IonBreadcrumb,
@@ -29,8 +30,10 @@ const Register: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [busy, setBusy] = useState<boolean>(false)
 
     async function register() {
+        setBusy(true)
         if(password !== confirmPassword) {
             return toast('Las contraseñas no coinciden')
         }
@@ -42,6 +45,7 @@ const Register: React.FC = () => {
         if(res) {
             toast('Te has registrado correctamente')
         }
+        setBusy(false)
       }
 
     const validateEmail = (email: string) => {
@@ -80,6 +84,7 @@ const Register: React.FC = () => {
                     <IonIcon slot="end" icon={globeOutline}></IonIcon>
                 </IonBreadcrumb>
             </IonBreadcrumbs>
+            <IonLoading message="Cargando..." duration={0} isOpen={busy} />
 
             <IonContent className="ion-padding">
                 <div className="register-container">

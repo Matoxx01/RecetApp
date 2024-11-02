@@ -15,7 +15,8 @@ import {
     IonBreadcrumb,
     IonIcon,
     IonButtons,
-    IonBackButton
+    IonBackButton,
+    IonLoading
   } from '@ionic/react';
   import './Login.css';
   import { logInOutline, home } from 'ionicons/icons';
@@ -25,6 +26,9 @@ import {
   import { toast } from '../toast'
   
   const Login: React.FC = () => {
+
+    const [busy, setBusy] = useState<boolean>(false)
+
     const history = useHistory();
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
@@ -35,6 +39,7 @@ import {
   }
 
   async function login() {
+      setBusy(true)
       if (!isValidEmail(mail)) {
           toast('El correo electrónico es inválido.');
           return;
@@ -51,6 +56,7 @@ import {
       } else {
           toast('Has accedido!');
       }
+      setBusy(false)
   }
 
   return (
@@ -73,6 +79,7 @@ import {
             <IonIcon slot="end" icon={logInOutline}></IonIcon>
           </IonBreadcrumb>
         </IonBreadcrumbs>
+        <IonLoading message="Cargando..." duration={0} isOpen={busy} />
         <IonContent className="ion-padding">
         <div className="login-container">
           <h2 className="login-title">Bienvenido</h2>
