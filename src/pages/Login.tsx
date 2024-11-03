@@ -30,6 +30,8 @@ import {
     const [busy, setBusy] = useState<boolean>(false)
 
     const history = useHistory();
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -41,20 +43,28 @@ import {
   async function login() {
       setBusy(true)
       if (!isValidEmail(mail)) {
-          toast('El correo electrónico es inválido.');
+          setToastMessage('El correo electrónico es inválido.');
+          setShowToast(true);
+          setBusy(false);
           return;
       }
 
       if (!mail || !password) {
-          toast('Por favor, completa todos los campos.');
+          setToastMessage('Por favor, completa todos los campos.');
+          setShowToast(true);
+          setBusy(false);
           return;
       }
 
       const res = await loginUser(mail, password);
       if (!res) {
-          toast('Hay un error con tu Mail o Contraseña');
+          setToastMessage('Hay un error con tu mail o contraseña');
+          setShowToast(true);
+          setBusy(false);
       } else {
-          toast('Has accedido!');
+        setToastMessage('Has accedido!');
+        setShowToast(true);
+        setBusy(false);
       }
       setBusy(false)
   }
@@ -108,6 +118,12 @@ import {
           </div>
         </div>
       </IonContent>
+      <IonToast
+      isOpen={showToast}
+      onDidDismiss={() => setShowToast(false)}
+      message={toastMessage}
+      duration={2000}
+      />
     </IonPage>
   );
   };

@@ -13,12 +13,12 @@ import {
     IonBreadcrumb,
     IonIcon,
     IonButtons,
-    IonBackButton
+    IonBackButton,
+    IonToast
 } from '@ionic/react';
 import './Register.css';
 import { logInOutline, globeOutline, home } from 'ionicons/icons';
 import { useState } from 'react';
-import { toast } from '../toast';
 import { registerUser } from '../firebase_config';
 
 const Register: React.FC = () => {
@@ -28,23 +28,33 @@ const Register: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
     const [busy, setBusy] = useState<boolean>(false)
 
     async function register() {
-        setBusy(true)
-        if(password !== confirmPassword) {
-            return toast('Las contraseñas no coinciden')
+        setBusy(true);
+        if (password !== confirmPassword) {
+            setToastMessage('Las contraseñas no coinciden');
+            setShowToast(true);
+            setBusy(false);
+            return;
         }
-        if(mail.trim() === '' || password.trim() === '') {
-            return toast('Se requieren Mail y Contraseña')
+        if (mail.trim() === '' || password.trim() === '') {
+            setToastMessage('Se requieren Mail y Contraseña');
+            setShowToast(true);
+            setBusy(false);
+            return;
         }
-
+    
         const res = await registerUser(mail, password, nick);
         if (res) {
-            toast('Te has registrado correctamente');
+            setToastMessage('Te has registrado correctamente');
+            setShowToast(true);
         }
-        setBusy(false)
-      }
+        setBusy(false);
+    }
+    
 
     const validateEmail = (email: string) => {
         const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -139,7 +149,7 @@ const Register: React.FC = () => {
                         <IonText color="danger" className="password-error">Las contraseñas no coinciden.</IonText>
                     )}
 
-                    <IonButton 
+                    <IonButton
                         expand="block" 
                         className="register-button" 
                         onClick={register}
@@ -155,6 +165,12 @@ const Register: React.FC = () => {
                     >
                         Registrarse
                     </IonButton>
+                    <IonToast
+                    isOpen={showToast}
+                    onDidDismiss={() => setShowToast(false)}
+                    message={toastMessage}
+                    duration={2000}
+                    />
                 </div>
             </IonContent>
         </IonPage>
