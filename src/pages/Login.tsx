@@ -117,9 +117,9 @@ import {
 
           <div className="register-container">
             <IonText>¿No tienes cuenta?</IonText>
-            <IonButton fill="clear" onClick={() => history.push("/Register")} >Regístrate aquí</IonButton>
+            <IonButton onClick={() => history.push("/Register")} className="login-button">Regístrate aquí</IonButton>
             <IonText>¿Olvidaste tu contraseña?</IonText>
-            <IonButton fill="clear" onClick={() => history.push("/Reset")} >Restablecer Contraseña</IonButton>
+            <IonButton onClick={() => history.push("/Reset")} className="login-button">Restablecer Contraseña</IonButton>
           </div>
         </div>
       </IonContent>
