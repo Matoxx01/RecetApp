@@ -22,10 +22,8 @@ import { toast } from '../toast';
 import { registerUser } from '../firebase_config';
 
 const Register: React.FC = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [nick, setNick] = useState('');
     const [mail, setMail] = useState('');
-    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -41,9 +39,9 @@ const Register: React.FC = () => {
             return toast('Se requieren Mail y Contraseña')
         }
 
-        const res = await registerUser(mail, password)
-        if(res) {
-            toast('Te has registrado correctamente')
+        const res = await registerUser(mail, password, nick);
+        if (res) {
+            toast('Te has registrado correctamente');
         }
         setBusy(false)
       }
@@ -92,16 +90,8 @@ const Register: React.FC = () => {
                     
                     <IonItem>
                         <IonInput 
-                            placeholder="Nombres" 
-                            onIonChange={(e: any) => setFirstName(e.target.value)} 
-                            required 
-                        />
-                    </IonItem>
-                    
-                    <IonItem>
-                        <IonInput 
-                            placeholder="Apellidos" 
-                            onIonChange={(e: any) => setLastName(e.target.value)} 
+                            placeholder="Nickname" 
+                            onIonChange={(e: any) => setNick(e.target.value)} 
                             required 
                         />
                     </IonItem>
@@ -119,14 +109,6 @@ const Register: React.FC = () => {
                         />
                     </IonItem>
                     {emailError && <IonText color="danger" className="email-error">{emailError}</IonText>}
-
-                    <IonItem>
-                        <IonInput 
-                            placeholder="Celular" 
-                            onIonChange={(e: any) => setPhone(e.target.value)} 
-                            type="tel"
-                        />
-                    </IonItem>
                     
                     <IonItem>
                         <IonInput 
@@ -162,8 +144,7 @@ const Register: React.FC = () => {
                         className="register-button" 
                         onClick={register}
                         disabled={
-                            !firstName || 
-                            !lastName || 
+                            !nick ||
                             !mail || 
                             !password || 
                             !confirmPassword || 

@@ -18,43 +18,36 @@ import {
     IonBackButton,
     IonLoading
   } from '@ionic/react';
-  import './Login.css';
-  import { logInOutline, home } from 'ionicons/icons';
+  import './Reset.css';
+  import { refreshOutline ,logInOutline, home } from 'ionicons/icons';
   import { useHistory } from 'react-router-dom';
   import { useState } from 'react';
-  import { loginUser } from '../firebase_config'
+  import { resetPassword } from '../firebase_config'
   import { toast } from '../toast'
   
-  const Login: React.FC = () => {
-
-    const [busy, setBusy] = useState<boolean>(false)
-
-    const history = useHistory();
+  const Reset: React.FC = () => {
+    
     const [mail, setMail] = useState('')
-    const [password, setPassword] = useState('')
+    const [busy, setBusy] = useState<boolean>(false)
+    const history = useHistory();
 
     function isValidEmail(email: string) {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return regex.test(email);
   }
 
-  async function login() {
+  async function reset() {
       setBusy(true)
       if (!isValidEmail(mail)) {
           toast('El correo electrónico es inválido.');
           return;
       }
 
-      if (!mail || !password) {
-          toast('Por favor, completa todos los campos.');
-          return;
-      }
-
-      const res = await loginUser(mail, password);
+      const res = await resetPassword(mail);
       if (!res) {
-          toast('Hay un error con tu Mail o Contraseña');
+          toast('Hay un error con el Mail ingresado');
       } else {
-          toast('Has accedido!');
+          toast('Se ha enviado el correo de restablecimiento correctamente');
       }
       setBusy(false)
   }
@@ -66,7 +59,7 @@ import {
         <IonButtons slot="start">
           <IonBackButton defaultHref="/home"></IonBackButton>
         </IonButtons>
-          <IonTitle>Login</IonTitle>
+          <IonTitle>Restablecimiento de Contraseña</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonBreadcrumbs>
@@ -78,11 +71,15 @@ import {
             Login
             <IonIcon slot="end" icon={logInOutline}></IonIcon>
           </IonBreadcrumb>
+          <IonBreadcrumb href="/Reset">
+            Password Reset
+            <IonIcon slot="end" icon={refreshOutline}></IonIcon>
+          </IonBreadcrumb>
         </IonBreadcrumbs>
         <IonLoading message="Cargando..." duration={0} isOpen={busy} />
         <IonContent className="ion-padding">
         <div className="login-container">
-          <h2 className="login-title">Bienvenido</h2>
+          <h2 className="login-title">Restablece aquí</h2>
 
           <IonItem>
             <IonInput 
@@ -91,26 +88,12 @@ import {
             />
           </IonItem>
 
-          <IonItem>
-            <IonInput 
-            placeholder="Contraseña" 
-            onIonChange={(e: any) => setPassword(e.target.value)} type="password" required 
-            />
-          </IonItem>
-
-          <IonButton onClick={login} expand="block" className="login-button">Iniciar Sesión</IonButton>
-
-          <div className="register-container">
-            <IonText>¿No tienes cuenta?</IonText>
-            <IonButton fill="clear" onClick={() => history.push("/Register")} >Regístrate aquí</IonButton>
-            <IonText>¿Olvidaste tu contraseña?</IonText>
-            <IonButton fill="clear" onClick={() => history.push("/Reset")} >Restablecer Contraseña</IonButton>
-          </div>
+          <IonButton onClick={reset} expand="block" className="login-button">Restablecer Contraseña</IonButton>
         </div>
       </IonContent>
     </IonPage>
   );
   };
   
-  export default Login;
+  export default Reset;
   

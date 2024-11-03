@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword, 
+    updateProfile,
+    sendPasswordResetEmail
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
@@ -26,14 +32,27 @@ export async function loginUser(mail: string, password: string) {
     }
 }
 
-export async function registerUser(mail: string, password: string) {
-
+export async function registerUser(mail: string, password: string, nick: string) {
     try {
         const res = await createUserWithEmailAndPassword(auth, mail, password);
-        console.log(res)
-        return true
-    } catch(error) {
-        console.log(error)
-        return false
+        const user = res.user;
+
+        await updateProfile(user, { displayName: nick });
+
+        console.log("Usuario registrado y perfil actualizado:", res);
+        return true;
+    } catch (error) {
+        console.error("Error durante el registro:", error);
+        return false;
+    }
+}
+export async function resetPassword(mail: string) {
+    try {
+        await sendPasswordResetEmail(auth, mail);
+        console.log("Correo de restablecimiento de contraseña enviado.");
+        return true;
+    } catch (error) {
+        console.error("Error al enviar el correo de restablecimiento de contraseña:", error);
+        return false;
     }
 }

@@ -17,6 +17,7 @@ import SebaR from './pages/SebaR';
 import SebaN from './pages/SebaN';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Reset from './pages/Reset';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -62,6 +63,7 @@ const App: React.FC = () => (
         <Route path="/SebaN" component={SebaN} exact={true} />
         <Route path="/Login" component={Login} exact={true} />
         <Route path="/Register" component={Register} exact={true} />
+        <Route path="/Reset" component={Reset} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
