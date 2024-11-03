@@ -21,16 +21,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export async function loginUser(mail: string, password: string) {
-
     try {
         const res = await signInWithEmailAndPassword(auth, mail, password);
         console.log(res);
-        return true;
-    } catch (error) {
+        return { success: true }; // Cambiado para retornar un objeto
+    } catch (error: any) { // Especificar el tipo del error
         console.error("Error durante el inicio de sesión:", error);
-        return false;
+        return { success: false, message: error.message }; // Retornar mensaje de error
     }
 }
+
 
 export async function registerUser(mail: string, password: string, nick: string) {
     try {

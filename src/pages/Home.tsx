@@ -1,4 +1,5 @@
 import React, { useState, useRef  } from 'react';
+import { useAuth } from '../App';
 import { 
   IonContent, 
   IonHeader, 
@@ -28,6 +29,7 @@ import { home, funnelOutline } from 'ionicons/icons';
 import './Home.css';
 
 function Home() {
+  const { isLoggedIn } = useAuth();
   const history = useHistory();
   const [searchText, setSearchText] = useState('');
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
@@ -94,6 +96,11 @@ function Home() {
     return matchesText && matchesChips;
   });
 
+  const handleAccount = () => {
+    menuRef.current?.close();
+    history.push('/Account');
+  };
+
   const handleLogin = () => {
     menuRef.current?.close();
     history.push('/Login');
@@ -129,9 +136,15 @@ function Home() {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonList>
-          <IonItem button onClick={handleLogin}>
-              <IonLabel>Login</IonLabel>
-            </IonItem>
+            {isLoggedIn ? (
+                <IonItem button onClick={handleAccount}>
+                  <IonLabel>Mi cuenta</IonLabel>
+                </IonItem>
+            ) : (
+                <IonItem button onClick={handleLogin}>
+                  <IonLabel>Login</IonLabel>
+                </IonItem>
+            )}
             <IonItem button onClick={handleFavoritos}>
               <IonLabel>Favoritos</IonLabel>
             </IonItem>

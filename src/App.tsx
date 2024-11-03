@@ -1,4 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
+import React, { createContext, useContext, useState } from 'react';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
@@ -18,6 +19,7 @@ import SebaN from './pages/SebaN';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Reset from './pages/Reset';
+import Account from './pages/Account';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -40,7 +42,25 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+const AuthContext = createContext({
+  isLoggedIn: false,
+  setIsLoggedIn: (status: boolean) => {},
+});
+
+export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
+
 const App: React.FC = () => (
+  <AuthProvider>
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
@@ -64,12 +84,14 @@ const App: React.FC = () => (
         <Route path="/Login" component={Login} exact={true} />
         <Route path="/Register" component={Register} exact={true} />
         <Route path="/Reset" component={Reset} exact={true} />
+        <Route path="/Account" component={Account} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
+  </AuthProvider>
 );
 
 export default App;

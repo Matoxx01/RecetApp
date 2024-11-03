@@ -23,12 +23,13 @@ import {
   import { useHistory } from 'react-router-dom';
   import { useState } from 'react';
   import { loginUser } from '../firebase_config'
-  import { toast } from '../toast'
+  import { useAuth } from '../App';
   
   const Login: React.FC = () => {
 
     const [busy, setBusy] = useState<boolean>(false)
 
+    const { setIsLoggedIn } = useAuth();
     const history = useHistory();
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
@@ -41,33 +42,37 @@ import {
   }
 
   async function login() {
-      setBusy(true)
-      if (!isValidEmail(mail)) {
-          setToastMessage('El correo electrónico es inválido.');
-          setShowToast(true);
-          setBusy(false);
-          return;
-      }
+    setBusy(true);
 
-      if (!mail || !password) {
-          setToastMessage('Por favor, completa todos los campos.');
-          setShowToast(true);
-          setBusy(false);
-          return;
-      }
-
-      const res = await loginUser(mail, password);
-      if (!res) {
-          setToastMessage('Hay un error con tu mail o contraseña');
-          setShowToast(true);
-          setBusy(false);
-      } else {
-        setToastMessage('Has accedido!');
+    if (!isValidEmail(mail)) {
+        setToastMessage('El correo electrónico es inválido.');
         setShowToast(true);
         setBusy(false);
-      }
-      setBusy(false)
-  }
+        return;
+    }
+
+    if (!mail || !password) {
+        setToastMessage('Por favor, completa todos los campos.');
+        setShowToast(true);
+        setBusy(false);
+        return;
+    }
+
+    const res = await loginUser(mail, password);
+
+    if (res.success) {
+        setToastMessage('Has accedido!');
+        setShowToast(true);
+        setIsLoggedIn(true);
+        history.push('/home');
+    } else {
+        setToastMessage(res.message || 'Hay un error con tu mail o contraseña'); // Usar mensaje de error
+        setShowToast(true);
+    }
+    
+    setBusy(false);
+}
+
 
   return (
     <IonPage>
