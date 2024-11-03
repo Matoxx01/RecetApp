@@ -20,6 +20,7 @@ import './Account.css';
 import { home, person } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import { deleteUserAccount } from '../firebase_config';
 import { getAuth, signOut, updateEmail, updateProfile } from 'firebase/auth';
 import { useAuth } from '../App';
 
@@ -69,6 +70,27 @@ const Account: React.FC = () => {
                 setShowToast(true);
             } finally {
                 setBusy(false);
+            }
+        }
+    };
+    const handleDeleteAccount = async () => {
+        setBusy(true);
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                const res = await deleteUserAccount(user);
+                if (res.success) {
+                    setIsLoggedIn(false);
+                    setToastMessage('Cuenta eliminada correctamente');
+                    history.push('/home');
+                } else {
+                    setToastMessage(res.message || 'Error al eliminar la cuenta');
+                }
+            } catch (error) {
+                setToastMessage('Error al eliminar la cuenta');
+            } finally {
+                setBusy(false);
+                setShowToast(true);
             }
         }
     };
@@ -125,6 +147,10 @@ const Account: React.FC = () => {
                 
                 <IonButton onClick={handleLogout} expand="block" className="logout-button">
                     Cerrar Sesión
+                </IonButton>
+
+                <IonButton onClick={handleDeleteAccount} expand="block" className="delete-button">
+                    Eliminar Cuenta
                 </IonButton>
 
                 <IonToast 

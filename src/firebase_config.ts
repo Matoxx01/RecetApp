@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
+    deleteUser as firebaseDeleteUser,
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
     updateProfile,
@@ -68,5 +69,15 @@ export async function resetPassword(mail: string): Promise<ResetPasswordResult> 
             return { success: false, message: 'Este mail no está registrado.' };
         }
         return { success: false, message: 'Hay un error con el Mail ingresado.' };
+    }
+}
+
+export async function deleteUserAccount(user: any) {
+    try {
+        await firebaseDeleteUser(user);
+        return { success: true };
+    } catch (error: any) {
+        console.error("Error al eliminar la cuenta:", error);
+        return { success: false, message: 'No se pudo eliminar la cuenta.' };
     }
 }
