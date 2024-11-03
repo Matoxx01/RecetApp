@@ -24,12 +24,16 @@ export async function loginUser(mail: string, password: string) {
     try {
         const res = await signInWithEmailAndPassword(auth, mail, password);
         console.log(res);
-        return { success: true }; // Cambiado para retornar un objeto
-    } catch (error: any) { // Especificar el tipo del error
+        return { success: true };
+    } catch (error: any) {
         console.error("Error durante el inicio de sesión:", error);
-        return { success: false, message: error.message }; // Retornar mensaje de error
+        if (error.code === 'auth/user-not-found') {
+            return { success: false, message: 'Este mail no está registrado.' };
+        }
+        return { success: false, message: 'Hay un error con tu mail o contraseña.' };
     }
 }
+
 
 
 export async function registerUser(mail: string, password: string, nick: string) {
@@ -38,21 +42,31 @@ export async function registerUser(mail: string, password: string, nick: string)
         const user = res.user;
 
         await updateProfile(user, { displayName: nick });
-
         console.log("Usuario registrado y perfil actualizado:", res);
-        return true;
-    } catch (error) {
+        return { success: true };
+    } catch (error: any) {
         console.error("Error durante el registro:", error);
-        return false;
+        // Detectar si el correo ya está registrado
+        if (error.code === 'auth/email-already-in-use') {
+            return { success: false, message: 'Este mail ya está registrado' };
+        }
+        return { success: false, message: 'Error durante el registro' };
     }
 }
-export async function resetPassword(mail: string) {
+
+interface ResetPasswordResult {
+    success: boolean;
+    message?: string;
+}
+
+export async function resetPassword(mail: string): Promise<ResetPasswordResult> {
     try {
         await sendPasswordResetEmail(auth, mail);
-        console.log("Correo de restablecimiento de contraseña enviado.");
-        return true;
-    } catch (error) {
-        console.error("Error al enviar el correo de restablecimiento de contraseña:", error);
-        return false;
+        return { success: true };
+    } catch (error: any) {
+        if (error.code === 'auth/user-not-found') {
+            return { success: false, message: 'Este mail no está registrado.' };
+        }
+        return { success: false, message: 'Hay un error con el Mail ingresado.' };
     }
 }

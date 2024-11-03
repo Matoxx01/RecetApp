@@ -66,7 +66,7 @@ import {
         setIsLoggedIn(true);
         history.push('/home');
     } else {
-        setToastMessage(res.message || 'Hay un error con tu mail o contraseña'); // Usar mensaje de error
+        setToastMessage(res.message || 'Hay un error con tu mail o contraseña');
         setShowToast(true);
     }
     

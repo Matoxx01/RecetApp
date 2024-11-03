@@ -113,14 +113,11 @@ const Account: React.FC = () => {
                         required 
                     />
                 </IonItem>
-                <IonItem>
-                    <IonInput 
-                        placeholder="Nueva Contraseña" 
-                        value={password}
-                        onIonChange={(e) => setPassword(e.detail.value!)}
-                        type="password" 
-                    />
-                </IonItem>
+                <br />
+                <br />
+                <IonButton onClick={() => history.push('/Reset')} expand="block" className="login-button">
+                    Restablecer contraseña
+                </IonButton>
 
                 <IonButton onClick={handleUpdateProfile} expand="block" className="login-button">
                     Actualizar Información

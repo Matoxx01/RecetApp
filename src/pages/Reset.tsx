@@ -21,6 +21,7 @@ import {
   import './Reset.css';
   import { refreshOutline ,logInOutline, home } from 'ionicons/icons';
   import { useHistory } from 'react-router-dom';
+  
   import { useState } from 'react';
   import { resetPassword } from '../firebase_config'
   import { toast } from '../toast'
@@ -28,6 +29,8 @@ import {
   const Reset: React.FC = () => {
     
     const [mail, setMail] = useState('')
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
     const [busy, setBusy] = useState<boolean>(false)
     const history = useHistory();
 
@@ -37,20 +40,25 @@ import {
   }
 
   async function reset() {
-      setBusy(true)
-      if (!isValidEmail(mail)) {
-          toast('El correo electrónico es inválido.');
-          return;
-      }
+    setBusy(true);
+    if (!isValidEmail(mail)) {
+        setToastMessage('El correo electrónico es inválido.');
+        setShowToast(true);
+        setBusy(false);
+        return;
+    }
 
-      const res = await resetPassword(mail);
-      if (!res) {
-          toast('Hay un error con el Mail ingresado');
-      } else {
-          toast('Se ha enviado el correo de restablecimiento correctamente');
-      }
-      setBusy(false)
-  }
+    const res = await resetPassword(mail);
+
+    if (!res.success) {
+        setToastMessage(res.message || 'Error desconocido');
+        setShowToast(true);
+    } else {
+        setToastMessage('Se ha enviado el correo de restablecimiento correctamente');
+        setShowToast(true);
+    }
+    setBusy(false);
+}
 
   return (
     <IonPage>
@@ -91,6 +99,12 @@ import {
           <IonButton onClick={reset} expand="block" className="login-button">Restablecer Contraseña</IonButton>
         </div>
       </IonContent>
+      <IonToast
+      isOpen={showToast}
+      onDidDismiss={() => setShowToast(false)}
+      message={toastMessage}
+      duration={2000}
+      />
     </IonPage>
   );
   };

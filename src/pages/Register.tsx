@@ -19,9 +19,11 @@ import {
 import './Register.css';
 import { logInOutline, globeOutline, home } from 'ionicons/icons';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { registerUser } from '../firebase_config';
 
 const Register: React.FC = () => {
+    const history = useHistory();
     const [nick, setNick] = useState('');
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
@@ -48,12 +50,19 @@ const Register: React.FC = () => {
         }
     
         const res = await registerUser(mail, password, nick);
-        if (res) {
+        if (res.success) {
             setToastMessage('Te has registrado correctamente');
+            setShowToast(true);
+            setTimeout(() => {
+                history.push('/Login');
+            }, 500);
+        } else {
+            setToastMessage(res.message || 'Hubo un error durante el registro');
             setShowToast(true);
         }
         setBusy(false);
     }
+    
     
 
     const validateEmail = (email: string) => {
