@@ -30,7 +30,6 @@ const Account: React.FC = () => {
     const auth = getAuth();
     
     const [email, setEmail] = useState(auth.currentUser?.email || '');
-    const [password, setPassword] = useState('');
     const [nick, setNick] = useState(auth.currentUser?.displayName || '');
     const [busy, setBusy] = useState(false);
     const [showToast, setShowToast] = useState(false);

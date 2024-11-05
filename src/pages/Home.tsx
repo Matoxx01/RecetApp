@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef, useEffect  } from 'react';
 import { useAuth } from '../App';
 import { 
   IonContent, 
@@ -25,6 +25,7 @@ import {
   IonPopover
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { getRecipes } from '../firebase_config';
 import { home, funnelOutline } from 'ionicons/icons';
 import './Home.css';
 
@@ -147,10 +148,12 @@ function Home() {
             )}
             <IonItem button onClick={handleFavoritos}>
               <IonLabel>Favoritos</IonLabel>
-            </IonItem>
-            <IonItem button onClick={handleAddRecipe}>
-              <IonLabel>Agrega tu receta</IonLabel>
-            </IonItem>
+              </IonItem>
+            {isLoggedIn && (
+              <IonItem button onClick={handleAddRecipe}>
+                <IonLabel>Agrega tu receta</IonLabel>
+              </IonItem>
+            )}
             <IonItem button onClick={handleConfig}>
               <IonLabel>Configuración</IonLabel>
             </IonItem>

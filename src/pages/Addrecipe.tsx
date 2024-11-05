@@ -1,51 +1,123 @@
 import React, { useState } from 'react';
-import { 
-    IonContent, 
-    IonHeader, 
-    IonPage, 
-    IonTitle, 
-    IonItem,
-    IonInput,
-    IonTextarea,
-    IonToolbar,
-    IonButtons,
-    IonBreadcrumbs,
-    IonBreadcrumb,
-    IonIcon,
-    IonBackButton,
-    IonLabel,
-    IonButton,
-    IonImg
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonItem,
+  IonInput,
+  IonTextarea,
+  IonToast,
+  IonToolbar,
+  IonButtons,
+  IonChip,
+  IonBreadcrumbs,
+  IonLoading,
+  IonBreadcrumb,
+  IonIcon,
+  IonBackButton,
+  IonLabel,
+  IonButton,
+  IonImg,
+  IonPopover,
 } from '@ionic/react';
-import { addOutline, home, imageOutline } from 'ionicons/icons';
+import { getDatabase, ref, push } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
+import { database, auth } from '../firebase_config';
+import { addOutline, home, imageOutline, removeCircleOutline } from 'ionicons/icons';
 import './Addrecipe.css';
 
 const Addrecipe: React.FC = () => {
-  // Estados para manejar los datos del formulario
+  const auth = getAuth();
+  const [busy, setBusy] = useState<boolean>(false)
+  const [nick, setNick] = useState(auth.currentUser?.displayName || '');
   const [title, setTitle] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const [description, setDescription] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [preparation, setPreparation] = useState('');
+  const [ingredients, setIngredients] = useState<string[]>(['']);
+  const [preparation, setPreparation] = useState<string[]>(['']);
   const [image, setImage] = useState<string | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [showPopover, setShowPopover] = useState(false);
 
-  // Función para manejar la selección de una imagen
+  const tags = [
+    'Pasta', 'Cremoso', 'Rápido', 'Italiana', 'Mariscos', 'Gourmet',
+    'Salsa', 'Delicioso', 'Atún', 'Ensalada', 'Fresco', 'Saludable',
+    'Pollo', 'Sabroso', 'Tradicional', 'Chorizo', 'Familiar'
+  ];
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prevSelected =>
+      prevSelected.includes(tag)
+        ? prevSelected.filter(t => t !== tag)
+        : [...prevSelected, tag]
+    );
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl); // Guardar la URL temporal de la imagen
+      setImage(imageUrl);
     }
   };
 
-  const handleSubmit = () => {
-    // Aquí puedes manejar el envío de los datos del formulario
-    console.log({
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setBusy(true); // Asegúrate de establecer busy a true al iniciar
+  
+    const recipeData = {
       title,
       description,
       ingredients,
       preparation,
-      image
-    });
+      image,
+      tags: selectedTags,
+      author: { nick }
+    };
+  
+    try {
+      const recipesRef = ref(database, 'recetas');
+      await push(recipesRef, recipeData);
+      console.log('Receta subida correctamente:', recipeData);
+      setToastMessage('Receta subida correctamente.');
+      setShowToast(true);
+    } catch (error) {
+      console.error('Error al subir la receta:', error);
+      setToastMessage('Error al subir la receta.');
+      setShowToast(true);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const addIngredientField = () => {
+    setIngredients([...ingredients, '']);
+  };
+
+  const addPreparationStep = () => {
+    setPreparation([...preparation, '']);
+  };
+
+  const handleIngredientChange = (index: number, value: string) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index] = value;
+    setIngredients(updatedIngredients);
+  };
+
+  const handlePreparationChange = (index: number, value: string) => {
+    const updatedPreparation = [...preparation];
+    updatedPreparation[index] = value;
+    setPreparation(updatedPreparation);
+  };
+
+  const removeIngredientField = (index: number) => {
+    setIngredients(ingredients.filter((_, i) => i !== index));
+  };
+
+  const removePreparationStep = (index: number) => {
+    setPreparation(preparation.filter((_, i) => i !== index));
   };
 
   return (
@@ -70,71 +142,126 @@ const Addrecipe: React.FC = () => {
         </IonBreadcrumb>
       </IonBreadcrumbs>
 
+      <IonLoading message="Cargando..." duration={0} isOpen={busy} />
       <IonContent className="ion-padding">
         <form onSubmit={handleSubmit}>
-          {/* Selección de imagen */}
           <IonItem>
             <IonLabel>Imagen</IonLabel>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <IonButton slot="end" onClick={() => document.getElementById('fileInput')?.click()}>
+              <IonIcon icon={imageOutline} slot="start" /> Seleccionar archivo
+            </IonButton>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+            />
           </IonItem>
 
-          {/* Mostrar imagen seleccionada */}
           {image && (
             <IonItem>
               <IonImg src={image} alt="Imagen seleccionada" />
             </IonItem>
           )}
 
-          {/* Campo para el título */}
           <IonItem>
             <IonLabel position="floating">Título</IonLabel>
-            <IonInput 
-              value={title} 
-              placeholder="Nombre de la receta" 
+            <IonInput
+              value={title}
+              placeholder="Nombre de la receta"
               onIonChange={e => setTitle(e.detail.value!)}
               required
             />
           </IonItem>
 
-          {/* Campo para la descripción */}
           <IonItem>
             <IonLabel position="floating">Descripción</IonLabel>
-            <IonTextarea 
-              value={description} 
-              placeholder="Breve descripción de la receta" 
+            <IonTextarea
+              value={description}
+              placeholder="Breve descripción de la receta"
               onIonChange={e => setDescription(e.detail.value!)}
               required
             />
           </IonItem>
 
-          {/* Campo para los ingredientes */}
           <IonItem>
-            <IonLabel position="floating">Ingredientes</IonLabel>
-            <IonTextarea 
-              value={ingredients} 
-              placeholder="Lista de ingredientes" 
-              onIonChange={e => setIngredients(e.detail.value!)}
-              required
-            />
+            <IonLabel position="fixed">Etiquetas</IonLabel>
+            <IonButton onClick={() => setShowPopover(true)} slot="end">
+              Seleccionar Etiquetas
+            </IonButton>
+            <IonPopover
+              isOpen={showPopover}
+              onDidDismiss={() => setShowPopover(false)}
+            >
+              <div className="popover-content">
+                {tags.map((tag, index) => (
+                  <IonChip
+                    key={index}
+                    onClick={() => toggleTag(tag)}
+                    color={selectedTags.includes(tag) ? 'primary' : 'medium'}
+                  >
+                    <IonLabel>{tag}</IonLabel>
+                  </IonChip>
+                ))}
+              </div>
+              <IonButton expand="block" onClick={() => setShowPopover(false)}>
+                Cerrar
+              </IonButton>
+            </IonPopover>
           </IonItem>
 
-          {/* Campo para la preparación */}
           <IonItem>
-            <IonLabel position="floating">Preparación</IonLabel>
-            <IonTextarea 
-              value={preparation} 
-              placeholder="Instrucciones para preparar la receta" 
-              onIonChange={e => setPreparation(e.detail.value!)}
-              required
-            />
+            <IonLabel>Ingredientes</IonLabel>
+            <IonButton slot="end" onClick={addIngredientField}>
+              <IonIcon icon={addOutline} /> Añadir
+            </IonButton>
           </IonItem>
+          {ingredients.map((ingredient, index) => (
+            <IonItem key={index}>
+              <IonLabel position="fixed">{index + 1}.-</IonLabel>
+              <IonInput
+                value={ingredient}
+                placeholder={`Ingrediente ${index + 1}`}
+                onIonChange={(e) => handleIngredientChange(index, e.detail.value!)}
+              />
+              <IonButton color="danger" onClick={() => removeIngredientField(index)}>
+                <IonIcon icon={removeCircleOutline} />
+              </IonButton>
+            </IonItem>
+          ))}
 
-          {/* Botón para enviar el formulario */}
+          <IonItem>
+            <IonLabel>Preparación</IonLabel>
+            <IonButton slot="end" onClick={addPreparationStep}>
+              <IonIcon icon={addOutline} /> Añadir
+            </IonButton>
+          </IonItem>
+          {preparation.map((step, index) => (
+            <IonItem key={index}>
+              <IonLabel position="fixed">{index + 1}.-</IonLabel>
+              <IonTextarea
+                value={step}
+                placeholder={`Paso ${index + 1}`}
+                onIonChange={(e) => handlePreparationChange(index, e.detail.value!)}
+              />
+              <IonButton color="danger" onClick={() => removePreparationStep(index)}>
+                <IonIcon icon={removeCircleOutline} />
+              </IonButton>
+            </IonItem>
+          ))}
+
           <IonButton expand="block" type="submit">
             Publicar
           </IonButton>
         </form>
       </IonContent>
+      <IonToast
+      isOpen={showToast}
+      onDidDismiss={() => setShowToast(false)}
+      message={toastMessage}
+      duration={2000}
+      />
     </IonPage>
   );
 };

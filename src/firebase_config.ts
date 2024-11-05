@@ -7,10 +7,14 @@ import {
     updateProfile,
     sendPasswordResetEmail
 } from "firebase/auth";
-
+import firebase from 'firebase/app';
+import { getDatabase } from "firebase/database";
+import { ref, get } from "firebase/database";
+import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
   authDomain: "resetapp-8857e.firebaseapp.com",
+  databaseURL:"https://resetapp-8857e-default-rtdb.firebaseio.com/",
   projectId: "resetapp-8857e",
   storageBucket: "resetapp-8857e.firebasestorage.app",
   messagingSenderId: "314485103893",
@@ -18,6 +22,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+const database = getDatabase(app);
 
 const auth = getAuth(app);
 
@@ -35,7 +41,16 @@ export async function loginUser(mail: string, password: string) {
     }
 }
 
-
+export async function getRecipes() {
+    const dbRef = ref(database, 'recipes');
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+        return snapshot.val();
+    } else {
+        console.log("No hay recetas disponibles");
+        return [];
+    }
+}
 
 export async function registerUser(mail: string, password: string, nick: string) {
     try {
@@ -47,7 +62,6 @@ export async function registerUser(mail: string, password: string, nick: string)
         return { success: true };
     } catch (error: any) {
         console.error("Error durante el registro:", error);
-        // Detectar si el correo ya está registrado
         if (error.code === 'auth/email-already-in-use') {
             return { success: false, message: 'Este mail ya está registrado' };
         }
@@ -81,3 +95,6 @@ export async function deleteUserAccount(user: any) {
         return { success: false, message: 'No se pudo eliminar la cuenta.' };
     }
 }
+
+
+export { database, auth };
