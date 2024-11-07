@@ -49,6 +49,7 @@ function Home() {
   const recipes = [
     {
       title: 'Fetuccini Alfredo',
+      author: 'Nestle®',
       image: 'Fetuccini Alfredo.webp',
       description: 'El clásico fetuccini alfredo cremosito, sencillo y muy rico. Añádele la proteína que más te guste.',
       route: '/Fetuccini',
@@ -56,6 +57,7 @@ function Home() {
     },
     {
       title: 'Langostinos en salsa de Mariscos',
+      author: 'Nestle®',
       image: 'Langostinos.webp',
       description: 'Cada ingrediente de esta delicia está cargado de amor y el toque delicioso de caldos MAGGI®. Receta de nuestra consumidora Glenda Ortega.',
       route: '/Langostinos',
@@ -63,6 +65,7 @@ function Home() {
     },
     {
       title: 'Lasaña de Atún',
+      author: 'Nestle®',
       image: 'Lasaña_atun.avif',
       description: 'Una experiencia culinaria única con el toque especial de caldos MAGGI®. Receta de nuestra consumidora Aida Naydut Benavides',
       route: '/Lasaña_atun',
@@ -70,6 +73,7 @@ function Home() {
     },
     {
       title: 'Ensalada de Col',
+      author: 'Nestle®',
       image: 'Ensalada_col.webp',
       description: 'Una ensalada fresca, deliciosa y llena de sabor. Prepárala para tu familia y sorprende a todos.',
       route: '/Ensalada_col',
@@ -77,6 +81,7 @@ function Home() {
     },
     {
       title: 'Estofado de Pollo',
+      author: 'Nestle®',
       image: 'Estofado_pollo.webp',
       description: 'Este delicioso estofado será la estrella del almuerzo, prepáralo con tus ingredientes favoritos pero el que no puede faltar es nuestro nuevo caldo de gallina en cubo 4gr. El secreto del sabor.',
       route: '/Estofado_pollo',
@@ -84,6 +89,7 @@ function Home() {
     },
     {
       title: 'Arroz con pollo y chorizo',
+      author: 'Nestle®',
       image: 'Arroz_pollo_chorizo.webp',
       description: 'Un clásico de las cocinas de mamá. Prepara este delicioso arroz con el toque secreto de caldos MAGGI®. Así como lo preparaba la abuelita!!',
       route: '/Arroz_pollo_chorizo',
@@ -232,6 +238,7 @@ function Home() {
             <IonCard key={index} button={true} className="card-custom" onClick={() => history.push(recipe.route)}>
               <img alt={recipe.title} src={recipe.image} />
               <IonCardHeader>
+                <IonLabel>{recipe.author}</IonLabel>
                 <IonCardTitle>{recipe.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
