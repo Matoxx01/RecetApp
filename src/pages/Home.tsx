@@ -12,10 +12,12 @@ import {
   IonCardTitle,
   IonList,
   IonCardContent,
+  IonRefresher,
   IonLabel,
   IonMenu,
   IonChip,
   IonItem,
+  IonRefresherContent,
   IonIcon,
   IonButtons,
   IonButton,
@@ -37,6 +39,12 @@ function Home() {
   const [showFilterPopover, setShowFilterPopover] = useState(false);
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
+
+  const handleRefresh = (event: CustomEvent) => {
+    setTimeout(() => {
+      event.detail.complete();
+    }, 1000);
+  };
 
   const recipes = [
     {
@@ -146,9 +154,11 @@ function Home() {
                   <IonLabel>Login</IonLabel>
                 </IonItem>
             )}
+            {isLoggedIn && (
             <IonItem button onClick={handleFavoritos}>
               <IonLabel>Favoritos</IonLabel>
               </IonItem>
+              )}
             {isLoggedIn && (
               <IonItem button onClick={handleAddRecipe}>
                 <IonLabel>Agrega tu receta</IonLabel>
@@ -179,6 +189,14 @@ function Home() {
           </IonBreadcrumb>
         </IonBreadcrumbs>
         <IonContent className="ion-padding">
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent
+            pullingIcon={home}
+            refreshingSpinner="circles"
+            pullingText="Desliza hacia abajo para actualizar"
+            refreshingText="Actualizando contenido..."
+          ></IonRefresherContent>
+        </IonRefresher>
           <IonToolbar>
             <IonSearchbar
               value={searchText}
