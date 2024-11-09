@@ -113,9 +113,8 @@ import {
             />
           </IonItem>
 
-          <IonButton onClick={login} expand="block" className="login-button">Iniciar Sesión</IonButton>
-
           <div className="register-container">
+            <IonButton onClick={login} expand="block" className="login-button">Iniciar Sesión</IonButton>
             <IonText>¿No tienes cuenta?</IonText>
             <IonButton onClick={() => history.push("/Register")} className="login-button">Regístrate aquí</IonButton>
             <IonText>¿Olvidaste tu contraseña?</IonText>
