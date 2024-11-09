@@ -215,11 +215,30 @@ function Home() {
               </IonButton>
             </IonButtons>
           </IonToolbar>
+          <br />
+          {selectedChips.map((chip, index) => (
+            <IonChip
+              key={index}
+              color="medium"
+              onClick={() => toggleChipFilter(chip)}
+              >
+              {chip}
+              <IonIcon
+                icon="close"
+                slot="end"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleChipFilter(chip);
+                }}
+              />
+            </IonChip>
+          ))}
 
           <IonPopover
             isOpen={showFilterPopover}
             onDidDismiss={() => setShowFilterPopover(false)}
-          >
+            className="center-popover"
+            >
             <IonContent className="ion-padding">
               <h3>Filtrar:</h3>
               {['Pasta', 'Cremoso', 'Rápido', 'Italiana', 'Mariscos', 'Gourmet', 'Salsa', 'Delicioso', 'Atún', 'Ensalada', 'Fresco', 'Saludable', 'Pollo', 'Sabroso', 'Tradicional', 'Chorizo', 'Familiar'].map((chip, index) => (

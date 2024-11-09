@@ -79,3 +79,52 @@ ion-menu-button {
 ion-chip {
   margin-right: 5px;
 }
+
+.center-popover .popover-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.center-popover .ion-content {
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.center-popover {
+  --width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.card-custom {
+  --background: #f0f0f0;
+  --ion-color-primary: #333; 
+}
+
+.ion-chip {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.selected-chips-container .ion-chip {
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.selected-chips-container .ion-chip ion-icon {
+  margin-left: 4px;
+  font-size: 1.2em;
+  color: #666;
+}
