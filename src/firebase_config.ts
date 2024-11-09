@@ -30,14 +30,21 @@ const auth = getAuth(app);
 export async function loginUser(mail: string, password: string) {
     try {
         const res = await signInWithEmailAndPassword(auth, mail, password);
-        console.log(res);
+        console.log("Inicio de sesión exitoso:", res);
         return { success: true };
     } catch (error: any) {
         console.error("Error durante el inicio de sesión:", error);
+        
+        let message = 'Hay un error con tu mail o contraseña.';
         if (error.code === 'auth/user-not-found') {
-            return { success: false, message: 'Este mail no está registrado.' };
+            message = 'Este mail no está registrado.';
+        } else if (error.code === 'auth/wrong-password') {
+            message = 'Contraseña incorrecta.';
+        } else if (error.code === 'auth/invalid-email') {
+            message = 'El correo electrónico es inválido.';
         }
-        return { success: false, message: 'Hay un error con tu mail o contraseña.' };
+
+        return { success: false, message };
     }
 }
 
