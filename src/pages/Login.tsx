@@ -52,7 +52,7 @@ import {
     }
 
     if (!mail || !password) {
-        setToastMessage('Por favor, completa todos los campos.');
+        setToastMessage('La contraseña esta vacia o es incorrecta.');
         setShowToast(true);
         setBusy(false);
         return;
@@ -69,7 +69,7 @@ import {
         setToastMessage(res.message || 'Hay un error con tu mail o contraseña');
         setShowToast(true);
     }
-    
+
     setBusy(false);
 }
 
