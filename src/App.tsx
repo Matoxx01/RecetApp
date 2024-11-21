@@ -9,6 +9,7 @@ import Lasaña_atun from './pages/Lasaña_atun';
 import Estofado_pollo from './pages/Estofado_pollo';
 import Ensalada_col from './pages/Ensalada_col';
 import Arroz_pollo_chorizo from './pages/Arroz_pollo_chorizo';
+import recipe from './pages/recipe';
 import Addrecipe from './pages/Addrecipe';
 import Favoritos from './pages/Favoritos';
 import Aboutus from './pages/Aboutus';
@@ -79,6 +80,7 @@ const App: React.FC = () => (
         <Route path="/Aboutus" component={Aboutus} exact={true} />
         <Route path="/Config" component={Config} exact={true} />
         <Route path="/Matias" component={Matias} exact={true} />
+        <Route path="/recipe/:id" component={recipe} />
         <Route path="/SebaR" component={SebaR} exact={true} />
         <Route path="/SebaN" component={SebaN} exact={true} />
         <Route path="/Login" component={Login} exact={true} />

@@ -65,7 +65,7 @@ const Addrecipe: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setBusy(true); // Asegúrate de establecer busy a true al iniciar
+    setBusy(true);
   
     const recipeData = {
       title,
@@ -73,8 +73,9 @@ const Addrecipe: React.FC = () => {
       ingredients,
       preparation,
       image,
-      tags: selectedTags,
-      author: { nick }
+      chips: selectedTags,
+      author: nick,
+      route: 'food_id'
     };
   
     try {

@@ -52,7 +52,9 @@ export async function getRecipes() {
     const dbRef = ref(database, 'recetas');
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
+
         const data = snapshot.val();
+        
         return data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
     } else {
         console.log("No hay recetas disponibles");
