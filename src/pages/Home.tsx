@@ -10,6 +10,7 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
+  IonSpinner,
   IonList,
   IonCardContent,
   IonRefresher,
@@ -38,26 +39,30 @@ function Home() {
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
   const [showFilterPopover, setShowFilterPopover] = useState(false);
   const [recipe, setRecipes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
 
   const handleRefresh = (event: CustomEvent) => {
-    setTimeout(() => {
+    setLoading(true);
+    setTimeout(async () => {
+      await fetchRecipes();
       event.detail.complete();
     }, 1000);
   };
   
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const data = await getRecipes();
-        setRecipes(data);
-        console.log('Recetas cargadas:', data);
-      } catch (error) {
-        console.error('Error al obtener recetas:', error);
-      }
-    };
+  const fetchRecipes = async () => {
+    try {
+      const data = await getRecipes();
+      setRecipes(data);
+    } catch (error) {
+      console.error('Error al obtener recetas:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchRecipes();
   }, []);
 
@@ -104,6 +109,16 @@ function Home() {
     menuRef.current?.close();
     history.push('/Aboutus');
   };
+
+  if (loading) {
+    return (
+      <IonContent className="loading-container">
+        <IonSpinner className="loading-spinner" name="crescent" />
+        <p className="loading-text">Cargando recetas...</p>
+      </IonContent>
+
+    );
+  }
 
   return (
     <>
@@ -160,13 +175,14 @@ function Home() {
         </IonBreadcrumbs>
         <IonContent className="ion-padding">
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
-          <IonRefresherContent
-            pullingIcon={home}
-            refreshingSpinner="circles"
-            pullingText="Desliza hacia abajo para actualizar"
-            refreshingText="Actualizando contenido..."
-          ></IonRefresherContent>
-        </IonRefresher>
+            <IonRefresherContent
+              pullingIcon={home}
+              refreshingSpinner="circles"
+              pullingText="Desliza hacia abajo para actualizar"
+              refreshingText="Actualizando recetas..."
+            >
+            </IonRefresherContent>
+          </IonRefresher>
           <IonToolbar>
             <IonSearchbar
               value={searchText}

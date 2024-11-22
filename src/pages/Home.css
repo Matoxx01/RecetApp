@@ -128,3 +128,30 @@ ion-chip {
   font-size: 1.2em;
   color: #666;
 }
+
+ion-breadcrumb {
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+ion-breadcrumb ion-icon {
+  margin-right: 5px;
+  color: #6c757d;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+  flex-direction: column; /* Apila el spinner y el texto */
+}
+
+.loading-spinner {
+  margin-bottom: 20px; /* Espacio entre el spinner y el texto */
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #666;
+}

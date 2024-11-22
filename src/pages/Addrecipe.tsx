@@ -58,8 +58,23 @@ const Addrecipe: React.FC = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const img = new Image();
+        img.src = reader.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            canvas.width = 684;
+            canvas.height = 350;
+            ctx.drawImage(img, 0, 0, 684, 350);
+            const resizedBase64 = canvas.toDataURL('image/jpeg'); 
+            setImage(resizedBase64);
+          }
+        };
+      };
+      reader.readAsDataURL(file);
     }
   };
 
