@@ -89,8 +89,7 @@ const Addrecipe: React.FC = () => {
       preparation,
       image,
       chips: selectedTags,
-      author: nick,
-      route: 'food_id'
+      author: nick
     };
   
     try {
