@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect  } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../App';
 import { 
   IonContent, 
@@ -38,7 +38,7 @@ function Home() {
   const [searchText, setSearchText] = useState('');
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
   const [showFilterPopover, setShowFilterPopover] = useState(false);
-  const [recipe, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
@@ -50,7 +50,7 @@ function Home() {
       event.detail.complete();
     }, 1000);
   };
-  
+
   const fetchRecipes = async () => {
     try {
       const data = await getRecipes();
@@ -82,14 +82,14 @@ function Home() {
     );
   };
 
-  const filteredRecipes = recipe.filter((recipe) => {
+  const filteredRecipes = recipes.filter((recipe) => {
     const matchesText = recipe.title.toLowerCase().includes(searchText.toLowerCase());
-    const matchesChips = selectedChips.length === 0 || (recipe.chips && recipe.chips.some((chip: string) => selectedChips.includes(chip)));
+    const matchesChips = selectedChips.length === 0 || (recipe.chips && recipe.chips.some((chip) => selectedChips.includes(chip)));
     return matchesText && matchesChips;
   });
-  
 
   interface Recipe {
+    id: string;
     author: { nick: string };
     description: string;
     image: string;
@@ -97,7 +97,7 @@ function Home() {
     preparation: string[];
     title: string;
     chips?: string[];
-  }
+  }  
 
   const handleAccount = () => {
     menuRef.current?.close();
@@ -135,7 +135,6 @@ function Home() {
         <IonSpinner className="loading-spinner" name="crescent" />
         <p className="loading-text">Cargando recetas...</p>
       </IonContent>
-
     );
   }
 
@@ -261,7 +260,7 @@ function Home() {
             >
               <img alt={recipe.title} src={recipe.image} />
               <IonCardHeader>
-                <IonLabel>{recipe.author}</IonLabel>
+                <IonLabel>{recipe.author.nick}</IonLabel>
                 <IonCardTitle>{recipe.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
