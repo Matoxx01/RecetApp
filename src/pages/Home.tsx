@@ -66,6 +66,14 @@ function Home() {
     fetchRecipes();
   }, []);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    history.push('/Login');
+  };
+
+  const { setIsLoggedIn } = useAuth();
+
   const toggleChipFilter = (chip: string) => {
     setSelectedChips((prevSelectedChips) =>
       prevSelectedChips.includes(chip)
@@ -76,9 +84,20 @@ function Home() {
 
   const filteredRecipes = recipe.filter((recipe) => {
     const matchesText = recipe.title.toLowerCase().includes(searchText.toLowerCase());
-    const matchesChips = selectedChips.length === 0 || recipe.chips.some(chip => selectedChips.includes(chip));
+    const matchesChips = selectedChips.length === 0 || (recipe.chips && recipe.chips.some((chip: string) => selectedChips.includes(chip)));
     return matchesText && matchesChips;
   });
+  
+
+  interface Recipe {
+    author: { nick: string };
+    description: string;
+    image: string;
+    ingredients: string[];
+    preparation: string[];
+    title: string;
+    chips?: string[];
+  }
 
   const handleAccount = () => {
     menuRef.current?.close();
@@ -234,7 +253,12 @@ function Home() {
           </IonPopover>
 
           {filteredRecipes.map((recipe, index) => (
-            <IonCard key={index} button={true} className="card-custom" onClick={() => history.push(`/recipe/${recipe.id}`)}>
+            <IonCard
+              key={index}
+              button={true}
+              className="card-custom"
+              onClick={() => history.push(`/recipe/${recipe.id}`)}
+            >
               <img alt={recipe.title} src={recipe.image} />
               <IonCardHeader>
                 <IonLabel>{recipe.author}</IonLabel>
@@ -243,9 +267,13 @@ function Home() {
               <IonCardContent>
                 {recipe.description}
                 <div className="chips-container">
-                  {recipe.chips.map((chip, chipIndex) => (
-                    <IonChip key={chipIndex}>{chip}</IonChip>
-                  ))}
+                  {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (
+                    recipe.chips.map((chip, chipIndex) => (
+                      <IonChip key={chipIndex}>{chip}</IonChip>
+                    ))
+                  ) : (
+                    <IonLabel>No hay chips</IonLabel>
+                  )}
                 </div>
               </IonCardContent>
             </IonCard>
