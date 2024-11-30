@@ -90,7 +90,7 @@ function Home() {
 
   interface Recipe {
     id: string;
-    author: { nick: string };
+    author: string;
     description: string;
     image: string;
     ingredients: string[];
@@ -260,7 +260,7 @@ function Home() {
             >
               <img alt={recipe.title} src={recipe.image} />
               <IonCardHeader>
-                <IonLabel>{recipe.author.nick}</IonLabel>
+                <IonLabel>{recipe.author}</IonLabel>
                 <IonCardTitle>{recipe.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
