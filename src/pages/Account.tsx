@@ -6,6 +6,7 @@ import {
     IonButton,
     IonInput,
     IonToolbar,
+    IonAlert,
     IonItem,
     IonToast,
     IonBreadcrumbs,
@@ -28,6 +29,7 @@ const Account: React.FC = () => {
     const history = useHistory();
     const { isLoggedIn, setIsLoggedIn } = useAuth();
     const auth = getAuth();
+    const [showConfirmAlert, setShowConfirmAlert] = useState(false);
     
     const [email, setEmail] = useState(auth.currentUser?.email || '');
     const [nick, setNick] = useState(auth.currentUser?.displayName || '');
@@ -148,9 +150,28 @@ const Account: React.FC = () => {
                     Cerrar Sesión
                 </IonButton>
 
-                <IonButton onClick={handleDeleteAccount} expand="block" className="delete-button">
+                <IonButton onClick={() => setShowConfirmAlert(true)} expand="block" className="delete-button">
                     Eliminar Cuenta
                 </IonButton>
+
+                <IonAlert
+                    isOpen={showConfirmAlert}
+                    onDidDismiss={() => setShowConfirmAlert(false)}
+                    header={'¿Seguro que quiere eliminar la cuenta?'}
+                    buttons={[
+                        {
+                            text: 'No',
+                            role: 'cancel',
+                            handler: () => {
+                                setShowConfirmAlert(false);
+                            }
+                        },
+                        {
+                            text: 'Sí',
+                            handler: handleDeleteAccount 
+                        }
+                    ]}
+                />
 
                 <IonToast 
                     isOpen={showToast} 
