@@ -22,6 +22,7 @@ import {
   IonPopover,
 } from '@ionic/react';
 import { getDatabase, ref, push } from 'firebase/database';
+import { useHistory } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { database, auth } from '../firebase_config';
 import { addOutline, home, imageOutline, removeCircleOutline } from 'ionicons/icons';
@@ -29,6 +30,7 @@ import './Addrecipe.css';
 
 const Addrecipe: React.FC = () => {
   const auth = getAuth();
+  const history = useHistory();
   const [busy, setBusy] = useState<boolean>(false)
   const [nick, setNick] = useState(auth.currentUser?.displayName || '');
   const [title, setTitle] = useState('');
@@ -98,6 +100,7 @@ const Addrecipe: React.FC = () => {
       console.log('Receta subida correctamente:', recipeData);
       setToastMessage('Receta subida correctamente.');
       setShowToast(true);
+      history.push('/home');
     } catch (error) {
       console.error('Error al subir la receta:', error);
       setToastMessage('Error al subir la receta.');

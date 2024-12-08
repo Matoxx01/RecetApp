@@ -271,7 +271,7 @@ function Home() {
                       <IonChip key={chipIndex}>{chip}</IonChip>
                     ))
                   ) : (
-                    <IonLabel>No hay chips</IonLabel>
+                    <IonLabel>No hay Etiquetas</IonLabel>
                   )}
                 </div>
               </IonCardContent>
