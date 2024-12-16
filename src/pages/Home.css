@@ -155,3 +155,26 @@ ion-breadcrumb ion-icon {
   font-size: 1.2rem;
   color: #666;
 }
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #ffcccb;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.favorite-button.favorite {
+  background-color: #ff4d4d;
+}
+
+.favorite-button ion-icon {
+  font-size: 24px;
+}

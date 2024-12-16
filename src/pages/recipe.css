@@ -77,8 +77,13 @@ ion-menu-button {
 .recipe-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   padding: 16px;
+}
+
+p {
+  line-height: 1;
+  margin-bottom: 0.00000001px;
 }
 
 .recipe-image {

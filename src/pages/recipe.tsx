@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import {
   IonBackButton,
   IonBreadcrumb,
+  IonChip,
   IonBreadcrumbs,
   IonButtons,
   IonCheckbox,
   IonSpinner,
   IonContent,
+  IonLabel,
   IonHeader,
   IonIcon,
   IonPage,
@@ -22,7 +24,7 @@ const Recipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>(null);
   const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]); // Estado para los checkboxes
-
+  
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -82,6 +84,21 @@ const Recipe: React.FC = () => {
 
         <div className="recipe-container">
           <img alt={recipe.title} src={recipe.image} className="recipe-image" />
+          
+          <p><b>Subido por: </b>{recipe.author}</p>
+          <p>{recipe.description}</p>
+          
+          <div className="chips-container">
+            {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (
+              recipe.chips.map((chip: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined, chipIndex: React.Key | null | undefined) => (
+                <IonChip key={chipIndex} className="recipe-chip">
+                  {chip}
+                </IonChip>
+              ))
+            ) : (
+              <IonLabel className="no-chips-label">No hay etiquetas disponibles</IonLabel>
+            )}
+          </div>
 
           <h2>Ingredientes</h2>
           <ul className="ingredients-list">

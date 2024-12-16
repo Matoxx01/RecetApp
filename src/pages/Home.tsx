@@ -29,7 +29,7 @@ import {
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { getRecipes } from '../firebase_config';
-import { home, funnelOutline } from 'ionicons/icons';
+import { home, funnelOutline, heart, heartOutline } from 'ionicons/icons';
 import './Home.css';
 
 function Home() {
@@ -40,6 +40,10 @@ function Home() {
   const [showFilterPopover, setShowFilterPopover] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    return storedFavorites ? JSON.parse(storedFavorites) : [];
+  });
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
 
@@ -51,6 +55,17 @@ function Home() {
     }, 1000);
   };
 
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
   const fetchRecipes = async () => {
     try {
       const data = await getRecipes();
@@ -61,6 +76,20 @@ function Home() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
+  const toggleFavorite = (recipeId: string) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(recipeId)
+        ? prevFavorites.filter((id) => id !== recipeId)
+        : [...prevFavorites, recipeId]
+    );
+  };
+
+  const isFavorite = (recipeId: string) => favorites.includes(recipeId);
 
   useEffect(() => {
     fetchRecipes();
@@ -124,11 +153,6 @@ function Home() {
     history.push('/Config');
   };
 
-  const handleAboutus = () => {
-    menuRef.current?.close();
-    history.push('/Aboutus');
-  };
-
   if (loading) {
     return (
       <IonContent className="loading-container">
@@ -168,10 +192,7 @@ function Home() {
               </IonItem>
             )}
             <IonItem button onClick={handleConfig}>
-              <IonLabel>Configuración</IonLabel>
-            </IonItem>
-            <IonItem button onClick={handleAboutus}>
-              <IonLabel>Sobre Nosotros</IonLabel>
+              <IonLabel>Configuración (no disponible todavia)</IonLabel>
             </IonItem>
           </IonList>
         </IonContent>
@@ -239,7 +260,7 @@ function Home() {
             >
             <IonContent className="ion-padding">
               <h3>Filtrar:</h3>
-              {['Pasta', 'Cremoso', 'Rápido', 'Italiana', 'Mariscos', 'Gourmet', 'Salsa', 'Delicioso', 'Atún', 'Ensalada', 'Fresco', 'Saludable', 'Pollo', 'Sabroso', 'Tradicional', 'Chorizo', 'Familiar'].map((chip, index) => (
+              {['Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos', 'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños' ].map((chip, index) => (
                 <IonChip
                   key={index}
                   onClick={() => toggleChipFilter(chip)}
@@ -251,31 +272,23 @@ function Home() {
             </IonContent>
           </IonPopover>
 
-          {filteredRecipes.map((recipe, index) => (
-            <IonCard
-              key={index}
-              button={true}
-              className="card-custom"
-              onClick={() => history.push(`/recipe/${recipe.id}`)}
+          {filteredRecipes.map((recipe) => (
+            <IonCard key={recipe.id} onClick={() => history.push(`/recipe/${recipe.id}`)}>
+            <IonButton
+              fill="clear"
+              className={`favorite-button ${isFavorite(recipe.id) ? 'favorite' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(recipe.id);
+              }}
             >
-              <img alt={recipe.title} src={recipe.image} />
-              <IonCardHeader>
-                <IonLabel>{recipe.author}</IonLabel>
-                <IonCardTitle>{recipe.title}</IonCardTitle>
-              </IonCardHeader>
-              <IonCardContent>
-                {recipe.description}
-                <div className="chips-container">
-                  {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (
-                    recipe.chips.map((chip, chipIndex) => (
-                      <IonChip key={chipIndex}>{chip}</IonChip>
-                    ))
-                  ) : (
-                    <IonLabel>No hay Etiquetas</IonLabel>
-                  )}
-                </div>
-              </IonCardContent>
-            </IonCard>
+              <IonIcon icon={isFavorite(recipe.id) ? heart : heartOutline}></IonIcon>
+            </IonButton>
+            <img alt={recipe.title} src={recipe.image} />
+            <IonCardHeader>
+              <IonCardTitle><b>{recipe.title}</b></IonCardTitle>
+            </IonCardHeader>
+          </IonCard>
           ))}
         </IonContent>
       </IonPage>
