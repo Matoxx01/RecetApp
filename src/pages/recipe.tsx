@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
   IonBackButton,
   IonBreadcrumb,
+  IonButton,
   IonChip,
   IonBreadcrumbs,
   IonButtons,
@@ -18,12 +19,14 @@ import {
 } from '@ionic/react';
 import { fastFood, home } from 'ionicons/icons';
 import './recipe.css';
-import { getRecipes } from '../firebase_config';
+import { getRecipes, updateLikeCount } from '../firebase_config';
 
 const Recipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>(null);
-  const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]); // Estado para los checkboxes
+  const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]);
+  const [likeCount, setLikeCount] = useState<number>(0);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -31,7 +34,11 @@ const Recipe: React.FC = () => {
         const allRecipes = await getRecipes();
         const selectedRecipe = allRecipes.find((rec: any) => rec.id === id);
         setRecipe(selectedRecipe);
-        setCheckedSteps(new Array(selectedRecipe?.preparation.length).fill(false)); // Inicializa el estado
+        setCheckedSteps(new Array(selectedRecipe?.preparation.length).fill(false));
+        const savedLikeCount = parseInt(localStorage.getItem(`likeCount-${id}`) || '0');
+        const savedIsLiked = localStorage.getItem(`isLiked-${id}`) === 'true';
+        setLikeCount(savedLikeCount);
+        setIsLiked(savedIsLiked);
       } catch (error) {
         console.error('Error al obtener la receta:', error);
       }
@@ -43,6 +50,19 @@ const Recipe: React.FC = () => {
     const newCheckedSteps = [...checkedSteps];
     newCheckedSteps[index] = !newCheckedSteps[index];
     setCheckedSteps(newCheckedSteps);
+  };
+
+  const handleLikeClick = async () => {
+    const newLikeCount = isLiked ? likeCount - 1 : likeCount + 1;
+    setLikeCount(newLikeCount);
+    setIsLiked(!isLiked);
+
+    await updateLikeCount(id, newLikeCount);
+
+    localStorage.setItem(`likeCount-${id}`, newLikeCount.toString());
+    localStorage.setItem(`isLiked-${id}`, (!isLiked).toString());
+
+    await updateLikeCount(id, newLikeCount);
   };
 
   if (!recipe) {
@@ -87,6 +107,16 @@ const Recipe: React.FC = () => {
           
           <p><b>Subido por: </b>{recipe.author}</p>
           <p>{recipe.description}</p>
+          <br/>
+
+          <div className="like-container">
+            <IonButton onClick={handleLikeClick} color={isLiked ? 'primary' : 'medium'} fill="outline">
+              <IonIcon icon={isLiked ? "/like hand.svg" : "/like hand.svg"} slot="start" />
+              <IonLabel>
+                <span>Likes: {likeCount}</span>
+              </IonLabel>
+            </IonButton>
+          </div>
           
           <div className="chips-container">
             {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (

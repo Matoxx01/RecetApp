@@ -91,7 +91,8 @@ const Addrecipe: React.FC = () => {
       preparation,
       image,
       chips: selectedTags,
-      author: nick
+      author: nick,
+      likes: 0
     };
   
     try {

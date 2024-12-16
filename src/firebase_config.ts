@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import firebase from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import { ref, get } from "firebase/database";
+import { ref, get, update } from "firebase/database";
 import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
@@ -47,6 +47,18 @@ export async function loginUser(mail: string, password: string) {
         return { success: false, message };
     }
 }
+
+export async function updateLikeCount(recipeId: string, newLikeCount: number) {
+    try {
+      const recipeRef = ref(database, 'recetas/' + recipeId);
+      await update(recipeRef, {
+        likes: newLikeCount,
+      });
+      console.log("Contador de likes actualizado en Firebase");
+    } catch (error) {
+      console.error("Error al actualizar el contador de likes en Firebase:", error);
+    }
+  }
 
 export async function getRecipes() {
     const dbRef = ref(database, 'recetas');
