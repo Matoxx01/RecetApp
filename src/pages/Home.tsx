@@ -274,21 +274,23 @@ function Home() {
 
           {filteredRecipes.map((recipe) => (
             <IonCard key={recipe.id} onClick={() => history.push(`/recipe/${recipe.id}`)}>
-            <IonButton
-              fill="clear"
-              className={`favorite-button ${isFavorite(recipe.id) ? 'favorite' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(recipe.id);
-              }}
-            >
-              <IonIcon icon={isFavorite(recipe.id) ? heart : heartOutline}></IonIcon>
-            </IonButton>
-            <img alt={recipe.title} src={recipe.image} />
-            <IonCardHeader>
-              <IonCardTitle><b>{recipe.title}</b></IonCardTitle>
-            </IonCardHeader>
-          </IonCard>
+              {isLoggedIn && (
+                <IonButton
+                  fill="clear"
+                  className={`favorite-button ${isFavorite(recipe.id) ? 'favorite' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(recipe.id);
+                  }}
+                >
+                  <IonIcon icon={isFavorite(recipe.id) ? heart : heartOutline}></IonIcon>
+                </IonButton>
+              )}
+              <img alt={recipe.title} src={recipe.image} />
+              <IonCardHeader>
+                <IonCardTitle><b>{recipe.title}</b></IonCardTitle>
+              </IonCardHeader>
+            </IonCard>
           ))}
         </IonContent>
       </IonPage>

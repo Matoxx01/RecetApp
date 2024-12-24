@@ -30,6 +30,7 @@ const Account: React.FC = () => {
     const { isLoggedIn, setIsLoggedIn } = useAuth();
     const auth = getAuth();
     const [showConfirmAlert, setShowConfirmAlert] = useState(false);
+    const [showLogoutAlert, setShowLogoutAlert] = useState(false);
     
     const [email, setEmail] = useState(auth.currentUser?.email || '');
     const [nick, setNick] = useState(auth.currentUser?.displayName || '');
@@ -42,7 +43,7 @@ const Account: React.FC = () => {
         try {
             await signOut(auth);
             setIsLoggedIn(false);
-            setToastMessage('Sesión cerrada con exito');
+            setToastMessage('Sesión cerrada con éxito');
             setShowToast(true);
             history.push('/Home');
         } catch (error) {
@@ -74,6 +75,7 @@ const Account: React.FC = () => {
             }
         }
     };
+
     const handleDeleteAccount = async () => {
         setBusy(true);
         const user = auth.currentUser;
@@ -100,9 +102,9 @@ const Account: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                <IonButtons slot="start">
-                    <IonBackButton defaultHref="/home"></IonBackButton>
-                </IonButtons>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="/home"></IonBackButton>
+                    </IonButtons>
                     <IonTitle>Mi cuenta</IonTitle>
                 </IonToolbar>
             </IonHeader>
@@ -146,7 +148,7 @@ const Account: React.FC = () => {
                     Actualizar Información
                 </IonButton>
                 
-                <IonButton onClick={handleLogout} expand="block" className="logout-button">
+                <IonButton onClick={() => setShowLogoutAlert(true)} expand="block" className="logout-button">
                     Cerrar Sesión
                 </IonButton>
 
@@ -154,6 +156,27 @@ const Account: React.FC = () => {
                     Eliminar Cuenta
                 </IonButton>
 
+                {/* Alert para confirmar cierre de sesión */}
+                <IonAlert
+                    isOpen={showLogoutAlert}
+                    onDidDismiss={() => setShowLogoutAlert(false)}
+                    header={'¿Seguro que quiere cerrar sesión?'}
+                    buttons={[
+                        {
+                            text: 'No',
+                            role: 'cancel',
+                            handler: () => {
+                                setShowLogoutAlert(false);
+                            }
+                        },
+                        {
+                            text: 'Sí',
+                            handler: handleLogout 
+                        }
+                    ]}
+                />
+
+                {/* Alert para confirmar eliminación de cuenta */}
                 <IonAlert
                     isOpen={showConfirmAlert}
                     onDidDismiss={() => setShowConfirmAlert(false)}

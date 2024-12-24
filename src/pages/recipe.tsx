@@ -20,6 +20,7 @@ import {
 import { fastFood, home } from 'ionicons/icons';
 import './recipe.css';
 import { getRecipes, updateLikeCount } from '../firebase_config';
+import { useAuth } from '../App';
 
 const Recipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +28,7 @@ const Recipe: React.FC = () => {
   const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]);
   const [likeCount, setLikeCount] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const { isLoggedIn } = useAuth();
   
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -109,14 +111,16 @@ const Recipe: React.FC = () => {
           <p>{recipe.description}</p>
           <br/>
 
-          <div className="like-container">
-            <IonButton onClick={handleLikeClick} color={isLiked ? 'primary' : 'medium'} fill="outline">
-              <IonIcon icon={isLiked ? "/like hand.svg" : "/like hand.svg"} slot="start" />
-              <IonLabel>
-                <span>Likes: {likeCount}</span>
-              </IonLabel>
-            </IonButton>
-          </div>
+          {isLoggedIn && ( 
+            <div className="like-container">
+              <IonButton onClick={handleLikeClick} color={isLiked ? 'primary' : 'medium'} fill="outline">
+                <IonIcon icon={isLiked ? "/like hand.svg" : "/like hand.svg"} slot="start" />
+                <IonLabel>
+                  <span>Likes: {likeCount}</span>
+                </IonLabel>
+              </IonButton>
+            </div>
+          )}
           
           <div className="chips-container">
             {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (
