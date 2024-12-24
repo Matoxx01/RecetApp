@@ -21,6 +21,8 @@ import { fastFood, home } from 'ionicons/icons';
 import './recipe.css';
 import { getRecipes, updateLikeCount } from '../firebase_config';
 import { useAuth } from '../App';
+import { onValue, ref } from "firebase/database";
+import { database } from "../firebase_config";
 
 const Recipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,22 +35,34 @@ const Recipe: React.FC = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
+        console.log("Obteniendo recetas...");
         const allRecipes = await getRecipes();
         const selectedRecipe = allRecipes.find((rec: any) => rec.id === id);
+        console.log("Receta seleccionada:", selectedRecipe);
         setRecipe(selectedRecipe);
         setCheckedSteps(new Array(selectedRecipe?.preparation.length).fill(false));
-        const savedLikeCount = parseInt(localStorage.getItem(`likeCount-${id}`) || '0');
-        const savedIsLiked = localStorage.getItem(`isLiked-${id}`) === 'true';
-        setLikeCount(savedLikeCount);
-        setIsLiked(savedIsLiked);
       } catch (error) {
         console.error('Error al obtener la receta:', error);
       }
     };
+
     fetchRecipe();
+
+    const recipeLikesRef = ref(database, `recetas/${id}/likes`);
+    const unsubscribe = onValue(recipeLikesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        console.log(`Likes actualizados en tiempo real: ${snapshot.val()}`);
+        setLikeCount(snapshot.val());
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, [id]);
 
   const handleStepClick = (index: number) => {
+    console.log(`Paso ${index + 1} marcado como ${!checkedSteps[index] ? 'completado' : 'pendiente'}`);
     const newCheckedSteps = [...checkedSteps];
     newCheckedSteps[index] = !newCheckedSteps[index];
     setCheckedSteps(newCheckedSteps);
@@ -56,18 +70,13 @@ const Recipe: React.FC = () => {
 
   const handleLikeClick = async () => {
     const newLikeCount = isLiked ? likeCount - 1 : likeCount + 1;
-    setLikeCount(newLikeCount);
+    console.log(`Cambiando estado de like: ${!isLiked}, nuevos likes: ${newLikeCount}`);
     setIsLiked(!isLiked);
-
-    await updateLikeCount(id, newLikeCount);
-
-    localStorage.setItem(`likeCount-${id}`, newLikeCount.toString());
-    localStorage.setItem(`isLiked-${id}`, (!isLiked).toString());
-
     await updateLikeCount(id, newLikeCount);
   };
 
   if (!recipe) {
+    console.log("Receta no cargada, mostrando spinner.");
     return (
       <IonPage>
         <IonContent className="ion-padding" fullscreen>

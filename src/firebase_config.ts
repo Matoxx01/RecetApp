@@ -30,11 +30,10 @@ const auth = getAuth(app);
 export async function loginUser(mail: string, password: string) {
     try {
         const res = await signInWithEmailAndPassword(auth, mail, password);
-        console.log("Inicio de sesión exitoso:", res);
+        console.log("Usuario autenticado correctamente:", res.user);
         return { success: true };
     } catch (error: any) {
-        console.error("Error durante el inicio de sesión:", error);
-        
+        console.error("Error en loginUser:", error);
         let message = 'Hay un error con tu mail o contraseña.';
         if (error.code === 'auth/user-not-found') {
             message = 'Este mail no está registrado.';
@@ -43,33 +42,32 @@ export async function loginUser(mail: string, password: string) {
         } else if (error.code === 'auth/invalid-email') {
             message = 'El correo electrónico es inválido.';
         }
-
         return { success: false, message };
     }
 }
 
 export async function updateLikeCount(recipeId: string, newLikeCount: number) {
     try {
-      const recipeRef = ref(database, 'recetas/' + recipeId);
-      await update(recipeRef, {
-        likes: newLikeCount,
-      });
-      console.log("Contador de likes actualizado en Firebase");
+        console.log(`Actualizando likes de la receta ${recipeId} a ${newLikeCount}`);
+        const recipeRef = ref(database, 'recetas/' + recipeId);
+        await update(recipeRef, {
+            likes: newLikeCount,
+        });
+        console.log("Likes actualizados correctamente.");
     } catch (error) {
-      console.error("Error al actualizar el contador de likes en Firebase:", error);
+        console.error("Error al actualizar el contador de likes en Firebase:", error);
     }
-  }
+}
 
 export async function getRecipes() {
     const dbRef = ref(database, 'recetas');
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
-
         const data = snapshot.val();
-        
+        console.log("Datos de recetas obtenidos:", data);
         return data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
     } else {
-        console.log("No hay recetas disponibles");
+        console.log("No se encontraron recetas en la base de datos.");
         return [];
     }
 }
@@ -78,12 +76,11 @@ export async function registerUser(mail: string, password: string, nick: string)
     try {
         const res = await createUserWithEmailAndPassword(auth, mail, password);
         const user = res.user;
-
+        console.log("Usuario registrado correctamente:", user);
         await updateProfile(user, { displayName: nick });
-        console.log("Usuario registrado y perfil actualizado:", res);
         return { success: true };
     } catch (error: any) {
-        console.error("Error durante el registro:", error);
+        console.error("Error en registerUser:", error);
         if (error.code === 'auth/email-already-in-use') {
             return { success: false, message: 'Este mail ya está registrado' };
         }
@@ -91,16 +88,14 @@ export async function registerUser(mail: string, password: string, nick: string)
     }
 }
 
-interface ResetPasswordResult {
-    success: boolean;
-    message?: string;
-}
-
-export async function resetPassword(mail: string): Promise<ResetPasswordResult> {
+export async function resetPassword(mail: string) {
     try {
+        console.log("Enviando correo de restablecimiento a:", mail);
         await sendPasswordResetEmail(auth, mail);
+        console.log("Correo de restablecimiento enviado.");
         return { success: true };
     } catch (error: any) {
+        console.error("Error en resetPassword:", error);
         if (error.code === 'auth/user-not-found') {
             return { success: false, message: 'Este mail no está registrado.' };
         }
@@ -110,13 +105,14 @@ export async function resetPassword(mail: string): Promise<ResetPasswordResult> 
 
 export async function deleteUserAccount(user: any) {
     try {
+        console.log("Eliminando cuenta del usuario:", user);
         await firebaseDeleteUser(user);
+        console.log("Cuenta eliminada correctamente.");
         return { success: true };
     } catch (error: any) {
         console.error("Error al eliminar la cuenta:", error);
         return { success: false, message: 'No se pudo eliminar la cuenta.' };
     }
 }
-
 
 export { database, auth };
