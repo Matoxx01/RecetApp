@@ -84,6 +84,14 @@ const Addrecipe: React.FC = () => {
     event.preventDefault();
     setBusy(true);
   
+    const user = auth.currentUser;
+    if (!user) {
+      setToastMessage('No estás autenticado. Inicia sesión primero.');
+      setShowToast(true);
+      setBusy(false);
+      return;
+    }
+  
     const recipeData = {
       title,
       description,
@@ -92,7 +100,8 @@ const Addrecipe: React.FC = () => {
       image,
       chips: selectedTags,
       author: nick,
-      likes: 0
+      likes: 0,
+      uid: user.uid
     };
   
     try {

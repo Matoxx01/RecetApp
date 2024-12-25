@@ -15,6 +15,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Reset from './pages/Reset';
 import Account from './pages/Account';
+import Myrecipes from './pages/Myrecipes';
+import editrecipe from './pages/editrecipe';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -91,6 +93,8 @@ const App: React.FC = () => (
         <Route path="/Register" component={Register} exact={true} />
         <Route path="/Reset" component={Reset} exact={true} />
         <Route path="/Account" component={Account} exact={true} />
+        <Route path="/Myrecipes" component={Myrecipes} exact={true} />
+        <Route path="/editrecipe" component={editrecipe} exact={true} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

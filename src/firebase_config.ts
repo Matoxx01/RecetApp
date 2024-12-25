@@ -46,6 +46,18 @@ export async function loginUser(mail: string, password: string) {
     }
 }
 
+export const updateRecipe = async (id: string, recipe: any) => {
+    const recipeRef = ref(database, 'recipes/' + id);
+    await update(recipeRef, {
+      title: recipe.title,
+      description: recipe.description,
+      ingredients: recipe.ingredients,
+      preparation: recipe.preparation,
+      chips: recipe.chips,
+      image: recipe.image,
+    });
+};
+
 export async function updateLikeCount(recipeId: string, newLikeCount: number) {
     try {
         console.log(`Actualizando likes de la receta ${recipeId} a ${newLikeCount}`);

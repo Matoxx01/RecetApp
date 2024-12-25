@@ -175,6 +175,11 @@ function Home() {
     history.push('/Config');
   };
 
+  const handleMyrecipes = () => {
+    menuRef.current?.close();
+    history.push('/Myrecipes');
+  };
+
   if (loading) {
     return (
       <IonContent className="loading-container">
@@ -213,8 +218,13 @@ function Home() {
                 <IonLabel>Agrega tu receta</IonLabel>
               </IonItem>
             )}
+            {isLoggedIn && (
+            <IonItem button onClick={handleMyrecipes}>
+              <IonLabel>Mis recetas (no disponible todavía)</IonLabel>
+              </IonItem>
+              )}
             <IonItem button onClick={handleConfig}>
-              <IonLabel>Configuración (no disponible todavia)</IonLabel>
+              <IonLabel>Configuración (no disponible todavía)</IonLabel>
             </IonItem>
           </IonList>
         </IonContent>
