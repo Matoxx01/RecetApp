@@ -15,7 +15,10 @@ import {
   IonLoading,
   IonBreadcrumb,
   IonIcon,
+  IonReorderGroup,
+  ItemReorderEventDetail,
   IonBackButton,
+  IonReorder,
   IonLabel,
   IonButton,
   IonImg,
@@ -55,6 +58,11 @@ const Addrecipe: React.FC = () => {
         ? prevSelected.filter(t => t !== tag)
         : [...prevSelected, tag]
     );
+  };
+
+  const handleReorder = (event: CustomEvent<ItemReorderEventDetail>, list: string[], setList: React.Dispatch<React.SetStateAction<string[]>>) => {
+    const reorderedList = event.detail.complete(list);
+    setList(reorderedList);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -241,44 +249,50 @@ const Addrecipe: React.FC = () => {
           </IonItem>
 
           <IonItem>
-            <IonLabel>Ingredientes</IonLabel>
-            <IonButton slot="end" onClick={addIngredientField}>
-              <IonIcon icon={addOutline} /> Añadir
-            </IonButton>
-          </IonItem>
-          {ingredients.map((ingredient, index) => (
-            <IonItem key={index}>
-              <IonLabel position="fixed">{index + 1}.-</IonLabel>
-              <IonInput
-                value={ingredient}
-                placeholder={`Ingrediente ${index + 1}`}
-                onIonChange={(e) => handleIngredientChange(index, e.detail.value!)}
-              />
-              <IonButton color="danger" onClick={() => removeIngredientField(index)}>
-                <IonIcon icon={removeCircleOutline} />
+              <IonLabel>Ingredientes</IonLabel>
+              <IonButton slot="end" onClick={addIngredientField}>
+                <IonIcon icon={addOutline} /> Añadir
               </IonButton>
             </IonItem>
-          ))}
+            <IonReorderGroup disabled={false} onIonItemReorder={(e) => handleReorder(e, ingredients, setIngredients)}>
+              {ingredients.map((ingredient, index) => (
+                <IonItem key={index}>
+                  <IonReorder slot="start" />
+                  <IonLabel position="fixed">{index + 1}.-</IonLabel>
+                  <IonInput
+                    value={ingredient}
+                    placeholder={`Ingrediente ${index + 1}`}
+                    onIonChange={(e) => handleIngredientChange(index, e.detail.value!)}
+                  />
+                  <IonButton color="danger" onClick={() => removeIngredientField(index)}>
+                    <IonIcon icon={removeCircleOutline} />
+                  </IonButton>
+                </IonItem>
+              ))}
+            </IonReorderGroup>
 
-          <IonItem>
-            <IonLabel>Preparación</IonLabel>
-            <IonButton slot="end" onClick={addPreparationStep}>
-              <IonIcon icon={addOutline} /> Añadir
-            </IonButton>
-          </IonItem>
-          {preparation.map((step, index) => (
-            <IonItem key={index}>
-              <IonLabel position="fixed">{index + 1}.-</IonLabel>
-              <IonTextarea
-                value={step}
-                placeholder={`Paso ${index + 1}`}
-                onIonChange={(e) => handlePreparationChange(index, e.detail.value!)}
-              />
-              <IonButton color="danger" onClick={() => removePreparationStep(index)}>
-                <IonIcon icon={removeCircleOutline} />
-              </IonButton>
-            </IonItem>
-          ))}
+            <IonItem>
+                <IonLabel>Preparación</IonLabel>
+                <IonButton slot="end" onClick={addPreparationStep}>
+                  <IonIcon icon={addOutline} /> Añadir
+                </IonButton>
+              </IonItem>
+              <IonReorderGroup disabled={false} onIonItemReorder={(e) => handleReorder(e, preparation, setPreparation)}>
+                {preparation.map((step, index) => (
+                  <IonItem key={index}>
+                    <IonReorder slot="start" />
+                    <IonLabel position="fixed">{index + 1}.-</IonLabel>
+                    <IonTextarea
+                      value={step}
+                      placeholder={`Paso ${index + 1}`}
+                      onIonChange={(e) => handlePreparationChange(index, e.detail.value!)}
+                    />
+                    <IonButton color="danger" onClick={() => removePreparationStep(index)}>
+                      <IonIcon icon={removeCircleOutline} />
+                    </IonButton>
+                  </IonItem>
+                ))}
+              </IonReorderGroup>
 
           <IonButton expand="block" type="submit">
             Publicar
