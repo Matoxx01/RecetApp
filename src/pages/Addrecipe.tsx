@@ -44,9 +44,9 @@ const Addrecipe: React.FC = () => {
   const [showPopover, setShowPopover] = useState(false);
 
   const tags = [
-    'Pasta', 'Cremoso', 'Rápido', 'Italiana', 'Mariscos', 'Gourmet',
-    'Salsa', 'Delicioso', 'Atún', 'Ensalada', 'Fresco', 'Saludable',
-    'Pollo', 'Sabroso', 'Tradicional', 'Chorizo', 'Familiar'
+    'Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos',
+     'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 
+     'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños'
   ];
 
   const toggleTag = (tag: string) => {

@@ -29,7 +29,7 @@ import {
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { getRecipes } from '../firebase_config';
-import { home, funnelOutline, heart, heartOutline } from 'ionicons/icons';
+import { home, funnelOutline, heart, heartOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 import './Home.css';
 
 function Home() {
@@ -44,6 +44,9 @@ function Home() {
     const storedFavorites = localStorage.getItem('favorites');
     return storedFavorites ? JSON.parse(storedFavorites) : [];
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 10;
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
 
@@ -116,6 +119,25 @@ function Home() {
     const matchesChips = selectedChips.length === 0 || (recipe.chips && recipe.chips.some((chip) => selectedChips.includes(chip)));
     return matchesText && matchesChips;
   });
+  
+  const displayedRecipes = filteredRecipes.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(filteredRecipes.length / recipesPerPage)) {
+      setCurrentPage((prevPage) => prevPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   interface Recipe {
     id: string;
@@ -272,7 +294,7 @@ function Home() {
             </IonContent>
           </IonPopover>
 
-          {filteredRecipes.map((recipe) => (
+          {displayedRecipes.map((recipe) => (
             <IonCard key={recipe.id} onClick={() => history.push(`/recipe/${recipe.id}`)}>
               {isLoggedIn && (
                 <IonButton
@@ -292,6 +314,16 @@ function Home() {
               </IonCardHeader>
             </IonCard>
           ))}
+
+          <div className="pagination">
+            <IonButton onClick={handlePreviousPage} disabled={currentPage === 1}>
+              <IonIcon icon={arrowBackOutline} />
+            </IonButton>
+            <span>{currentPage}</span>
+            <IonButton onClick={handleNextPage} disabled={currentPage === Math.ceil(filteredRecipes.length / recipesPerPage)}>
+              <IonIcon icon={arrowForwardOutline} />
+            </IonButton>
+          </div>
         </IonContent>
       </IonPage>
     </>

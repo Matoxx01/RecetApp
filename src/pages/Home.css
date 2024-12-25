@@ -178,3 +178,22 @@ ion-breadcrumb ion-icon {
 .favorite-button ion-icon {
   font-size: 24px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination span {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
