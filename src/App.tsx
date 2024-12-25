@@ -94,7 +94,7 @@ const App: React.FC = () => (
         <Route path="/Reset" component={Reset} exact={true} />
         <Route path="/Account" component={Account} exact={true} />
         <Route path="/Myrecipes" component={Myrecipes} exact={true} />
-        <Route path="/editrecipe" component={editrecipe} exact={true} />
+        <Route path="/editrecipe/:id" component={editrecipe} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

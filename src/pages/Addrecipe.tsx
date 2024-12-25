@@ -210,6 +210,7 @@ const Addrecipe: React.FC = () => {
               placeholder="Breve descripción de la receta"
               onIonChange={e => setDescription(e.detail.value!)}
               required
+              autoGrow={true}
             />
           </IonItem>
 

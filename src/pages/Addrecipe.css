@@ -71,3 +71,11 @@ ion-toolbar {
 ion-menu-button {
     --color: #333;
 }
+
+ion-textarea {
+    max-height: 300px; 
+    overflow-y: auto;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  

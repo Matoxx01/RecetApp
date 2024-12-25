@@ -42,9 +42,10 @@ import {
       }, [auth]);
       
   
-    const goToEditRecipe = (recipeId: string) => {
-      history.push(`/editrecipe/${recipeId}`);
-    };
+      const goToEditRecipe = (recipeId: string) => {
+        console.log("Navegando a la edición de receta con ID:", recipeId);
+        history.push(`/editrecipe/${recipeId}`);
+      };      
   
     return (
       <IonPage>
@@ -68,7 +69,7 @@ import {
         </IonBreadcrumbs>
         <IonContent className="ion-padding">
           {userRecipes.length === 0 ? (
-            <p>No tienes recetas guardadas.</p>
+            <p>No has creado recetas todavía.</p>
           ) : (
             userRecipes.map((recipe) => (
               <IonCard key={recipe.id} button onClick={() => goToEditRecipe(recipe.id)}>
