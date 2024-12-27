@@ -47,7 +47,7 @@ export async function loginUser(mail: string, password: string) {
 }
 
 export const updateRecipe = async (id: string, recipe: any) => {
-    const recipeRef = ref(database, 'recipes/' + id);
+    const recipeRef = ref(database, 'recetas/' + id);
     await update(recipeRef, {
       title: recipe.title,
       description: recipe.description,
