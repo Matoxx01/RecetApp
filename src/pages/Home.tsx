@@ -182,10 +182,14 @@ function Home() {
 
   if (loading) {
     return (
-      <IonContent className="loading-container">
-        <IonSpinner className="loading-spinner" name="crescent" />
-        <p className="loading-text">Cargando recetas...</p>
-      </IonContent>
+      <IonPage>
+        <IonContent className="ion-padding" fullscreen>
+          <div className="loading-container">
+            <IonSpinner name="crescent" className="loading-spinner" />
+            <p className="loading-text">Cargando recetas...</p>
+          </div>
+        </IonContent>
+      </IonPage>
     );
   }
 

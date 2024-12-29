@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import firebase from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import { ref, get, update } from "firebase/database";
+import { ref, get, update, remove } from "firebase/database";
 import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
@@ -126,5 +126,16 @@ export async function deleteUserAccount(user: any) {
         return { success: false, message: 'No se pudo eliminar la cuenta.' };
     }
 }
+
+export const deleteRecipe = async (recipeId: string) => {
+    try {
+        const recipeRef = ref(database, 'recetas/' + recipeId);
+        await remove(recipeRef);
+        console.log("Receta eliminada de Firebase");
+    } catch (error) {
+        console.error("Error al eliminar la receta de Firebase:", error);
+        throw new Error("No se pudo eliminar la receta.");
+    }
+};
 
 export { database, auth };
