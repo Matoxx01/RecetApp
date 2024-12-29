@@ -220,7 +220,7 @@ function Home() {
             )}
             {isLoggedIn && (
             <IonItem button onClick={handleMyrecipes}>
-              <IonLabel>Mis recetas (no disponible todavía)</IonLabel>
+              <IonLabel>Mis recetas</IonLabel>
               </IonItem>
               )}
             <IonItem button onClick={handleConfig}>

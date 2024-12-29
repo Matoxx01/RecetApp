@@ -1,0 +1,101 @@
+/* Register.module.css */
+
+/* General Styles */
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Title */
+.registerTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+  animation: slideIn 1s ease-out;
+}
+
+/* Inputs */
+ion-item {
+  --background: rgba(255, 255, 255, 0.7);
+  --border-radius: 8px;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ion-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Icons */
+.passwordIcon {
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.passwordIcon:hover {
+  color: #495057;
+}
+
+/* Buttons */
+.registerButton {
+  margin-top: 20px;
+  --background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  --border-radius: 20px;
+  --box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.registerButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
+}
+
+/* Error Messages */
+.emailError,
+.passwordError {
+  font-size: 0.85rem;
+  font-family: 'Roboto', sans-serif;
+  color: #e63946;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

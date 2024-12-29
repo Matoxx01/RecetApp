@@ -16,8 +16,8 @@ import {
     IonBackButton,
     IonToast
 } from '@ionic/react';
-import './Register.css';
-import { logInOutline, globeOutline, home } from 'ionicons/icons';
+import styles from './Register.module.scss';
+import { logInOutline, globeOutline, home, eye, eyeOff, person, at, key } from 'ionicons/icons';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from '../firebase_config';
@@ -32,7 +32,9 @@ const Register: React.FC = () => {
     const [emailError, setEmailError] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
-    const [busy, setBusy] = useState<boolean>(false)
+    const [busy, setBusy] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     async function register() {
         setBusy(true);
@@ -62,8 +64,6 @@ const Register: React.FC = () => {
         }
         setBusy(false);
     }
-    
-    
 
     const validateEmail = (email: string) => {
         const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -104,10 +104,11 @@ const Register: React.FC = () => {
             <IonLoading message="Cargando..." duration={0} isOpen={busy} />
 
             <IonContent className="ion-padding">
-                <div className="register-container">
-                    <h2 className="register-title">Crea tu cuenta</h2>
+                <div className={styles.registerContainer}>
+                    <h2 className={styles.registerTitle}>Crea tu cuenta</h2>
                     
                     <IonItem>
+                        <IonIcon icon={person} slot="start" />
                         <IonInput 
                             placeholder="Nickname" 
                             onIonChange={(e: any) => setNick(e.target.value)} 
@@ -116,6 +117,7 @@ const Register: React.FC = () => {
                     </IonItem>
                     
                     <IonItem>
+                        <IonIcon icon={at} slot="start" />
                         <IonInput 
                             placeholder="Correo Electrónico" 
                             onIonChange={(e: any) => {
@@ -127,43 +129,56 @@ const Register: React.FC = () => {
                             required 
                         />
                     </IonItem>
-                    {emailError && <IonText color="danger" className="email-error">{emailError}</IonText>}
+                    {emailError && <IonText color="danger" className={styles.emailError}>{emailError}</IonText>}
                     
                     <IonItem>
+                        <IonIcon icon={key} slot="start" />
                         <IonInput 
                             placeholder="Contraseña" 
+                            type={showPassword ? 'text' : 'password'}
                             onIonChange={(e: any) => {
                                 const newPassword = e.target.value;
                                 setPassword(newPassword);
                                 validatePassword(newPassword);
                             }} 
-                            type="password" 
                             required 
                         />
+                        <IonIcon 
+                            icon={showPassword ? eyeOff : eye} 
+                            slot="end" 
+                            onClick={() => setShowPassword(!showPassword)} 
+                            className={styles.passwordIcon} 
+                        />
                     </IonItem>
-                    {passwordError && <IonText color="danger" className="password-error">{passwordError}</IonText>}
-                    <IonText color="medium" className="password-hint">
-                        La contraseña debe tener 8 caracteres, 1 mayúscula y 1 número.
-                    </IonText>
-
+                    
                     <IonItem>
+                        <IonIcon icon={key} slot="start" />
                         <IonInput 
                             placeholder="Confirmar Contraseña" 
+                            type={showConfirmPassword ? 'text' : 'password'}
                             onIonChange={(e: any) => setConfirmPassword(e.target.value)} 
-                            type="password" 
                             required 
+                        />
+                        <IonIcon 
+                            icon={showConfirmPassword ? eyeOff : eye} 
+                            slot="end" 
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+                            className={styles.passwordIcon} 
                         />
                     </IonItem>
                     {password !== confirmPassword && confirmPassword && (
-                        <IonText color="danger" className="password-error">Las contraseñas no coinciden.</IonText>
+                        <IonText color="danger" className={styles.passwordError}>Las contraseñas no coinciden.</IonText>
+                    )}
+                    {passwordError && (
+                        <IonText color="danger" className={styles.passwordError}>{passwordError}</IonText>
                     )}
 
                     <IonButton
                         expand="block" 
-                        className="register-button" 
+                        className={styles.registerButton} 
                         onClick={register}
-                        disabled={
-                            !nick ||
+                        disabled={ 
+                            !nick || 
                             !mail || 
                             !password || 
                             !confirmPassword || 
@@ -175,10 +190,10 @@ const Register: React.FC = () => {
                         Registrarse
                     </IonButton>
                     <IonToast
-                    isOpen={showToast}
-                    onDidDismiss={() => setShowToast(false)}
-                    message={toastMessage}
-                    duration={2000}
+                        isOpen={showToast}
+                        onDidDismiss={() => setShowToast(false)}
+                        message={toastMessage}
+                        duration={2000}
                     />
                 </div>
             </IonContent>
