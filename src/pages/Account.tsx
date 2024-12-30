@@ -1,8 +1,8 @@
-import { 
-    IonContent, 
-    IonHeader, 
-    IonPage, 
-    IonTitle, 
+import {
+    IonContent,
+    IonHeader,
+    IonPage,
+    IonTitle,
     IonButton,
     IonInput,
     IonToolbar,
@@ -17,8 +17,8 @@ import {
     IonLoading,
     IonText
 } from '@ionic/react';
-import './Account.css';
-import { home, person } from 'ionicons/icons';
+import styles from './Account.module.scss';
+import { home, person, at } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { deleteUserAccount } from '../firebase_config';
@@ -31,7 +31,7 @@ const Account: React.FC = () => {
     const auth = getAuth();
     const [showConfirmAlert, setShowConfirmAlert] = useState(false);
     const [showLogoutAlert, setShowLogoutAlert] = useState(false);
-    
+
     const [email, setEmail] = useState(auth.currentUser?.email || '');
     const [nick, setNick] = useState(auth.currentUser?.displayName || '');
     const [busy, setBusy] = useState(false);
@@ -119,89 +119,92 @@ const Account: React.FC = () => {
                 </IonBreadcrumb>
             </IonBreadcrumbs>
             <IonLoading message="Cargando..." duration={0} isOpen={busy} />
+
             <IonContent className="ion-padding">
-                <IonItem>
-                    <IonInput 
-                        placeholder="Correo Electrónico" 
-                        value={email}
-                        onIonChange={(e) => setEmail(e.detail.value!)}
-                        type="email" 
-                        required 
+                <div className={styles.accountContainer}>
+                    <h2 className={styles.accountTitle}>Gestiona tu cuenta</h2>
+                    
+                    <IonItem>
+                        <IonIcon icon={at} slot="start" />
+                        <IonInput 
+                            placeholder="Correo Electrónico" 
+                            value={email}
+                            onIonChange={(e) => setEmail(e.detail.value!)}
+                            type="email" 
+                            required 
+                        />
+                    </IonItem>
+
+                    <IonItem>
+                        <IonIcon icon={person} slot="start" />
+                        <IonInput 
+                            placeholder="Nuevo Apodo" 
+                            value={nick}
+                            onIonChange={(e) => setNick(e.detail.value!)}
+                            type="text" 
+                            required 
+                        />
+                    </IonItem>
+
+                    <IonButton 
+                        expand="block" 
+                        className={styles.updateButton} 
+                        onClick={handleUpdateProfile}
+                    >
+                        Actualizar Información
+                    </IonButton>
+
+                    <IonButton 
+                        onClick={() => history.push('/Reset')}
+                        expand="block"
+                        className={styles.resetButton}
+                    >
+                        Restablecer contraseña
+                    </IonButton>
+
+                    <IonButton 
+                        expand="block" 
+                        className={styles.closeButton} 
+                        onClick={() => setShowLogoutAlert(true)}
+                    >
+                        Cerrar Sesión
+                    </IonButton>
+
+                    <IonButton 
+                        expand="block" 
+                        className={styles.deleteButton} 
+                        onClick={() => setShowConfirmAlert(true)}
+                    >
+                        Eliminar Cuenta
+                    </IonButton>
+
+                    <IonAlert
+                        isOpen={showLogoutAlert}
+                        onDidDismiss={() => setShowLogoutAlert(false)}
+                        header={'¿Seguro que quiere cerrar sesión?'}
+                        buttons={[
+                            { text: 'No', role: 'cancel' },
+                            { text: 'Sí', handler: handleLogout },
+                        ]}
                     />
-                </IonItem>
-                <IonItem>
-                    <IonInput 
-                        placeholder="Nuevo Apodo" 
-                        value={nick}
-                        onIonChange={(e) => setNick(e.detail.value!)}
-                        type="text" 
-                        required 
+
+                    <IonAlert
+                        isOpen={showConfirmAlert}
+                        onDidDismiss={() => setShowConfirmAlert(false)}
+                        header={'¿Seguro que quiere eliminar la cuenta?'}
+                        buttons={[
+                            { text: 'No', role: 'cancel' },
+                            { text: 'Sí', handler: handleDeleteAccount },
+                        ]}
                     />
-                </IonItem>
-                <br />
-                <br />
-                <IonButton onClick={() => history.push('/Reset')} expand="block" className="login-button">
-                    Restablecer contraseña
-                </IonButton>
 
-                <IonButton onClick={handleUpdateProfile} expand="block" className="login-button">
-                    Actualizar Información
-                </IonButton>
-                
-                <IonButton onClick={() => setShowLogoutAlert(true)} expand="block" className="logout-button">
-                    Cerrar Sesión
-                </IonButton>
-
-                <IonButton onClick={() => setShowConfirmAlert(true)} expand="block" className="delete-button">
-                    Eliminar Cuenta
-                </IonButton>
-
-                {/* Alert para confirmar cierre de sesión */}
-                <IonAlert
-                    isOpen={showLogoutAlert}
-                    onDidDismiss={() => setShowLogoutAlert(false)}
-                    header={'¿Seguro que quiere cerrar sesión?'}
-                    buttons={[
-                        {
-                            text: 'No',
-                            role: 'cancel',
-                            handler: () => {
-                                setShowLogoutAlert(false);
-                            }
-                        },
-                        {
-                            text: 'Sí',
-                            handler: handleLogout 
-                        }
-                    ]}
-                />
-
-                {/* Alert para confirmar eliminación de cuenta */}
-                <IonAlert
-                    isOpen={showConfirmAlert}
-                    onDidDismiss={() => setShowConfirmAlert(false)}
-                    header={'¿Seguro que quiere eliminar la cuenta?'}
-                    buttons={[
-                        {
-                            text: 'No',
-                            role: 'cancel',
-                            handler: () => {
-                                setShowConfirmAlert(false);
-                            }
-                        },
-                        {
-                            text: 'Sí',
-                            handler: handleDeleteAccount 
-                        }
-                    ]}
-                />
-
-                <IonToast 
-                    isOpen={showToast} 
-                    message={toastMessage} 
-                    duration={2000} 
-                    onDidDismiss={() => setShowToast(false)} 
-                />
+                    <IonToast 
+                        isOpen={showToast} 
+                        message={toastMessage} 
+                        duration={2000} 
+                        onDidDismiss={() => setShowToast(false)} 
+                    />
+                </div>
             </IonContent>
         </IonPage>
     );

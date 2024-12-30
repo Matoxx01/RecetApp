@@ -1,0 +1,144 @@
+// Home.module.scss
+
+.loadingContainer {
+  /* Contenedor de carga: alinea contenido al centro con fondo degradado */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: #555;
+}
+
+.loadingSpinner {
+  /* Spinner de carga: color azul principal */
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+  color: #f0ad4e; /* Color del spinner */
+}
+
+.loadingText {
+  /* Texto de carga: estilo negrita y color oscuro */
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #444; /* Color del texto */
+}
+
+.headerToolbar {
+  /* Barra de herramientas: encabezado principal con fondo azul y texto blanco */
+  background-color: #3498db;
+  color: white;
+}
+
+.menuButton {
+  /* Botón de menú: color blanco para contraste */
+  color: black;
+}
+
+.title {
+  /* Título principal: fuente Poppins en estilo seminegrita */
+  font-family: 'Playlist', sans-serif;
+  src:url(/public/Fuentes/Playlist.ttf) format('truetype');
+  font-weight: 600;
+}
+
+.pageContent {
+  /* Contenido de la página: fondo degradado suave con relleno */
+  --background: linear-gradient(135deg, #ffffff, #ffffff);
+}
+
+.searchBarContainer {
+  /* Contenedor de barra de búsqueda: diseño flexible con fondo gris claro */
+  display: flex;
+  align-items: center;
+  background: #ecf0f1;
+  padding-top: 1em;
+  padding-bottom: 0.3em;
+}
+
+.searchBar {
+  /* Barra de búsqueda: ocupa todo el espacio disponible */
+  flex: 1;
+}
+
+.filterButton {
+  /* Botón de filtro: margen izquierdo y color azul */
+  margin-left: 0.5rem;
+}
+
+.chipContainer {
+  /* Contenedor de chips: diseño flexible y espaciado uniforme */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  /* Chips de filtro: fondo azul, texto blanco y bordes redondeados */
+  background-color: #c6daef;
+  color: #3b3b3b;
+  font-weight: bold;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 16px;
+}
+
+.recipeContainer {
+  /* Contenedor de recetas: diseño de cuadrícula adaptable */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.recipeCard {
+  /* Tarjeta de receta: sombra ligera y bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.recipeCard:hover {
+  /* Efecto hover en tarjetas de receta: escalado suave */
+  transform: scale(1.01);
+}
+
+.recipeImage {
+  /* Imagen de receta: ajuste para ocupar todo el ancho */
+  background: fixed;
+}
+
+.cardHeader {
+  /* Encabezado de tarjeta: alineación central con fondo gris claro */
+  background: fixed;
+}
+
+.cardTitle {
+  /* Título de tarjeta: fuente Poppins y color oscuro */
+  color: #2c3e50;
+}
+
+.paginationContainer {
+  /* Contenedor de paginación: alineación centrada */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.paginationButton {
+  /* Botón de paginación: fondo transparente y color azul */
+  --background: transparent;
+  --color: #3498db;
+}
+
+.currentPage {
+  /* Página actual: texto centrado, negrita y color oscuro */
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: bold;
+}

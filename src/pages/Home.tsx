@@ -30,7 +30,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { getRecipes } from '../firebase_config';
 import { home, funnelOutline, heart, heartOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
-import './Home.css';
+import styles from './Home.module.scss';
 
 function Home() {
   const { isLoggedIn } = useAuth();
@@ -183,10 +183,10 @@ function Home() {
   if (loading) {
     return (
       <IonPage>
-        <IonContent className="ion-padding" fullscreen>
-          <div className="loading-container">
-            <IonSpinner name="crescent" className="loading-spinner" />
-            <p className="loading-text">Cargando recetas...</p>
+        <IonContent className={`${styles.loadingContainer}`} fullscreen>
+          <div className={`${styles.loadingContainer}`}>
+            <IonSpinner name="crescent" className={`${styles.loadingSpinner}`} />
+            <p className={`${styles.loadingText}`}>Cargando recetas...</p>
           </div>
         </IonContent>
       </IonPage>
@@ -235,20 +235,14 @@ function Home() {
       </IonMenu>
       <IonPage id="main-content">
         <IonHeader>
-          <IonToolbar>
+          <IonToolbar className={styles.headerToolbar}>
             <IonButtons slot="start">
-              <IonMenuButton></IonMenuButton>
+              <IonMenuButton className={styles.menuButton} />
             </IonButtons>
-            <IonTitle>RecetApp</IonTitle>
+            <IonTitle className={styles.title}>RecetApp</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonBreadcrumbs>
-          <IonBreadcrumb href="/home">
-            Home
-            <IonIcon slot="end" icon={home}></IonIcon>
-          </IonBreadcrumb>
-        </IonBreadcrumbs>
-        <IonContent className="ion-padding">
+        <IonContent className={`${styles.pageContent}`} fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
             <IonRefresherContent
               pullingIcon={home}
@@ -258,36 +252,44 @@ function Home() {
             >
             </IonRefresherContent>
           </IonRefresher>
-          <IonToolbar>
+          <IonToolbar className={styles.searchBarContainer}>
             <IonSearchbar
               value={searchText}
               onIonInput={(e) => setSearchText(e.target.value!)}
               debounce={250}
+              className={styles.searchBar}
             ></IonSearchbar>
             <IonButtons slot="end">
-              <IonButton onClick={() => setShowFilterPopover(true)}>
+              <IonButton
+                onClick={() => setShowFilterPopover(true)}
+                className={styles.filterButton}
+                >
                 <IonIcon slot="icon-only" icon={funnelOutline}></IonIcon>
               </IonButton>
             </IonButtons>
           </IonToolbar>
           <br />
-          {selectedChips.map((chip, index) => (
-            <IonChip
-              key={index}
-              color="medium"
-              onClick={() => toggleChipFilter(chip)}
-              >
-              {chip}
-              <IonIcon
-                icon="close"
-                slot="end"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleChipFilter(chip);
-                }}
-              />
-            </IonChip>
-          ))}
+          <div className={styles.chipContainer}>
+            {selectedChips.map((chip, index) => (
+              <IonChip
+                key={index}
+                outline={true}
+                color="medium"
+                className={styles.chip}
+                onClick={() => toggleChipFilter(chip)}
+                >
+                {chip}
+                <IonIcon
+                  icon="close"
+                  slot="end"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleChipFilter(chip);
+                  }}
+                />
+              </IonChip>
+            ))}
+          </div>
 
           <IonPopover
             isOpen={showFilterPopover}
@@ -295,10 +297,12 @@ function Home() {
             className="center-popover"
             >
             <IonContent className="ion-padding">
-              <h3>Filtrar:</h3>
+              <center><h3>Filtrado</h3></center>
               {['Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos', 'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños' ].map((chip, index) => (
                 <IonChip
+                  outline={true}
                   key={index}
+                  className={styles.chip}
                   onClick={() => toggleChipFilter(chip)}
                   color={selectedChips.includes(chip) ? 'primary' : 'medium'}
                 >
@@ -307,9 +311,14 @@ function Home() {
               ))}
             </IonContent>
           </IonPopover>
-
+          
+          <div className={styles.recipeContainer}></div>
           {displayedRecipes.map((recipe) => (
-            <IonCard key={recipe.id} onClick={() => history.push(`/recipe/${recipe.id}`)}>
+            <IonCard
+              key={recipe.id} 
+              onClick={() => history.push(`/recipe/${recipe.id}`)}
+              className={styles.recipeCard}
+              >
               {isLoggedIn && (
                 <IonButton
                   fill="clear"
@@ -322,19 +331,27 @@ function Home() {
                   <IonIcon icon={isFavorite(recipe.id) ? heart : heartOutline}></IonIcon>
                 </IonButton>
               )}
-              <img alt={recipe.title} src={recipe.image} />
-              <IonCardHeader>
-                <IonCardTitle><b>{recipe.title}</b></IonCardTitle>
+              <img alt={recipe.title} src={recipe.image} className={styles.recipeImage} />
+              <IonCardHeader className={styles.cardHeader}>
+                <IonCardTitle className={styles.cardTitle}><b>{recipe.title}</b></IonCardTitle>
               </IonCardHeader>
             </IonCard>
           ))}
 
-          <div className="pagination">
-            <IonButton onClick={handlePreviousPage} disabled={currentPage === 1}>
+          <div className={styles.paginationContainer}>
+            <IonButton 
+              onClick={handlePreviousPage} 
+              disabled={currentPage === 1}
+              className={styles.paginationButton}
+              >
               <IonIcon icon={arrowBackOutline} />
             </IonButton>
-            <span>{currentPage}</span>
-            <IonButton onClick={handleNextPage} disabled={currentPage === Math.ceil(filteredRecipes.length / recipesPerPage)}>
+            <span className={styles.currentPage}>{currentPage}</span>
+            <IonButton 
+              onClick={handleNextPage} 
+              disabled={currentPage === Math.ceil(filteredRecipes.length / recipesPerPage)}
+              className={styles.paginationButton}
+              >
               <IonIcon icon={arrowForwardOutline} />
             </IonButton>
           </div>

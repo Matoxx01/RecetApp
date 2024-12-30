@@ -1,5 +1,5 @@
 /* General Styles */
-.loginContainer {
+.resetContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@
 }
 
 /* Title */
-.loginTitle {
+.resetTitle {
   font-size: 2rem;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
@@ -38,18 +38,8 @@ ion-item:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Icons */
-.passwordIcon {
-  cursor: pointer;
-  color: #6c757d;
-}
-
-.passwordIcon:hover {
-  color: #495057;
-}
-
 /* Buttons */
-.registerButton, .resetButton {
+.resetButton {
   margin-top: 20px;
   --background: linear-gradient(90deg, #ff7e5f, #feb47b);
   --border-radius: 20px;
@@ -60,43 +50,9 @@ ion-item:hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.registerButton:hover, .resetButton:hover {
+.resetButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
-}
-
-.loginButton {
-  margin-top: 20px;
-  --background: #3880ff;
-  --border-radius: 20px;
-  --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  --padding: 10px;
-}
-
-.loginButton:hover {
-transform: scale(1.02);
---box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
-}
-
-/* Text and Buttons container */
-.textButtonContainer {
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* Text */
-.textCenter {
-  text-align: center;
-}
-
-/* Error Messages */
-.emailError,
-.passwordError {
-  font-size: 0.85rem;
-  font-family: 'Roboto', sans-serif;
-  color: #e63946;
-  margin-top: 8px;
-  text-align: center;
 }
 
 /* Animations */

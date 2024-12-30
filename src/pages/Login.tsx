@@ -98,6 +98,7 @@ const Login: React.FC = () => {
                   <h2 className={styles.loginTitle}>Bienvenido</h2>
 
                   <IonItem>
+                    <IonIcon icon={at} slot="start" />
                       <IonInput 
                           placeholder="Correo Electrónico" 
                           onIonChange={(e: any) => setMail(e.target.value)} 
@@ -107,6 +108,7 @@ const Login: React.FC = () => {
                   </IonItem>
 
                   <IonItem>
+                    <IonIcon icon={key} slot="start" />
                       <IonInput 
                           placeholder="Contraseña" 
                           onIonChange={(e: any) => setPassword(e.target.value)} 
@@ -133,7 +135,7 @@ const Login: React.FC = () => {
                         <br />
                         <IonButton 
                             onClick={() => history.push("/Register")} 
-                            className={styles.loginButton}
+                            className={styles.registerButton}
                         >
                             Regístrate aquí
                         </IonButton>
@@ -141,7 +143,7 @@ const Login: React.FC = () => {
                         <IonText>¿Olvidaste tu contraseña?</IonText>
                         <IonButton 
                             onClick={() => history.push("/Reset")} 
-                            className={styles.loginButton}
+                            className={styles.resetButton}
                         >
                             Restablecer Contraseña
                         </IonButton>
