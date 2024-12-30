@@ -27,7 +27,7 @@ import { useAuth } from '../App';
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
-  const { setIsLoggedIn } = useAuth();
+  const { setUser, setIsLoggedIn } = useAuth();
   const history = useHistory();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -59,10 +59,15 @@ const Login: React.FC = () => {
 
       const res = await loginUser(mail, password);
 
-      if (res.success) {
+      if (res.success && res.uid) { // Verifica si res.uid existe
           setToastMessage('Has accedido!');
           setShowToast(true);
+
           setIsLoggedIn(true);
+          setUser({ uid: res.uid, email: mail });
+
+          localStorage.setItem('user', JSON.stringify({ uid: res.uid, email: mail }));
+
           history.push('/home');
       } else {
           setToastMessage(res.message || 'Hay un error con tu mail o contraseña');

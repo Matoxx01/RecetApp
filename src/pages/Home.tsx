@@ -28,22 +28,19 @@ import {
   IonPopover
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
-import { getRecipes } from '../firebase_config';
+import { getRecipes, toggleFavorite, getFavorites } from '../firebase_config';
 import { home, funnelOutline, heart, heartOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 import styles from './Home.module.scss';
 
 function Home() {
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const history = useHistory();
   const [searchText, setSearchText] = useState('');
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
   const [showFilterPopover, setShowFilterPopover] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    return storedFavorites ? JSON.parse(storedFavorites) : [];
-  });
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
@@ -59,15 +56,24 @@ function Home() {
   };
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
-  }, []);
+    const unlisten = history.listen((location) => {
+      if (location.pathname === '/home') {
+        fetchRecipes();
+      }
+    });
+  
+    return () => {
+      unlisten();
+    };
+  }, [history]);  
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
+    if (user) {
+        console.log("Usuario autenticado:", user);
+    } else {
+        console.log("Usuario no autenticado.");
+    }
+}, [user]);
 
   const fetchRecipes = async () => {
     try {
@@ -84,27 +90,45 @@ function Home() {
     fetchRecipes();
   }, []);
 
-  const toggleFavorite = (recipeId: string) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(recipeId)
-        ? prevFavorites.filter((id) => id !== recipeId)
-        : [...prevFavorites, recipeId]
-    );
-  };
-
-  const isFavorite = (recipeId: string) => favorites.includes(recipeId);
+  useEffect(() => {
+    if (isLoggedIn && user?.uid) {
+      // Obtener los favoritos del usuario
+      getFavorites(user.uid).then((favoriteIds) => {
+        console.log("Favorites fetched:", favoriteIds);
+        setFavorites(favoriteIds);
+      });
+    }
+  }, [isLoggedIn, user]);
 
   useEffect(() => {
-    fetchRecipes();
+    // Obtener las recetas
+    getRecipes().then((data) => {
+      setRecipes(data);
+      setLoading(false);
+    });
   }, []);
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
-    history.push('/Login');
+  const isFavorite = (recipeId: string) => {
+    return favorites.includes(recipeId);
   };
 
-  const { setIsLoggedIn } = useAuth();
+  const handleToggleFavorite = (recipeId: string) => {
+    console.log("Toggling favorite for recipe:", recipeId);
+    console.log("User object:", user);
+    if (user?.uid) {
+      const isAlreadyFavorite = isFavorite(recipeId);
+      console.log("Is already favorite?", isAlreadyFavorite);
+      toggleFavorite(user.uid, recipeId, isAlreadyFavorite);
+      // Actualizar el estado de favoritos después de modificarlo
+      setFavorites((prevFavorites) =>
+        isAlreadyFavorite
+          ? prevFavorites.filter((id) => id !== recipeId)
+          : [...prevFavorites, recipeId]
+      );
+    } else {
+      console.log("User is not logged in or user.uid is undefined.");
+    }
+  };
 
   const toggleChipFilter = (chip: string) => {
     setSelectedChips((prevSelectedChips) =>
@@ -243,7 +267,7 @@ function Home() {
           </IonToolbar>
         </IonHeader>
         <IonContent className={`${styles.pageContent}`} fullscreen>
-        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+        <IonRefresher className={`${styles.pageUpdate}`}  slot="fixed" onIonRefresh={handleRefresh}>
             <IonRefresherContent
               pullingIcon={home}
               refreshingSpinner="circles"
@@ -300,14 +324,14 @@ function Home() {
               <center><h3>Filtrado</h3></center>
               {['Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos', 'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños' ].map((chip, index) => (
                 <IonChip
-                  outline={true}
-                  key={index}
-                  className={styles.chip}
-                  onClick={() => toggleChipFilter(chip)}
-                  color={selectedChips.includes(chip) ? 'primary' : 'medium'}
-                >
-                  {chip}
-                </IonChip>
+                outline={true}
+                key={index}
+                className={`${styles.chip} ${selectedChips.includes(chip) ? styles.selectedChip : ''}`}
+                onClick={() => toggleChipFilter(chip)}
+                color={selectedChips.includes(chip) ? 'primary' : 'medium'}
+              >
+                {chip}
+              </IonChip>              
               ))}
             </IonContent>
           </IonPopover>
@@ -315,27 +339,31 @@ function Home() {
           <div className={styles.recipeContainer}></div>
           {displayedRecipes.map((recipe) => (
             <IonCard
-              key={recipe.id} 
-              onClick={() => history.push(`/recipe/${recipe.id}`)}
-              className={styles.recipeCard}
+            key={recipe.id} 
+            onClick={() => history.push(`/recipe/${recipe.id}`)}
+            className={styles.recipeCard}
+          >
+            {isLoggedIn && (
+              <IonButton
+                fill="outline"
+                className={`${styles['favorite-button']} ${isFavorite(recipe.id) ? styles.favorite : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleToggleFavorite(recipe.id);
+                }}
               >
-              {isLoggedIn && (
-                <IonButton
-                  fill="clear"
-                  className={`favorite-button ${isFavorite(recipe.id) ? 'favorite' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(recipe.id);
-                  }}
-                >
-                  <IonIcon icon={isFavorite(recipe.id) ? heart : heartOutline}></IonIcon>
-                </IonButton>
-              )}
-              <img alt={recipe.title} src={recipe.image} className={styles.recipeImage} />
-              <IonCardHeader className={styles.cardHeader}>
-                <IonCardTitle className={styles.cardTitle}><b>{recipe.title}</b></IonCardTitle>
-              </IonCardHeader>
-            </IonCard>
+                <IonIcon
+                  icon={isFavorite(recipe.id) ? '/heart.svg' : '/heart_red.svg'}
+                  className={`${styles['favorite-icon']} ${isFavorite(recipe.id) ? styles['favorite-active'] : ''}`}
+                ></IonIcon>
+              </IonButton>              
+            )}
+            <img alt={recipe.title} src={recipe.image} className={styles.recipeImage} />
+            
+            <IonCardHeader className={styles.cardHeader}>
+              <IonCardTitle className={styles.cardTitle}><b>{recipe.title}</b></IonCardTitle>
+            </IonCardHeader>
+          </IonCard>          
           ))}
 
           <div className={styles.paginationContainer}>

@@ -71,3 +71,26 @@ ion-toolbar {
 ion-menu-button {
     --color: #333;
 }
+
+.paginationContainer {
+    /* Contenedor de paginación: alineación centrada */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding-bottom: 0.5em;
+  }
+  
+  .paginationButton {
+    /* Botón de paginación: fondo transparente y color azul */
+    --background: transparent;
+    --color: #3498db;
+  }
+  
+  .currentPage {
+    /* Página actual: texto centrado, negrita y color oscuro */
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: bold;
+  }

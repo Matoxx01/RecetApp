@@ -17,7 +17,7 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/react';
-import { fastFood, home } from 'ionicons/icons';
+import { fastFood, home, person } from 'ionicons/icons';
 import './recipe.css';
 import { getRecipes, updateLikeCount } from '../firebase_config';
 import { useAuth } from '../App';
@@ -118,6 +118,11 @@ const Recipe: React.FC = () => {
           
           <p><b>Subido por: </b>{recipe.author}</p>
           <p>{recipe.description}</p>
+          <br/>
+          <div className="servings-container">
+            <IonIcon icon={person} className="servings-icon" />
+            <span><b> Porciones: </b>{recipe.servings || 'No especificado'}</span>
+          </div>
           <br/>
 
           {isLoggedIn && ( 

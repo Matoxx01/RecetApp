@@ -1,0 +1,231 @@
+.ion-padding {
+  padding: 16px;
+}
+
+.card-custom {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.card-custom ion-card-header {
+  background-color: #fff;
+}
+
+.card-custom ion-card-content {
+  background-color: #fff;
+}
+
+.card-custom ion-card-title {
+  color: #000;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-custom ion-card-content {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+ion-item {
+  --background: #fff;
+  --border-color: #ddd;
+  --color: #000 !important;
+}
+
+ion-label {
+  color: #000 !important;
+  font-size: 1rem;
+}
+
+ion-menu {
+  --background: #fff;
+}
+
+ion-content {
+  --background: #fff;
+}
+
+ion-list {
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+ion-toolbar {
+  --background: #fff;
+  --border-color: #ddd;
+  --border-width: 0 0 1px 0;
+}
+
+ion-menu-button {
+  --color: #333;
+}
+
+.chips-container {
+  margin-top: 10px;
+}
+
+ion-chip {
+  margin-right: 5px;
+}
+
+.center-popover .popover-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.center-popover .ion-content {
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.center-popover {
+  --width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.card-custom {
+  --background: #f0f0f0;
+  --ion-color-primary: #333; 
+}
+
+.ion-chip {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.selected-chips-container .ion-chip {
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.selected-chips-container .ion-chip ion-icon {
+  margin-left: 4px;
+  font-size: 1.2em;
+  color: #666;
+}
+
+ion-breadcrumb {
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+ion-breadcrumb ion-icon {
+  margin-right: 5px;
+  color: #6c757d;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+  flex-direction: column; /* Apila el spinner y el texto */
+}
+
+.loading-spinner {
+  margin-bottom: 20px; /* Espacio entre el spinner y el texto */
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #ffcccb;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.favorite-button.favorite {
+  background-color: #ff4d4d;
+}
+
+.favorite-button ion-icon {
+  font-size: 24px;
+}
+
+.loadingContainer {
+  /* Contenedor de carga: alinea contenido al centro con fondo degradado */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: #555;
+}
+
+.loadingSpinner {
+  /* Spinner de carga: color azul principal */
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+  color: #f0ad4e; /* Color del spinner */
+}
+
+.loadingText {
+  /* Texto de carga: estilo negrita y color oscuro */
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #444; /* Color del texto */
+}
+
+.recipeCard {
+  position: relative; /* Necesario para posicionar el botón sobre la imagen */
+}
+
+.favorite-button {
+  position: absolute; /* El botón se posicionará sobre la imagen */
+  top: 10px; /* Ajusta la posición desde el borde superior */
+  right: 10px; /* Ajusta la posición desde el borde derecho */
+  color: white; /* Color blanco para el ícono cuando no es favorito */
+  transition: color 0.3s ease; /* Animación suave */
+  --border-color: #ffffff;
+  --background: #ffffff9f;
+}
+
+.favorite_button:active {
+  color: red; /* Color rojo cuando está en favoritos */
+  --border-color: #ff5050;
+  --background: #ff00005f;
+}
+
+.recipeImage {
+  width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
+  height: auto;
+}

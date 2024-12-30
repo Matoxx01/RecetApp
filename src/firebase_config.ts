@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import firebase from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import { ref, get, update, remove } from "firebase/database";
+import { ref, get, update, remove, set } from "firebase/database";
 import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
@@ -27,11 +27,20 @@ const database = getDatabase(app);
 
 const auth = getAuth(app);
 
+const user = auth.currentUser;
+if (user !== null) {
+    const displayName = user.displayName;
+    const email = user.email;
+    const photoURL = user.photoURL;
+    const emailVerified = user.emailVerified;
+    const uid = user.uid;
+}
+
 export async function loginUser(mail: string, password: string) {
     try {
         const res = await signInWithEmailAndPassword(auth, mail, password);
         console.log("Usuario autenticado correctamente:", res.user);
-        return { success: true };
+        return { success: true, uid: res.user?.uid  };
     } catch (error: any) {
         console.error("Error en loginUser:", error);
         let message = 'Hay un error con tu mail o contraseña.';
@@ -136,6 +145,34 @@ export const deleteRecipe = async (recipeId: string) => {
         console.error("Error al eliminar la receta de Firebase:", error);
         throw new Error("No se pudo eliminar la receta.");
     }
+};
+
+export async function toggleFavorite(uid: string, recipeId: string, isFavorite: boolean) {
+    console.log(`Toggling favorite for user: ${uid}, recipe: ${recipeId}, already favorite: ${isFavorite}`);
+    const db = getDatabase();
+    const favoriteRef = ref(getDatabase(), `likes&favs/${uid}/favorites/${recipeId}`);
+    
+    if (isFavorite) {
+      // Si ya está en favoritos, eliminarlo
+      console.log("Removing from favorites...");
+      await remove(favoriteRef);
+      console.log("Successfully removed from favorites");
+    } else {
+      // Si no está en favoritos, agregarlo
+      console.log("Adding to favorites...");
+      await set(favoriteRef, { recipeId });
+      console.log("Successfully added to favorites");
+    }
+};
+  
+  // Obtener favoritos de un usuario
+  export async function getFavorites(uid: string) {
+    const db = getDatabase();
+    const favoriteRef = ref(getDatabase(), `likes&favs/${uid}/favorites`);
+    const snapshot = await get(favoriteRef);
+    const data = snapshot.val();
+    return snapshot.exists() ? Object.keys(snapshot.val()) : [];
+    return data ? Object.keys(data) : [];
 };
 
 export { database, auth };

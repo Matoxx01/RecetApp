@@ -155,7 +155,7 @@ const Account: React.FC = () => {
                     </IonButton>
 
                     <IonButton 
-                        onClick={() => history.push('/Reset')}
+                        onClick={() => history.push('/Reset_account')}
                         expand="block"
                         className={styles.resetButton}
                     >

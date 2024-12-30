@@ -14,6 +14,7 @@ import SebaN from './pages/SebaN';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Reset from './pages/Reset';
+import Reset_account from './pages/Reset_account';
 import Account from './pages/Account';
 import Myrecipes from './pages/Myrecipes';
 import editrecipe from './pages/editrecipe';
@@ -45,15 +46,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return localStorage.getItem('isLoggedIn') === 'true';
-  });
+});
+const [user, setUser] = useState<{ uid: string; email: string } | null>(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+});
 
   const setAuthStatus = (status: boolean) => {
     setIsLoggedIn(status);
     localStorage.setItem('isLoggedIn', status.toString());
   };
 
+  const setAuthUser = (user: { uid: string; email: string } | null) => {
+    setUser(user);
+    if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('user');
+    }
+};
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn: setAuthStatus }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, setIsLoggedIn: setAuthStatus, setUser }}>
       {children}
     </AuthContext.Provider>
   );
@@ -69,38 +83,41 @@ export const useAuth = () => {
 
 interface AuthContextType {
   isLoggedIn: boolean;
+  user: { uid: string; email: string } | null;
   setIsLoggedIn: (status: boolean) => void;
+  setUser: (user: { uid: string; email: string } | null) => void;
 }
 
 const App: React.FC = () => (
   <AuthProvider>
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route path="/home" component={Home} exact={true} />
-        <Route path="/Addrecipe" component={Addrecipe} exact={true} />
-        <Route path="/Favoritos" component={Favoritos} exact={true} />
-        <Route path="/Aboutus" component={Aboutus} exact={true} />
-        <Route path="/Config" component={Config} exact={true} />
-        <Route path="/Matias" component={Matias} exact={true} />
-        <Route path="/recipe/:id" component={recipe} />
-        <Route path="/SebaR" component={SebaR} exact={true} />
-        <Route path="/SebaN" component={SebaN} exact={true} />
-        <Route path="/Login" component={Login} exact={true} />
-        <Route path="/Register" component={Register} exact={true} />
-        <Route path="/Reset" component={Reset} exact={true} />
-        <Route path="/Account" component={Account} exact={true} />
-        <Route path="/Myrecipes" component={Myrecipes} exact={true} />
-        <Route path="/editrecipe/:id" component={editrecipe} />
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route path="/home" component={Home} exact={true} />
+          <Route path="/Addrecipe" component={Addrecipe} exact={true} />
+          <Route path="/Favoritos" component={Favoritos} exact={true} />
+          <Route path="/Aboutus" component={Aboutus} exact={true} />
+          <Route path="/Config" component={Config} exact={true} />
+          <Route path="/Matias" component={Matias} exact={true} />
+          <Route path="/recipe/:id" component={recipe} />
+          <Route path="/SebaR" component={SebaR} exact={true} />
+          <Route path="/SebaN" component={SebaN} exact={true} />
+          <Route path="/Login" component={Login} exact={true} />
+          <Route path="/Register" component={Register} exact={true} />
+          <Route path="/Reset" component={Reset} exact={true} />
+          <Route path="/Reset_account" component={Reset_account} exact={true} />
+          <Route path="/Account" component={Account} exact={true} />
+          <Route path="/Myrecipes" component={Myrecipes} exact={true} />
+          <Route path="/editrecipe/:id" component={editrecipe} />
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
   </AuthProvider>
 );
 

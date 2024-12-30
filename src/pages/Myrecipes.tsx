@@ -206,12 +206,20 @@ const Myrecipes: React.FC = () => {
                   ))
               )}
 
-              <div className="pagination">
-                  <IonButton onClick={handlePreviousPage} disabled={currentPage === 1}>
+              <div className="paginationContainer">
+                  <IonButton 
+                        onClick={handlePreviousPage} 
+                        disabled={currentPage === 1}
+                        className="paginationButton"
+                        >
                       <IonIcon icon={arrowBackOutline} />
                   </IonButton>
-                  <span>{currentPage}</span>
-                  <IonButton onClick={handleNextPage} disabled={currentPage === Math.ceil(filteredRecipes.length / recipesPerPage)}>
+                  <span className="currentPage">{currentPage}</span>
+                  <IonButton 
+                    onClick={handleNextPage} 
+                    disabled={currentPage === Math.ceil(filteredRecipes.length / recipesPerPage)}
+                    className="paginationButton"
+                    >
                       <IonIcon icon={arrowForwardOutline} />
                   </IonButton>
               </div>

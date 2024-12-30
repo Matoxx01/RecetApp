@@ -28,7 +28,7 @@ import { getDatabase, ref, push } from 'firebase/database';
 import { useHistory } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { database, auth } from '../firebase_config';
-import { addOutline, home, imageOutline, removeCircleOutline } from 'ionicons/icons';
+import { addOutline, home, imageOutline, removeCircleOutline, person } from 'ionicons/icons';
 import './Addrecipe.css';
 
 const Addrecipe: React.FC = () => {
@@ -45,6 +45,7 @@ const Addrecipe: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [showPopover, setShowPopover] = useState(false);
+  const [selectedServings, setSelectedServings] = useState<string | null>(null);
 
   const tags = [
     'Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos',
@@ -99,7 +100,14 @@ const Addrecipe: React.FC = () => {
       setBusy(false);
       return;
     }
-  
+    
+    if (!selectedServings) {
+      setToastMessage('Por favor selecciona una opción de porciones.');
+      setShowToast(true);
+      setBusy(false);
+      return;
+    }
+    
     const recipeData = {
       title,
       description,
@@ -107,6 +115,7 @@ const Addrecipe: React.FC = () => {
       preparation,
       image,
       chips: selectedTags,
+      servings: selectedServings,
       author: nick,
       likes: 0,
       uid: user.uid
@@ -232,20 +241,32 @@ const Addrecipe: React.FC = () => {
               onDidDismiss={() => setShowPopover(false)}
             >
               <div className="popover-content">
-                {tags.map((tag, index) => (
-                  <IonChip
-                    key={index}
-                    onClick={() => toggleTag(tag)}
-                    color={selectedTags.includes(tag) ? 'primary' : 'medium'}
-                  >
-                    <IonLabel>{tag}</IonLabel>
-                  </IonChip>
-                ))}
+                <center><h3>Etiquetas</h3></center>
+                  {tags.map((tag, index) => (
+                    <IonChip
+                      key={index}
+                      onClick={() => toggleTag(tag)}
+                      className={selectedTags.includes(tag) ? 'selectedChip' : 'chip'}
+                    >
+                      <IonLabel>{tag}</IonLabel>
+                    </IonChip>
+                  ))}
               </div>
-              <IonButton expand="block" onClick={() => setShowPopover(false)}>
-                Cerrar
-              </IonButton>
             </IonPopover>
+          </IonItem>
+
+          <IonItem>
+            <IonLabel>Porciones</IonLabel>
+            {['1-4', '4-6', '6-8', '8+'].map((serving, index) => (
+              <IonChip
+                key={index}
+                onClick={() => setSelectedServings(serving)}
+                className={selectedServings === serving ? 'selectedChip' : 'chip'}
+              >
+                <IonIcon icon={person} />
+                <IonLabel>{serving}</IonLabel>
+              </IonChip>
+            ))}
           </IonItem>
 
           <IonItem>
