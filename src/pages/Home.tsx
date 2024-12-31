@@ -314,27 +314,28 @@ function Home() {
               </IonChip>
             ))}
           </div>
-
-          <IonPopover
-            isOpen={showFilterPopover}
-            onDidDismiss={() => setShowFilterPopover(false)}
-            className="center-popover"
+          
+          <div className={styles.popover}>
+            <IonPopover
+              isOpen={showFilterPopover}
+              onDidDismiss={() => setShowFilterPopover(false)}
             >
-            <IonContent className="ion-padding">
-              <center><h3>Filtrado</h3></center>
-              {['Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos', 'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños' ].map((chip, index) => (
-                <IonChip
-                outline={true}
-                key={index}
-                className={`${styles.chip} ${selectedChips.includes(chip) ? styles.selectedChip : ''}`}
-                onClick={() => toggleChipFilter(chip)}
-                color={selectedChips.includes(chip) ? 'primary' : 'medium'}
-              >
-                {chip}
-              </IonChip>              
-              ))}
-            </IonContent>
-          </IonPopover>
+              <IonContent className="ion-padding ion-popover-content">
+                <center><h3>Filtrado</h3></center>
+                {['Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos', 'Entrada', 'Plato Principal', 'Salsas', 'Dulces', 'Bebidas', 'Vegetariano', 'Vegano', 'Navidad', 'Cumpleaños'].map((chip, index) => (
+                  <IonChip
+                    outline={true}
+                    key={index}
+                    className={`${styles.chip} ${selectedChips.includes(chip) ? styles.selectedChip : ''}`}
+                    onClick={() => toggleChipFilter(chip)}
+                    color={selectedChips.includes(chip) ? 'primary' : 'medium'}
+                  >
+                    {chip}
+                  </IonChip>
+                ))}
+              </IonContent>
+            </IonPopover>
+          </div>
           
           <div className={styles.recipeContainer}></div>
           {displayedRecipes.map((recipe) => (

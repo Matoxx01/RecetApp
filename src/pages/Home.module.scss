@@ -191,3 +191,20 @@
 .pageUpdate {
   padding-top: 2em;
 }
+
+.popover {
+  position: fixed !important; /* Aseguramos que no se sobrescriba la posición */
+  top: 10% !important; /* Ajustamos la posición hacia la parte superior */
+  left: 50%;
+  transform: translateX(-50%); /* Centrado horizontal */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  width: 90%; /* Ajustamos el ancho */
+  max-width: 500px; /* Máximo ancho */
+}
+
+.ion-popover-content {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
