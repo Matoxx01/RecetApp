@@ -136,6 +136,7 @@ const Recipe: React.FC = () => {
             </div>
           )}
           
+          <br/>
           <div className="chips-container">
             {Array.isArray(recipe.chips) && recipe.chips.length > 0 ? (
               recipe.chips.map((chip: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined, chipIndex: React.Key | null | undefined) => (

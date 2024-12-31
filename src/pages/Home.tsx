@@ -267,7 +267,7 @@ function Home() {
           </IonToolbar>
         </IonHeader>
         <IonContent className={`${styles.pageContent}`} fullscreen>
-        <IonRefresher className={`${styles.pageUpdate}`}  slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresher className={`${styles.pageUpdate}`}  slot="fixed" onIonRefresh={handleRefresh}>
             <IonRefresherContent
               pullingIcon={home}
               refreshingSpinner="circles"
