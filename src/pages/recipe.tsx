@@ -19,7 +19,7 @@ import {
 } from '@ionic/react';
 import { fastFood, home, person } from 'ionicons/icons';
 import './recipe.css';
-import { getRecipes, updateLikeCount } from '../firebase_config';
+import { getRecipes, updateLikeCount, toggleLikes  } from '../firebase_config';
 import { useAuth } from '../App';
 import { onValue, ref } from "firebase/database";
 import { database } from "../firebase_config";
@@ -30,15 +30,13 @@ const Recipe: React.FC = () => {
   const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]);
   const [likeCount, setLikeCount] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        console.log("Obteniendo recetas...");
         const allRecipes = await getRecipes();
         const selectedRecipe = allRecipes.find((rec: any) => rec.id === id);
-        console.log("Receta seleccionada:", selectedRecipe);
         setRecipe(selectedRecipe);
         setCheckedSteps(new Array(selectedRecipe?.preparation.length).fill(false));
       } catch (error) {
@@ -48,18 +46,22 @@ const Recipe: React.FC = () => {
 
     fetchRecipe();
 
-    const recipeLikesRef = ref(database, `recetas/${id}/likes`);
-    const unsubscribe = onValue(recipeLikesRef, (snapshot) => {
-      if (snapshot.exists()) {
-        console.log(`Likes actualizados en tiempo real: ${snapshot.val()}`);
-        setLikeCount(snapshot.val());
-      }
-    });
+    if (user) {
+      const likesRef = ref(database, `likes&favs/${user.uid}/likes/${id}`);
+      const unsubscribe = onValue(likesRef, (snapshot) => {
+        setIsLiked(snapshot.exists());
+      });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [id]);
+      const recipeLikesRef = ref(database, `recetas/${id}/likes`);
+      onValue(recipeLikesRef, (snapshot) => {
+        if (snapshot.exists()) {
+          setLikeCount(snapshot.val());
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [id, user]);
 
   const handleStepClick = (index: number) => {
     console.log(`Paso ${index + 1} marcado como ${!checkedSteps[index] ? 'completado' : 'pendiente'}`);
@@ -69,10 +71,12 @@ const Recipe: React.FC = () => {
   };
 
   const handleLikeClick = async () => {
-    const newLikeCount = isLiked ? likeCount - 1 : likeCount + 1;
-    console.log(`Cambiando estado de like: ${!isLiked}, nuevos likes: ${newLikeCount}`);
-    setIsLiked(!isLiked);
-    await updateLikeCount(id, newLikeCount);
+    if (user) {
+      const newLikeCount = isLiked ? likeCount - 1 : likeCount + 1;
+      setIsLiked(!isLiked);
+      await toggleLikes(user.uid, id, isLiked);
+      await updateLikeCount(id, newLikeCount);
+    }
   };
 
   if (!recipe) {
@@ -88,7 +92,6 @@ const Recipe: React.FC = () => {
       </IonPage>
     );
   }
-  
 
   return (
     <IonPage>

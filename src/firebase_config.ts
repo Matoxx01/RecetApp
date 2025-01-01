@@ -175,4 +175,23 @@ export async function toggleFavorite(uid: string, recipeId: string, isFavorite: 
     return data ? Object.keys(data) : [];
 };
 
+export async function toggleLikes(uid: string, recipeId: string, isLiked: boolean) {
+    const likeRef = ref(database, `likes&favs/${uid}/likes/${recipeId}`);
+    
+    if (isLiked) {
+        // Eliminar el "like" de la receta
+        await remove(likeRef);
+    } else {
+        // Agregar el "like" a la receta
+        await set(likeRef, true);
+    }
+}
+
+export async function getLikes(uid: string, recipeId: string) {
+    const likeRef = ref(database, `likes&favs/${uid}/likes/${recipeId}`);
+    const snapshot = await get(likeRef);
+    return snapshot.exists();
+}
+
+
 export { database, auth };
