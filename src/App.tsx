@@ -1,5 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Keyboard } from '@capacitor/keyboard';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
@@ -12,6 +13,7 @@ import Matias from './pages/Matias';
 import SebaR from './pages/SebaR';
 import SebaN from './pages/SebaN';
 import Login from './pages/Login';
+import Login_start from './pages/Login_start';
 import Register from './pages/Register';
 import Reset from './pages/Reset';
 import Reset_account from './pages/Reset_account';
@@ -88,7 +90,24 @@ interface AuthContextType {
   setUser: (user: { uid: string; email: string } | null) => void;
 }
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', (info) => {
+      // Aumenta el espacio inferior para evitar que el teclado cubra los inputs
+      document.body.style.paddingBottom = `${info.keyboardHeight}px`;
+    });
+
+    Keyboard.addListener('keyboardWillHide', () => {
+      // Restaura el espacio inferior
+      document.body.style.paddingBottom = '0px';
+    });
+
+    return () => {
+      Keyboard.removeAllListeners();
+    };
+  }, []);
+
+  return (
   <AuthProvider>
     <IonApp>
       <IonReactRouter>
@@ -106,6 +125,7 @@ const App: React.FC = () => (
           <Route path="/SebaR" component={SebaR} exact={true} />
           <Route path="/SebaN" component={SebaN} exact={true} />
           <Route path="/Login" component={Login} exact={true} />
+          <Route path="/Login_start" component={Login_start} exact={true} />
           <Route path="/Register" component={Register} exact={true} />
           <Route path="/Reset" component={Reset} exact={true} />
           <Route path="/Reset_account" component={Reset_account} exact={true} />
@@ -119,6 +139,6 @@ const App: React.FC = () => (
       </IonReactRouter>
     </IonApp>
   </AuthProvider>
-);
+)};
 
 export default App;

@@ -2,11 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../App';
 import { 
   IonContent, 
+  IonCheckbox,
   IonHeader, 
   IonPage, 
   IonBreadcrumb,
   IonBreadcrumbs,
   IonTitle,
+  IonModal,
   IonCard,
   IonCardHeader,
   IonCardTitle,
@@ -24,12 +26,13 @@ import {
   IonButton,
   IonMenuButton,
   IonToolbar,
+  IonFooter,
   IonSearchbar,
   IonPopover
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { getRecipes, toggleFavorite, getFavorites } from '../firebase_config';
-import { home, funnelOutline, heart, heartOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
+import { home, funnelOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 import styles from './Home.module.scss';
 
 function Home() {
@@ -41,6 +44,8 @@ function Home() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [rememberSelection, setRememberSelection] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
@@ -58,14 +63,23 @@ function Home() {
   useEffect(() => {
     const unlisten = history.listen((location) => {
       if (location.pathname === '/home') {
-        fetchRecipes();
+        setLoading(true); // Activa el estado de carga
+        fetchRecipes();   // Obtiene las recetas
+  
+        // Verifica si el usuario está autenticado y obtiene los favoritos
+        if (isLoggedIn && user?.uid) {
+          getFavorites(user.uid).then((favoriteIds) => {
+            console.log("Favorites fetched:", favoriteIds);
+            setFavorites(favoriteIds);
+          });
+        }
       }
     });
   
     return () => {
       unlisten();
     };
-  }, [history]);  
+  }, [history, isLoggedIn, user]);  
 
   useEffect(() => {
     if (user) {
@@ -91,22 +105,31 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn && user?.uid) {
-      // Obtener los favoritos del usuario
-      getFavorites(user.uid).then((favoriteIds) => {
-        console.log("Favorites fetched:", favoriteIds);
-        setFavorites(favoriteIds);
-      });
-    }
-  }, [isLoggedIn, user]);
-
-  useEffect(() => {
     // Obtener las recetas
     getRecipes().then((data) => {
       setRecipes(data);
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const userSelection = localStorage.getItem('rememberPopupSelection');
+    if (!isLoggedIn && userSelection !== 'true') {
+      setShowPopup(true);
+    }
+  }, [isLoggedIn]);
+
+  const handleContinueWithoutLogin = () => {
+    if (rememberSelection) {
+      localStorage.setItem('rememberPopupSelection', 'true');
+    }
+    setShowPopup(false);
+  };
+
+  const handleLoginRedirect = () => {
+    setShowPopup(false);
+    history.push('/Login_start');
+  };
 
   const isFavorite = (recipeId: string) => {
     return favorites.includes(recipeId);
@@ -260,9 +283,11 @@ function Home() {
       <IonPage id="main-content">
         <IonHeader>
           <IonToolbar className={styles.headerToolbar}>
-            <IonButtons slot="start">
+          <IonButtons slot="start">
+            {history.location.pathname === '/home' && (
               <IonMenuButton className={styles.menuButton} />
-            </IonButtons>
+            )}
+          </IonButtons>
             <IonTitle className={styles.title}>RecetApp</IonTitle>
           </IonToolbar>
         </IonHeader>
@@ -386,6 +411,39 @@ function Home() {
           </div>
         </IonContent>
       </IonPage>
+      <IonModal isOpen={showPopup} backdropDismiss={false}>
+        <IonContent className="ion-padding">
+          <h2>¡Bienvenido a RecetApp!</h2>
+          <p>
+            Si quieres acceder a todas las funciones de RecetApp, primero debes iniciar sesión.
+          </p>
+          <IonItem>
+            <ol>
+              <li
+                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                onClick={() => setRememberSelection(!rememberSelection)}
+              >
+                <IonCheckbox
+                  style={{ marginRight: "8px" }}
+                  checked={rememberSelection}
+                  onIonChange={(e) => e.stopPropagation()} // Evita el doble cambio por el evento de 'li'
+                />
+                <span>Recordar selección</span>
+              </li>
+            </ol>
+          </IonItem>
+        </IonContent>
+        <IonFooter>
+          <IonToolbar>
+            <IonButton expand="block" onClick={handleLoginRedirect}>
+              Ingresar
+            </IonButton>
+            <IonButton expand="block" fill="outline" onClick={handleContinueWithoutLogin}>
+              Continuar sin ingresar
+            </IonButton>
+          </IonToolbar>
+        </IonFooter>
+      </IonModal>
     </>
   );
 }

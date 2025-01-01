@@ -22,7 +22,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { resetPassword } from '../firebase_config';
 
-const Reset: React.FC = () => {
+const Reset_account: React.FC = () => {
   const history = useHistory();
   const [mail, setMail] = useState('');
   const [showToast, setShowToast] = useState(false);
@@ -80,7 +80,7 @@ const Reset: React.FC = () => {
               </IonBreadcrumb>
           </IonBreadcrumbs>
           <IonLoading message="Cargando..." duration={0} isOpen={busy} />
-          <IonContent className="ion-padding">
+          <IonContent scrollY={true} className="ion-padding">
               <div className={styles.resetContainer}>
                   <h2 className={styles.resetTitle}>Recupera tu acceso</h2>
                   
@@ -88,6 +88,7 @@ const Reset: React.FC = () => {
                       <IonIcon icon={at} slot="start" />
                       <IonInput 
                           placeholder="Correo Electrónico" 
+                          style={{ minHeight: 'auto', flex: '1' }}
                           onIonChange={(e: any) => setMail(e.target.value)} 
                           type="email" 
                           required 
@@ -114,4 +115,4 @@ const Reset: React.FC = () => {
   );
 };
 
-export default Reset;
+export default Reset_account;

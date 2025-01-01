@@ -103,7 +103,7 @@ const Register: React.FC = () => {
             </IonBreadcrumbs>
             <IonLoading message="Cargando..." duration={0} isOpen={busy} />
 
-            <IonContent className="ion-padding">
+            <IonContent scrollY={true} className="ion-padding">
                 <div className={styles.registerContainer}>
                     <h2 className={styles.registerTitle}>Crea tu cuenta</h2>
                     
@@ -111,6 +111,7 @@ const Register: React.FC = () => {
                         <IonIcon icon={person} slot="start" />
                         <IonInput 
                             placeholder="Nickname" 
+                            style={{ minHeight: 'auto', flex: '1' }}
                             onIonChange={(e: any) => setNick(e.target.value)} 
                             required 
                         />
@@ -120,6 +121,7 @@ const Register: React.FC = () => {
                         <IonIcon icon={at} slot="start" />
                         <IonInput 
                             placeholder="Correo Electrónico" 
+                            style={{ minHeight: 'auto', flex: '1' }}
                             onIonChange={(e: any) => {
                                 const newEmail = e.target.value;
                                 setMail(newEmail);
@@ -135,6 +137,7 @@ const Register: React.FC = () => {
                         <IonIcon icon={key} slot="start" />
                         <IonInput 
                             placeholder="Contraseña" 
+                            style={{ minHeight: 'auto', flex: '1' }}
                             type={showPassword ? 'text' : 'password'}
                             onIonChange={(e: any) => {
                                 const newPassword = e.target.value;
@@ -155,6 +158,7 @@ const Register: React.FC = () => {
                         <IonIcon icon={key} slot="start" />
                         <IonInput 
                             placeholder="Confirmar Contraseña" 
+                            style={{ minHeight: 'auto', flex: '1' }}
                             type={showConfirmPassword ? 'text' : 'password'}
                             onIonChange={(e: any) => setConfirmPassword(e.target.value)} 
                             required 
@@ -167,10 +171,20 @@ const Register: React.FC = () => {
                         />
                     </IonItem>
                     {password !== confirmPassword && confirmPassword && (
-                        <IonText color="danger" className={styles.passwordError}>Las contraseñas no coinciden.</IonText>
+                        <IonText 
+                            color="danger" 
+                            className={styles.passwordError}
+                            >
+                            Las contraseñas no coinciden.
+                        </IonText>
                     )}
                     {passwordError && (
-                        <IonText color="danger" className={styles.passwordError}>{passwordError}</IonText>
+                        <IonText 
+                            color="danger" 
+                            className={styles.passwordError}
+                            >
+                            {passwordError}
+                        </IonText>
                     )}
 
                     <IonButton

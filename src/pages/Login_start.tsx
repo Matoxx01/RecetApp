@@ -18,14 +18,14 @@ import {
   IonBackButton,
   IonLoading
 } from '@ionic/react';
-import styles from './Login.module.scss';
+import styles from './Login_start.module.scss';
 import { logInOutline, home, eye, eyeOff, at, key } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { loginUser } from '../firebase_config';
 import { useAuth } from '../App';
 
-const Login: React.FC = () => {
+const Login_start: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const { setUser, setIsLoggedIn } = useAuth();
   const history = useHistory();
@@ -81,22 +81,9 @@ const Login: React.FC = () => {
       <IonPage>
           <IonHeader>
               <IonToolbar>
-                  <IonButtons slot="start">
-                      <IonBackButton defaultHref="/home"></IonBackButton>
-                  </IonButtons>
                   <IonTitle>Login</IonTitle>
               </IonToolbar>
           </IonHeader>
-          <IonBreadcrumbs>
-              <IonBreadcrumb href="/home">
-                  Home
-                  <IonIcon slot="end" icon={home}></IonIcon>
-              </IonBreadcrumb>
-              <IonBreadcrumb href="/Login">
-                  Login
-                  <IonIcon slot="end" icon={logInOutline}></IonIcon>
-              </IonBreadcrumb>
-          </IonBreadcrumbs>
           <IonLoading message="Cargando..." duration={0} isOpen={busy} />
           <IonContent scrollY={true} className="ion-padding">
               <div className={styles.loginContainer}>
@@ -168,4 +155,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Login_start;

@@ -4,6 +4,7 @@ import {
     IonPage,
     IonTitle,
     IonButton,
+    IonLabel,
     IonInput,
     IonToolbar,
     IonAlert,
@@ -120,15 +121,16 @@ const Account: React.FC = () => {
             </IonBreadcrumbs>
             <IonLoading message="Cargando..." duration={0} isOpen={busy} />
 
-            <IonContent className="ion-padding">
+            <IonContent scrollY={true} className="ion-padding">
                 <div className={styles.accountContainer}>
                     <h2 className={styles.accountTitle}>Gestiona tu cuenta</h2>
-                    
+
                     <IonItem>
                         <IonIcon icon={at} slot="start" />
                         <IonInput 
                             placeholder="Correo Electrónico" 
                             value={email}
+                            style={{ minHeight: 'auto', flex: '1' }}
                             onIonChange={(e) => setEmail(e.detail.value!)}
                             type="email" 
                             required 
@@ -140,6 +142,7 @@ const Account: React.FC = () => {
                         <IonInput 
                             placeholder="Nuevo Apodo" 
                             value={nick}
+                            style={{ minHeight: 'auto', flex: '1' }}
                             onIonChange={(e) => setNick(e.detail.value!)}
                             type="text" 
                             required 
