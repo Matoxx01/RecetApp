@@ -208,3 +208,12 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+@font-face {
+  font-family: 'Playlist';
+  src: url('/public/fuentes/Playlist.ttf') format('truetype');
+}
+
+.title {
+  font-family: 'Playlist', sans-serif;
+}
