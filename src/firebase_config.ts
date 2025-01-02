@@ -65,6 +65,7 @@ export const updateRecipe = async (id: string, recipe: any) => {
       preparation: recipe.preparation,
       chips: recipe.chips,
       image: recipe.image,
+      servings: recipe.servings
     });
 };
 

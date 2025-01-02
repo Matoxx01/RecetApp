@@ -28,6 +28,7 @@ import {
   home,
   clipboard,
   imageOutline,
+  person,
   create,
   removeCircleOutline,
 } from 'ionicons/icons';
@@ -41,6 +42,7 @@ const EditRecipe: React.FC = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [showPopover, setShowPopover] = useState(false);
+  const [selectedServings, setSelectedServings] = useState<string>('1-4');
 
   const tags = [
     'Pescados', 'Pollo', 'Carne', 'Legumbre', 'Mariscos',
@@ -59,7 +61,9 @@ const EditRecipe: React.FC = () => {
           ingredients: recipe.ingredients || [''],
           preparation: recipe.preparation || [''],
           chips: recipe.chips || [],
+          servings: recipe.servings || '',
         });
+        setSelectedServings(recipe.servings || recipe.servings );
       }
       setLoading(false);
     };
@@ -105,21 +109,26 @@ const EditRecipe: React.FC = () => {
   const handleUpdateRecipe = async (event: React.FormEvent) => {
     event.preventDefault();
     if (recipe) {
-      setLoading(true);
-      try {
-        await updateRecipe(id, recipe);
-        setToastMessage('Receta actualizada correctamente.');
-        setShowToast(true);
-        setTimeout(() => history.push('/Myrecipes'), 1000);
-      } catch (error) {
-        console.error('Error al actualizar la receta:', error);
-        setToastMessage('Error al actualizar la receta.');
-        setShowToast(true);
-      } finally {
-        setLoading(false);
-      }
+        setLoading(true);
+        try {
+            const updatedRecipe = {
+                ...recipe,
+                servings: selectedServings,
+            };
+            await updateRecipe(id, updatedRecipe);
+            setRecipe(updatedRecipe);
+            setToastMessage('Receta actualizada correctamente.');
+            setShowToast(true);
+            setTimeout(() => history.push('/Myrecipes'), 1000);
+        } catch (error) {
+            console.error('Error al actualizar la receta:', error);
+            setToastMessage('Error al actualizar la receta.');
+            setShowToast(true);
+        } finally {
+            setLoading(false);
+        }
     }
-  };
+};
 
   const addIngredientField = () => {
     setRecipe((prevRecipe: any) => ({
@@ -258,6 +267,20 @@ const EditRecipe: React.FC = () => {
                 ))}
               </div>
             </IonPopover>
+          </IonItem>
+
+          <IonItem>
+            <IonLabel>Porciones</IonLabel>
+            {['1-4', '4-6', '6-8', '8+'].map((serving, index) => (
+              <IonChip
+                key={index}
+                onClick={() => setSelectedServings(serving)}
+                className={selectedServings === serving ? 'selectedChip' : 'chip'}
+              >
+                <IonIcon icon={person} />
+                <IonLabel>{serving}</IonLabel>
+              </IonChip>
+            ))}
           </IonItem>
 
           <IonItem>
