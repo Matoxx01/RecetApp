@@ -86,6 +86,16 @@ function Home() {
   }, [history, isLoggedIn, user]);  
 
   useEffect(() => {
+    // Verifica si el usuario está autenticado cada vez que se vuelve a la página
+    if (!isLoggedIn) {
+      const userSelection = localStorage.getItem('rememberPopupSelection');
+      if (userSelection !== 'true') {
+        setShowPopup(true); // Muestra el modal si el usuario no está autenticado
+      }
+    }
+  }, [isLoggedIn]); // Se activa cada vez que el estado de autenticación cambia  
+
+  useEffect(() => {
     if (user) {
         console.log("Usuario autenticado:", user);
     } else {

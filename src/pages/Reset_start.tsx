@@ -59,6 +59,9 @@ const Reset_start: React.FC = () => {
       <IonPage>
           <IonHeader>
               <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="/Login_start"></IonBackButton>
+                    </IonButtons>
                   <IonTitle>Restablecer Contraseña</IonTitle>
               </IonToolbar>
           </IonHeader>
