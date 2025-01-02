@@ -128,7 +128,7 @@ const Login_start: React.FC = () => {
                         <IonText>¿No tienes cuenta?</IonText>
                         <br />
                         <IonButton 
-                            onClick={() => history.push("/Register")} 
+                            onClick={() => history.push("/Register_start")} 
                             className={styles.registerButton}
                         >
                             Regístrate aquí
@@ -136,7 +136,7 @@ const Login_start: React.FC = () => {
                         <br />
                         <IonText>¿Olvidaste tu contraseña?</IonText>
                         <IonButton 
-                            onClick={() => history.push("/Reset")} 
+                            onClick={() => history.push("/Reset_start")} 
                             className={styles.resetButton}
                         >
                             Restablecer Contraseña

@@ -30,7 +30,7 @@ import {
   IonSearchbar,
   IonPopover
 } from '@ionic/react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getRecipes, toggleFavorite, getFavorites } from '../firebase_config';
 import { home, funnelOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 import styles from './Home.module.scss';
@@ -49,6 +49,10 @@ function Home() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
+
+  const location = useLocation();
+  const allowedPages = ['/home'];
+  const isMenuEnabled = allowedPages.some((path) => location.pathname.startsWith(path));
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
 
@@ -242,7 +246,7 @@ function Home() {
 
   return (
     <>
-      <IonMenu ref={menuRef} contentId="main-content">
+      <IonMenu swipeGesture={isMenuEnabled} disabled={!isMenuEnabled} ref={menuRef} contentId="main-content">
         <IonHeader>
           <IonToolbar>
             <IonTitle>Menú</IonTitle>
@@ -284,9 +288,7 @@ function Home() {
         <IonHeader>
           <IonToolbar className={styles.headerToolbar}>
           <IonButtons slot="start">
-            {history.location.pathname === '/home' && (
               <IonMenuButton className={styles.menuButton} />
-            )}
           </IonButtons>
             <IonTitle className={styles.title}>RecetApp</IonTitle>
           </IonToolbar>

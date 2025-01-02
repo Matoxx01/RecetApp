@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import firebase from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import { ref, get, update, remove, set } from "firebase/database";
+import { ref, get, update, remove, set, push } from "firebase/database";
 import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCY18rzCiDj7p2aDE6LZJgn8vVO4mB5jY4",
@@ -54,6 +54,7 @@ export async function loginUser(mail: string, password: string) {
         return { success: false, message };
     }
 }
+
 
 export const updateRecipe = async (id: string, recipe: any) => {
     const recipeRef = ref(database, 'recetas/' + id);
@@ -193,5 +194,14 @@ export async function getLikes(uid: string, recipeId: string) {
     return snapshot.exists();
 }
 
+export const sendNotificationToAuthor = async (authorUid: string, notification: { message: string; timestamp: number }) => {
+    try {
+      const notificationsRef = ref(database, `notifications/${authorUid}`);
+      await push(notificationsRef, notification);
+      console.log("Notificación enviada exitosamente");
+    } catch (error) {
+      console.error("Error al enviar la notificación:", error);
+    }
+  };
 
 export { database, auth };

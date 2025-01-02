@@ -15,8 +15,10 @@ import SebaN from './pages/SebaN';
 import Login from './pages/Login';
 import Login_start from './pages/Login_start';
 import Register from './pages/Register';
+import Register_start from './pages/Register_start';
 import Reset from './pages/Reset';
 import Reset_account from './pages/Reset_account';
+import Reset_start from './pages/Reset_start';
 import Account from './pages/Account';
 import Myrecipes from './pages/Myrecipes';
 import editrecipe from './pages/editrecipe';
@@ -128,6 +130,8 @@ const App: React.FC = () => {
           <Route path="/Login_start" component={Login_start} exact={true} />
           <Route path="/Register" component={Register} exact={true} />
           <Route path="/Reset" component={Reset} exact={true} />
+          <Route path="/Register_start" component={Register_start} exact={true} />
+          <Route path="/Reset_start" component={Reset_start} exact={true} />
           <Route path="/Reset_account" component={Reset_account} exact={true} />
           <Route path="/Account" component={Account} exact={true} />
           <Route path="/Myrecipes" component={Myrecipes} exact={true} />

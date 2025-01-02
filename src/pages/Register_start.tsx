@@ -16,13 +16,13 @@ import {
     IonBackButton,
     IonToast
 } from '@ionic/react';
-import styles from './Register.module.scss';
+import styles from './Register_start.module.scss';
 import { logInOutline, globeOutline, home, eye, eyeOff, person, at, key } from 'ionicons/icons';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from '../firebase_config';
 
-const Register: React.FC = () => {
+const Register_start: React.FC = () => {
     const history = useHistory();
     const [nick, setNick] = useState('');
     const [mail, setMail] = useState('');
@@ -81,22 +81,15 @@ const Register: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonBackButton defaultHref="/home"></IonBackButton>
-                    </IonButtons>
                     <IonTitle>Registro</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonBreadcrumbs>
-                <IonBreadcrumb href="/home">
-                    Home
-                    <IonIcon slot="end" icon={home}></IonIcon>
-                </IonBreadcrumb>
-                <IonBreadcrumb href="/Login">
+                <IonBreadcrumb href="/Login_start">
                     Login
                     <IonIcon slot="end" icon={logInOutline}></IonIcon>
                 </IonBreadcrumb>
-                <IonBreadcrumb href="/Register">
+                <IonBreadcrumb href="/Register_start">
                     Registro
                     <IonIcon slot="end" icon={globeOutline}></IonIcon>
                 </IonBreadcrumb>
@@ -215,4 +208,4 @@ const Register: React.FC = () => {
     );
 };
 
-export default Register;
+export default Register_start;
