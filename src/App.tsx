@@ -44,7 +44,6 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {

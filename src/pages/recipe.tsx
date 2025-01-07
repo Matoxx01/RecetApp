@@ -28,6 +28,7 @@ const Recipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<any>(null);
   const [checkedSteps, setCheckedSteps] = useState<boolean[]>([]);
+  const [checkedIngredients, setCheckedIngredients] = useState<boolean[]>([]);
   const [likeCount, setLikeCount] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const { isLoggedIn, user } = useAuth();
@@ -39,6 +40,7 @@ const Recipe: React.FC = () => {
         const selectedRecipe = allRecipes.find((rec: any) => rec.id === id);
         setRecipe(selectedRecipe);
         setCheckedSteps(new Array(selectedRecipe?.preparation.length).fill(false));
+        setCheckedIngredients(new Array(selectedRecipe?.ingredients.length).fill(false));
       } catch (error) {
         console.error('Error al obtener la receta:', error);
       }
@@ -68,6 +70,12 @@ const Recipe: React.FC = () => {
     const newCheckedSteps = [...checkedSteps];
     newCheckedSteps[index] = !newCheckedSteps[index];
     setCheckedSteps(newCheckedSteps);
+  };
+
+  const handleIngredientClick = (index: number) => {
+    const newCheckedIngredients = [...checkedIngredients];
+    newCheckedIngredients[index] = !newCheckedIngredients[index];
+    setCheckedIngredients(newCheckedIngredients);
   };
 
   const handleLikeClick = async () => {
@@ -155,7 +163,14 @@ const Recipe: React.FC = () => {
           <h2>Ingredientes</h2>
           <ul className="ingredients-list">
             {recipe.ingredients.map((ingredient: string, index: number) => (
-              <li key={index}>{ingredient}</li>
+              <li key={index} className="ingredient-item" onClick={() => handleIngredientClick(index)}>
+                <IonCheckbox
+                  className="ingredient-checkbox"
+                  checked={checkedIngredients[index]}
+                  onIonChange={() => handleIngredientClick(index)}
+                />
+                <span> {ingredient}</span>
+              </li>
             ))}
           </ul>
 

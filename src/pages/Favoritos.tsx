@@ -92,10 +92,16 @@ const Favoritos: React.FC = () => {
     setFavoriteRecipes(updatedFavoriteRecipes);
   };
 
-  // Filtrar las recetas favoritas según el texto de búsqueda
-  const filteredFavoriteRecipes = favoriteRecipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredFavoriteRecipes = favoriteRecipes.filter((recipe) => {
+    const searchTextLower = searchText.toLowerCase();
+  
+    const matchesText = recipe.title.toLowerCase().includes(searchTextLower);
+    const matchesIngredients = recipe.ingredients.some((ingredient) =>
+      ingredient.toLowerCase().includes(searchTextLower)
+    );
+  
+    return (matchesText || matchesIngredients);
+  });
 
   useEffect(() => {
     setCurrentPage(1); // Resetear la página cuando cambia el texto de búsqueda
@@ -169,7 +175,7 @@ const Favoritos: React.FC = () => {
         </IonToolbar>
         <IonRefresher className={`${styles.pageUpdate}`} slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent
-            pullingIcon={home}
+            pullingIcon={star}
             refreshingSpinner="circles"
             pullingText="Desliza hacia abajo para actualizar"
             refreshingText="Actualizando favoritos..."

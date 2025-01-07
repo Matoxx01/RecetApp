@@ -176,10 +176,20 @@ function Home() {
   };
 
   const filteredRecipes = recipes.filter((recipe) => {
-    const matchesText = recipe.title.toLowerCase().includes(searchText.toLowerCase());
-    const matchesChips = selectedChips.length === 0 || (recipe.chips && recipe.chips.some((chip) => selectedChips.includes(chip)));
-    return matchesText && matchesChips;
+    const searchTextLower = searchText.toLowerCase();
+  
+    const matchesText = recipe.title.toLowerCase().includes(searchTextLower);
+    const matchesIngredients = recipe.ingredients.some((ingredient) =>
+      ingredient.toLowerCase().includes(searchTextLower)
+    );
+  
+    const matchesChips =
+      selectedChips.length === 0 ||
+      (recipe.chips && recipe.chips.some((chip) => selectedChips.includes(chip)));
+  
+    return (matchesText || matchesIngredients) && matchesChips;
   });
+  
   
   const displayedRecipes = filteredRecipes.slice(
     (currentPage - 1) * recipesPerPage,
