@@ -450,7 +450,7 @@ function Home() {
                   checked={rememberSelection}
                   onIonChange={(e) => e.stopPropagation()} // Evita el doble cambio por el evento de 'li'
                 />
-                <span>Recordar selección</span>
+                <span>No volver a preguntar</span>
               </li>
             </ol>
           </IonItem>
