@@ -18,13 +18,16 @@ This app of recipes that you can create your own account and get favorite recipe
 
 ## How to install
 First you clone the repository and start with the commands in the folder of the repository in this order:
-`$ npm install` 
+
+------------
+
+- `$ npm install` 
 This installs the NPM libraries.
-`$ npm install firebase`
+- `$ npm install firebase`
 This installs the Firebase libraries.
-`$ npm install -g @ionic/cli`
+- `$ npm install -g @ionic/cli`
 This installs Ionic libraries.
-`$ npm install @capacitor/android`
+- `$ npm install @capacitor/android`
 This installs Capacitor libraries.
 
 ------------
