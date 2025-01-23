@@ -1,8 +1,4 @@
-#RecetApp Application GIT 
-
-[TOCM]
-
-[TOC]
+# RecetApp Application GIT 
 
 ## With what technologies is it made
 RecetApp are made with:
