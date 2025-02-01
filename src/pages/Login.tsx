@@ -22,7 +22,7 @@ import {
   import { logInOutline, home, eye, eyeOff, at, key, logoGoogle } from 'ionicons/icons'; // Importar logoGoogle
   import { useHistory } from 'react-router-dom';
   import { useState } from 'react';
-  import { loginUser, loginWithGoogle } from '../firebase_config';
+  import { loginUser, loginWithGoogle, LoginResponse } from '../firebase_config';
   import { useAuth } from '../App';
   
   const Login: React.FC = () => {
@@ -39,7 +39,45 @@ import {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     }
-  
+
+    async function loginWithGoogleHandler() {
+        setBusy(true); // Activar el estado de carga
+
+        try {
+            // Llamar a la función de autenticación con Google
+            const res: LoginResponse = await loginWithGoogle(); // Aquí especificamos el tipo de res
+
+            if (res.success && res.uid) { // Verificar si la autenticación fue exitosa
+                setToastMessage('Has accedido con Google!');
+                setShowToast(true);
+
+                // Actualizar el estado de autenticación en la aplicación
+                setIsLoggedIn(true);
+                setUser({ uid: res.uid, email: '' }); // El email no es necesario aquí
+
+                // Guardar el estado de autenticación en localStorage
+                localStorage.setItem('user', JSON.stringify({ 
+                    uid: res.uid, 
+                    email: '' // El email no es necesario aquí
+                }));
+
+                // Redirigir al usuario a la página de inicio
+                history.push('/home');
+            } else {
+                // Mostrar un mensaje de error si la autenticación falla
+                setToastMessage(res.message || 'Error al iniciar sesión con Google.');
+                setShowToast(true);
+            }
+        } catch (error) {
+            // Manejar errores inesperados
+            console.error("Error en loginWithGoogle:", error);
+            setToastMessage('Ocurrió un error inesperado al iniciar sesión con Google.');
+            setShowToast(true);
+        } finally {
+            setBusy(false); // Desactivar el estado de carga
+        }
+    }
+
     async function login() {
         setBusy(true);
   
@@ -155,7 +193,7 @@ import {
                     <div className={styles.flexRow}>
                         <IonButton 
                             fill="outline" 
-                            onClick={loginWithGoogle} 
+                            onClick={loginWithGoogleHandler} 
                             className={`${styles.btn} ${styles.google}`}
                         >
                             <IonIcon icon={logoGoogle} slot="start" /> {/* Icono de Google */}

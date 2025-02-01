@@ -57,7 +57,14 @@ export async function loginUser(mail: string, password: string) {
     }
 }
 
-export async function loginWithGoogle() {
+// Define y exporta el tipo LoginResponse
+export type LoginResponse = {
+    success: boolean;
+    uid?: string; // uid es opcional porque solo estará presente si success es true
+    message?: string; // message es opcional porque solo estará presente si success es false
+};
+
+export async function loginWithGoogle(): Promise<LoginResponse> {
     try {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
@@ -71,10 +78,17 @@ export async function loginWithGoogle() {
         localStorage.setItem('userName', user.displayName || 'Usuario');
         localStorage.setItem('uid', user.uid || 'No hay uid');
 
-        return { success: true, user };
+        // Devolver el objeto con success y uid
+        return { 
+            success: true, 
+            uid: user.uid // Devuelve el uid del usuario
+        };
     } catch (error) {
         console.error("Error en loginWithGoogle:", error);
-        return { success: false, message: 'Error al iniciar sesión con Google.' };
+        return { 
+            success: false, 
+            message: 'Error al iniciar sesión con Google.' 
+        };
     }
 }
 
