@@ -1,120 +1,112 @@
-/* Register.module.css */
-
-/* General Styles */
+/* Estilos base */
 .registerContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  max-height: 100%;
-  position: 'fixed';
-  max-width: 400px;
-  min-height: 100vh;
-  height: 100vh;
-  padding-bottom: env(safe-area-inset-bottom);
-  margin: 0 auto;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  gap: 20px;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.8s ease-in-out;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  max-width: 450px; /* Ancho máximo del contenedor */
+  width: 100%; /* Ocupa el 100% del contenedor padre */
+  margin: 0 auto; /* Centrar el contenedor */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-/* Title */
 .registerTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  margin-bottom: 24px;
+  color: #151717;
+  font-size: 24px;
+  font-weight: 600;
   text-align: center;
-  animation: slideIn 1s ease-out;
+  margin-bottom: 20px;
 }
 
-/* Inputs */
-ion-item {
-  --background: rgba(255, 255, 255, 0.7);
-  --border-radius: 8px;
-  margin-bottom: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Estilos para los IonItem */
+.registerContainer ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --border-color: #ecedec;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
-ion-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.registerContainer ion-item ion-icon {
+  color: #2d79f3;
+  margin-right: 10px;
 }
 
-/* Icons */
-.passwordIcon {
-  cursor: pointer;
-  color: #6c757d;
+/* Estilos para los mensajes de error */
+.emailError,
+.passwordError {
+  font-size: 14px;
+  color: #dc3545;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  padding-left: 10px;
 }
 
-.passwordIcon:hover {
-  color: #495057;
-}
-
-/* Buttons */
+/* Estilos para el botón de registro */
 .registerButton {
-  margin-top: 20px;
-  --background: linear-gradient(90deg, #ff7e5f, #feb47b);
-  --border-radius: 20px;
-  --box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
-  color: white;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  --background: #2d79f3;
+  --background-hover: #1a5bbf;
+  --color: white;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .registerButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
+  transform: translateY(-2px); /* Efecto de elevación */
 }
 
-/* Error Messages */
-.emailError,
-.passwordError {
-  font-size: 0.85rem;
-  font-family: 'Roboto', sans-serif;
-  color: #e63946;
-  margin-top: 8px;
-  min-height: 'auto';
-  flex: '1';
-  text-align: center;
+.registerButton:disabled {
+  --background: #6c757d;
+  --background-hover: #5a6268;
+  cursor: not-allowed;
 }
 
-.ion-page {
-  overflow: hidden; /* Prevenir problemas de scroll inesperados */
+/* Estilos para el IonToast */
+ion-toast {
+  --background: #2d79f3;
+  --color: white;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-ion-input {
-  --padding-start: 0;
-  --padding-end: 0;
-  --min-height: 48px; /* Ajusta según tu diseño */
-  --height: auto; /* Previene contracciones */
-  flex: 1; /* Mantiene el ancho y alto proporcionado */
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Estilos responsivos */
+@media (max-width: 600px) {
+  .registerContainer {
+    padding: 15px;
+    max-width: 90%; /* Reducir el ancho máximo en pantallas pequeñas */
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .registerTitle {
+    font-size: 22px;
+  }
+
+  .registerButton {
+    height: 45px;
+    font-size: 14px;
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
+@media (max-width: 400px) {
+  .registerContainer {
+    padding: 10px;
+    max-width: 100%; /* Ocupar todo el ancho en pantallas muy pequeñas */
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  .registerTitle {
+    font-size: 20px;
+  }
+
+  .registerButton {
+    height: 40px;
+    font-size: 13px;
   }
 }
