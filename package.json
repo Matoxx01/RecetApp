@@ -44,10 +44,10 @@
     "eslint": "^8.35.0",
     "eslint-plugin-react": "7.37.3",
     "jsdom": "^22.1.0",
-    "sass": "^1.83.0",
+    "sass": "^1.83.4",
     "terser": "5.37.0",
     "typescript": "5.7.2",
-    "vite": "5.4.11",
+    "vite": "^5.4.14",
     "vitest": "^0.34.6"
   },
   "description": "An Ionic project"

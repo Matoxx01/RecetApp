@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
+    signInWithPopup,
+    GoogleAuthProvider,
     deleteUser as firebaseDeleteUser,
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
@@ -55,6 +57,26 @@ export async function loginUser(mail: string, password: string) {
     }
 }
 
+export async function loginWithGoogle() {
+    try {
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        console.log("Usuario autenticado con Google:", user);
+
+        // Guardar el estado de login en localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', user.displayName || 'Usuario');
+        localStorage.setItem('uid', user.uid || 'No hay uid');
+
+        return { success: true, user };
+    } catch (error) {
+        console.error("Error en loginWithGoogle:", error);
+        return { success: false, message: 'Error al iniciar sesión con Google.' };
+    }
+}
 
 export const updateRecipe = async (id: string, recipe: any) => {
     const recipeRef = ref(database, 'recetas/' + id);

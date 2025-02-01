@@ -51,7 +51,7 @@ function Home() {
   const recipesPerPage = 10;
 
   const location = useLocation();
-  const allowedPages = ['/home'];
+  const allowedPages = ['/home', '/Home'];
   const isMenuEnabled = allowedPages.some((path) => location.pathname.startsWith(path));
 
   const menuRef = useRef<HTMLIonMenuElement | null>(null);
