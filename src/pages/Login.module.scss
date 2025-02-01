@@ -1,140 +1,227 @@
-/* General Styles */
-.loginContainer {
+/* Estilos base */
+.form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  max-height: 100%;
-  max-width: 400px;
-  position: 'fixed';
-  min-height: 100vh;
-  height: 100vh;
-  padding-bottom: env(safe-area-inset-bottom);
-  margin: 0 auto;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  gap: 15px;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.8s ease-in-out;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  max-width: 450px; /* Ancho máximo del formulario */
+  width: 100%; /* Ocupa el 100% del contenedor padre */
+  margin: 0 auto; /* Centrar el formulario */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-/* Title */
-.loginTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  margin-bottom: 24px;
-  text-align: center;
-  animation: slideIn 1s ease-out;
+.passwordIcon {
+  margin-right: 5px;
+  height: 20px;
+  width: 20px;
+}
+
+/* Placeholder */
+::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #a0a0a0;
+}
+
+/* Etiquetas */
+.flexColumn > label {
+  color: #151717;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Contenedor de inputs */
+.inputForm {
+  border: 1.5px solid #ecedec;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  transition: 0.2s ease-in-out;
+}
+
+.inputForm:focus-within {
+  border: 1.5px solid #2d79f3;
 }
 
 /* Inputs */
-ion-item {
-  --background: rgba(255, 255, 255, 0.7);
-  --border-radius: 8px;
-  margin-bottom: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.inputForm ion-input {
+  margin-left: 10px;
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font-size: 14px;
 }
 
-ion-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.inputForm ion-input:focus {
+  outline: none;
 }
 
-/* Icons */
-.passwordIcon {
+/* Fila flexible */
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.flexRow > div > label {
+  font-size: 14px;
+  color: black;
+  margin-right: 5px;
+  font-weight: 400;
+}
+
+/* Enlaces */
+.span {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #2d79f3;
+  font-weight: 500;
   cursor: pointer;
-  color: #6c757d;
 }
 
-.passwordIcon:hover {
-  color: #495057;
+.span:hover {
+  text-decoration: underline;
 }
 
-/* Buttons */
-.registerButton, .resetButton {
-  margin-top: 20px;
-  --background: linear-gradient(90deg, #ff7e5f, #feb47b);
-  --border-radius: 20px;
-  --box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
+/* Botón de submit */
+.buttonSubmit {
+  margin: 20px 0 10px 0;
+  background-color: #151717;
+  border: none;
   color: white;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.registerButton:hover, .resetButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
+.buttonSubmit:hover {
+  background-color: #252727;
 }
 
-.loginButton {
-  margin-top: 20px;
-  --background: #3880ff;
-  --border-radius: 20px;
-  --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  --padding: 10px;
-}
-
-.loginButton:hover {
-transform: scale(1.02);
---box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
-}
-
-/* Text and Buttons container */
-.textButtonContainer {
+/* Texto de información */
+.p {
   text-align: center;
-  margin-top: 20px;
+  color: black;
+  font-size: 14px;
+  margin: 5px 0;
 }
 
-/* Text */
-.textCenter {
-  text-align: center;
+.line {
+  border-top: 1px solid #ecedec;
+  padding-top: 10px;
+  margin: 10px 0;
 }
 
-/* Error Messages */
-.emailError,
-.passwordError {
-  font-size: 0.85rem;
-  font-family: 'Roboto', sans-serif;
-  color: #e63946;
-  margin-top: 8px;
-  text-align: center;
+/* Botones sociales */
+.btn {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  gap: 10px;
+  border: 1px solid #ededef;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
 }
 
-ion-input {
-  --padding-start: 0;
-  --padding-end: 0;
-  --min-height: 48px; /* Ajusta según tu diseño */
-  --height: auto; /* Previene contracciones */
-  flex: 1; /* Mantiene el ancho y alto proporcionado */
+.btn:hover {
+  border: 1px solid #2d79f3;
 }
 
-.ion-page {
-  overflow: hidden; /* Prevenir problemas de scroll inesperados */
+.google {
+  background-color: #ffffff;
+  color: #000000;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(10px);
+.google:hover {
+  border: 1px solid #2d79f3;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+  .form {
+    padding: 15px;
+    max-width: 90%; /* Reducir el ancho máximo en pantallas pequeñas */
   }
-  to {
-      opacity: 1;
-      transform: translateY(0);
+
+  .inputForm {
+    height: 45px;
+  }
+
+  .buttonSubmit {
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .btn {
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .flexRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .flexRow > div > label {
+    font-size: 13px;
+  }
+
+  .span {
+    font-size: 13px;
+  }
+
+  .p {
+    font-size: 13px;
   }
 }
 
-@keyframes slideIn {
-  from {
-      opacity: 0;
-      transform: translateX(-20px);
+@media (max-width: 400px) {
+  .form {
+    padding: 10px;
+    max-width: 100%; /* Ocupar todo el ancho en pantallas muy pequeñas */
   }
-  to {
-      opacity: 1;
-      transform: translateX(0);
+
+  .inputForm {
+    height: 40px;
+  }
+
+  .buttonSubmit {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .btn {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .flexRow > div > label {
+    font-size: 12px;
+  }
+
+  .span {
+    font-size: 12px;
+  }
+
+  .p {
+    font-size: 12px;
   }
 }
